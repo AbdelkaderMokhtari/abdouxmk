@@ -1046,6 +1046,184 @@ footer {
 [dir="rtl"] .hero-stats { flex-direction: row-reverse; }
 [dir="rtl"] .zone-header { flex-direction: row-reverse; }
 [dir="rtl"] .act-number { text-align: right; }
+
+    /* ── MOCKUP FRAMES ───────────────────────────────── */
+    .mockup-section {
+      grid-column: span 2;
+      padding: 0;
+      background: transparent;
+      border: none;
+    }
+    @media (max-width: 768px) { .mockup-section { grid-column: span 1; } }
+
+    .mockup-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 24px;
+      padding: 40px 20px 0;
+      position: relative;
+    }
+
+    /* LAPTOP FRAME */
+    .laptop-frame {
+      position: relative;
+      width: 520px;
+      flex-shrink: 0;
+    }
+    .laptop-screen {
+      background: #0a0a0a;
+      border-radius: 10px 10px 0 0;
+      border: 2px solid #2a2a2a;
+      border-bottom: none;
+      overflow: hidden;
+      position: relative;
+      padding-top: 56.25%; /* 16:9 */
+    }
+    .laptop-screen::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 50%; transform: translateX(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #2a2a2a;
+      z-index: 2;
+    }
+    .laptop-screen img,
+    .laptop-screen .screen-placeholder {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .laptop-base {
+      height: 16px;
+      background: linear-gradient(180deg, #1e1e1e, #141414);
+      border-radius: 0 0 4px 4px;
+      border: 2px solid #2a2a2a;
+      border-top: none;
+    }
+    .laptop-stand {
+      width: 80px;
+      height: 8px;
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      margin: 0 auto;
+    }
+
+    /* PHONE FRAME */
+    .phone-frame {
+      width: 130px;
+      flex-shrink: 0;
+      margin-bottom: 24px;
+    }
+    .phone-body {
+      background: #0a0a0a;
+      border: 2px solid #2a2a2a;
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      padding-top: 185%; /* ~19.5:9 */
+    }
+    .phone-body::before {
+      content: '';
+      position: absolute;
+      top: 10px; left: 50%; transform: translateX(-50%);
+      width: 36px; height: 5px;
+      border-radius: 3px;
+      background: #1e1e1e;
+      z-index: 2;
+    }
+    .phone-body img,
+    .phone-body .screen-placeholder {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* SCREEN PLACEHOLDER */
+    .screen-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #0d0d0d;
+    }
+    .screen-placeholder-icon {
+      font-size: 28px;
+      opacity: 0.4;
+    }
+    .screen-placeholder-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: #444;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0 12px;
+      line-height: 1.6;
+    }
+    .screen-placeholder-hint {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: #2a2a2a;
+      letter-spacing: 0.1em;
+      text-align: center;
+      padding: 0 12px;
+    }
+
+    /* ACCENT GLOW ON MOCKUP HOVER */
+    .mockup-wrap:hover .laptop-screen {
+      border-color: rgba(232,255,71,0.2);
+      box-shadow: 0 0 40px rgba(232,255,71,0.04);
+      transition: all 0.3s ease;
+    }
+    .mockup-wrap:hover .phone-body {
+      border-color: rgba(232,255,71,0.2);
+      box-shadow: 0 0 20px rgba(232,255,71,0.04);
+      transition: all 0.3s ease;
+    }
+
+    /* VIOLET GLOW FOR LMS */
+    .mockup-violet .mockup-wrap:hover .laptop-screen {
+      border-color: rgba(157,111,255,0.25);
+      box-shadow: 0 0 40px rgba(157,111,255,0.06);
+    }
+    .mockup-violet .mockup-wrap:hover .phone-body {
+      border-color: rgba(157,111,255,0.25);
+      box-shadow: 0 0 20px rgba(157,111,255,0.06);
+    }
+
+    /* CYAN GLOW FOR ECOMMERCE */
+    .mockup-cyan .mockup-wrap:hover .laptop-screen {
+      border-color: rgba(0,212,255,0.2);
+      box-shadow: 0 0 40px rgba(0,212,255,0.05);
+    }
+    .mockup-cyan .mockup-wrap:hover .phone-body {
+      border-color: rgba(0,212,255,0.2);
+      box-shadow: 0 0 20px rgba(0,212,255,0.05);
+    }
+
+    /* HOW TO USE label */
+    .mockup-howto {
+      text-align: center;
+      padding: 16px 0 32px;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: #2a2a2a;
+      letter-spacing: 0.12em;
+    }
+
+    @media (max-width: 768px) {
+      .laptop-frame { width: 100%; max-width: 340px; }
+      .phone-frame { width: 90px; }
+      .mockup-wrap { gap: 12px; padding: 24px 12px 0; }
+    }
+
   </style>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -1363,6 +1541,33 @@ footer {
           </div>
         </div>
 
+
+        <!-- MOCKUP FRAMES — CivicFlow -->
+        <div class="cs-section mockup-section">
+          <div class="mockup-wrap">
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon">🗺️</div>
+                  <div class="screen-placeholder-label">Municipality Dashboard<br>Map View + Reports</div>
+                  <div class="screen-placeholder-hint">→ Add your screenshot here<br>img src="civicflow-dashboard.png"</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon">📍</div>
+                  <div class="screen-placeholder-label">Citizen<br>Report<br>Screen</div>
+                  <div class="screen-placeholder-hint">Add<br>screenshot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-howto">// Replace placeholders with your actual screenshots</div>
+        </div>
         <div class="cs-section cs-full-width">
           <div class="cs-section-label">Tech Stack</div>
           <div class="cs-stack">
@@ -1445,6 +1650,33 @@ footer {
           </div>
         </div>
 
+
+        <!-- MOCKUP FRAMES — LMS -->
+        <div class="cs-section mockup-section mockup-violet">
+          <div class="mockup-wrap">
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon">🎓</div>
+                  <div class="screen-placeholder-label">Filament Admin Panel<br>Course Management</div>
+                  <div class="screen-placeholder-hint">→ Add your screenshot here<br>img src="lms-admin.png"</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <div class="screen-placeholder" style="background: rgba(157,111,255,0.04);">
+                  <div class="screen-placeholder-icon">📱</div>
+                  <div class="screen-placeholder-label">Flutter<br>Student<br>App</div>
+                  <div class="screen-placeholder-hint">Add<br>screenshot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-howto">// Replace placeholders with your actual screenshots</div>
+        </div>
         <div class="cs-section cs-full-width">
           <div class="cs-section-label">Tech Stack</div>
           <div class="cs-stack">
@@ -1522,6 +1754,33 @@ footer {
           </div>
         </div>
 
+
+        <!-- MOCKUP FRAMES — E-Commerce -->
+        <div class="cs-section mockup-section mockup-cyan">
+          <div class="mockup-wrap">
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon">🛍️</div>
+                  <div class="screen-placeholder-label">Admin Dashboard<br>Sales Analytics</div>
+                  <div class="screen-placeholder-hint">→ Add your screenshot here<br>img src="ecommerce-admin.png"</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <div class="screen-placeholder" style="background: rgba(0,212,255,0.03);">
+                  <div class="screen-placeholder-icon">📦</div>
+                  <div class="screen-placeholder-label">Product<br>Catalog<br>Mobile</div>
+                  <div class="screen-placeholder-hint">Add<br>screenshot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-howto">// Replace placeholders with your actual screenshots</div>
+        </div>
         <div class="cs-section cs-full-width">
           <div class="cs-section-label">Tech Stack</div>
           <div class="cs-stack">
@@ -1598,6 +1857,33 @@ footer {
           </div>
         </div>
 
+
+        <!-- MOCKUP FRAMES — MindPilot -->
+        <div class="cs-section mockup-section mockup-violet">
+          <div class="mockup-wrap">
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <div class="screen-placeholder" style="background: rgba(157,111,255,0.04);">
+                  <div class="screen-placeholder-icon">🤖</div>
+                  <div class="screen-placeholder-label">MindPilot<br>AI Dashboard</div>
+                  <div class="screen-placeholder-hint">→ Add your screenshot here<br>img src="mindpilot-dashboard.png"</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <div class="screen-placeholder" style="background: rgba(157,111,255,0.04);">
+                  <div class="screen-placeholder-icon">⚡</div>
+                  <div class="screen-placeholder-label">Flutter<br>Mobile<br>App</div>
+                  <div class="screen-placeholder-hint">Add<br>screenshot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-howto">// Building in Public — screenshots will update as phases complete</div>
+        </div>
         <div class="cs-section">
           <div class="cs-section-label">Tech Stack</div>
           <div class="cs-stack">
