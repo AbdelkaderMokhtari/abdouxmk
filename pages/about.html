@@ -1046,6 +1046,69 @@ footer {
 [dir="rtl"] .hero-stats { flex-direction: row-reverse; }
 [dir="rtl"] .zone-header { flex-direction: row-reverse; }
 [dir="rtl"] .act-number { text-align: right; }
+
+    /* ── PROFILE PHOTO ───────────────────────────────── */
+    .act-block-with-photo {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+    .act-block-with-photo .act-body { max-width: 100%; }
+    .profile-photo-wrap {
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 12px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1px solid var(--border-bright);
+      display: block;
+      filter: grayscale(20%);
+      transition: all 0.3s ease;
+    }
+    .profile-photo:hover {
+      filter: grayscale(0%);
+      border-color: var(--accent);
+      box-shadow: 0 0 32px var(--accent-glow), 0 0 0 1px var(--accent);
+      transform: translateY(-3px);
+    }
+    .profile-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border: 1px solid rgba(232,255,71,0.15);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+    .profile-photo-wrap::after {
+      content: 'AbdouX';
+      position: absolute;
+      bottom: -24px;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+    }
+    @media (max-width: 768px) {
+      .act-block-with-photo {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .profile-photo-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      .profile-photo { width: 140px; height: 140px; }
+    }
+
   </style>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -1263,9 +1326,18 @@ footer {
     <div class="act-block fade-up" data-act="I">
       <div class="act-num">// ACT 01 — PRESENT</div>
       <div class="act-heading">Who I am today</div>
-      <div class="act-body">
-        I'm a <strong>Product Engineer and Founder</strong> based in Tlemcen, Algeria. I specialize in designing systems that solve real problems — not just shipping features. My work sits at the intersection of backend architecture, mobile engineering, and product thinking.<br><br>
-        My core stack is <strong>Laravel for backend APIs</strong>, <strong>Flutter for mobile</strong>, and Clean Architecture as a discipline across everything I build. When I take on a project, I'm not thinking about the next sprint — I'm thinking about what this system looks like at 10x scale.
+      <div class="act-block-with-photo">
+        <div class="act-body">
+          I'm a <strong>Product Engineer and Founder</strong> based in Tlemcen, Algeria. I specialize in designing systems that solve real problems — not just shipping features. My work sits at the intersection of backend architecture, mobile engineering, and product thinking.<br><br>
+          My core stack is <strong>Laravel for backend APIs</strong>, <strong>Flutter for mobile</strong>, and Clean Architecture as a discipline across everything I build. When I take on a project, I'm not thinking about the next sprint — I'm thinking about what this system looks like at 10x scale.
+        </div>
+        <div class="profile-photo-wrap">
+          <img class="profile-photo" src="../images/abdelkader.jpg" alt="Abdelkader — AbdouX" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div style="display:none;width:180px;height:180px;border-radius:12px;border:1px solid var(--border-bright);align-items:center;justify-content:center;flex-direction:column;gap:8px;background:var(--bg-card);">
+            <span style="font-size:36px;">👤</span>
+            <span style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text-muted);letter-spacing:0.12em;text-align:center;">images/abdelkader.jpg</span>
+          </div>
+        </div>
       </div>
     </div>
 
