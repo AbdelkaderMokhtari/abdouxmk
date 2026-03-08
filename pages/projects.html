@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg-primary: #080808;
+  --bg-secondary: #0f0f0f;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --border: #1e1e1e;
+  --border-bright: #2a2a2a;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888;
+  --text-muted: #444;
+  --accent: #e8ff47;
+  --accent-dim: rgba(232,255,71,0.08);
+  --accent-glow: rgba(232,255,71,0.15);
+  --violet: #9d6fff;
+  --violet-dim: rgba(157,111,255,0.1);
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0,212,255,0.08);
+  --red: #ff4747;
+  --green: #39ff84;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f5f5f0;
+  --bg-secondary: #ebebeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f9f9f9;
+  --border: #e0e0e0;
+  --border-bright: #cccccc;
+  --text-primary: #0a0a0a;
+  --text-secondary: #555;
+  --text-muted: #aaa;
+  --accent: #1a1a00;
+  --accent-dim: rgba(26,26,0,0.06);
+  --accent-glow: rgba(26,26,0,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+body[dir="rtl"] {
+  font-family: var(--font-arabic);
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(232,255,71,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.12s ease;
+}
+body:hover .cursor { opacity: 1; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); }
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  transition: all var(--transition);
+  backdrop-filter: blur(0px);
+}
+.navbar.scrolled {
+  background: rgba(8,8,8,0.92);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(20px);
+}
+[data-theme="light"] .navbar.scrolled {
+  background: rgba(245,245,240,0.92);
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a.active { color: var(--accent); }
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-control {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  cursor: none;
+  letter-spacing: 0.1em;
+  transition: all var(--transition);
+}
+.btn-control:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px;
+}
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  cursor: none;
+  transition: all var(--transition);
+  letter-spacing: 0.05em;
+}
+.lang-btn.active {
+  background: var(--accent);
+  color: #000;
+}
+.lang-btn:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+/* NAV HAMBURGER */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: none;
+  padding: 8px;
+  background: transparent;
+  border: none;
+}
+.nav-hamburger span {
+  display: block;
+  width: 20px; height: 1px;
+  background: var(--text-primary);
+  transition: all var(--transition);
+}
+
+/* MOBILE NAV */
+.nav-mobile {
+  display: none;
+  position: fixed;
+  inset: 64px 0 0 0;
+  background: var(--bg-primary);
+  z-index: 999;
+  padding: 40px;
+  flex-direction: column;
+  gap: 24px;
+  border-top: 1px solid var(--border);
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile a {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color var(--transition);
+}
+.nav-mobile a:hover { color: var(--accent); }
+
+/* MAIN CONTENT */
+main { position: relative; z-index: 1; }
+
+/* SECTION COMMON */
+section {
+  padding: 100px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--accent);
+}
+[dir="rtl"] .section-label::before { order: 1; }
+
+.section-title {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(232,255,71,0.06) 0%, transparent 70%);
+  top: -100px; right: -100px;
+  pointer-events: none;
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 40px; height: 1px;
+  background: var(--accent);
+}
+[dir="rtl"] .hero-eyebrow { flex-direction: row-reverse; }
+
+.hero-headline {
+  font-size: clamp(48px, 8vw, 110px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin-bottom: 32px;
+}
+
+.hero-headline .line-accent { color: var(--accent); }
+.hero-headline .line-outline {
+  -webkit-text-stroke: 1px var(--border-bright);
+  color: transparent;
+}
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  transition: all var(--transition);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius);
+  cursor: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition);
+}
+.btn-secondary:hover {
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.hero-bottom {
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+}
+.hero-stats {
+  display: flex;
+  gap: 48px;
+}
+.hero-stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+.hero-stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+}
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: status-pulse 2s ease-in-out infinite;
+}
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 4px var(--green); }
+  50% { box-shadow: 0 0 12px var(--green); }
+}
+
+/* BENTO GRID */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 100px;
+}
+
+.bento-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+  cursor: none;
+}
+.bento-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-bright);
+  transform: translateY(-2px);
+}
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--transition);
+  background: linear-gradient(135deg, var(--accent-dim), transparent);
+  pointer-events: none;
+}
+.bento-card:hover::before { opacity: 1; }
+
+/* Grid spans */
+.span-4 { grid-column: span 4; }
+.span-6 { grid-column: span 6; }
+.span-8 { grid-column: span 8; }
+.span-12 { grid-column: span 12; }
+.span-3 { grid-column: span 3; }
+
+.card-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-top: 20px;
+  transition: gap var(--transition);
+}
+.card-link:hover { gap: 10px; }
+
+/* Special Cards */
+.card-mindpilot {
+  border-color: rgba(157,111,255,0.3);
+  background: linear-gradient(135deg, var(--bg-card), rgba(157,111,255,0.04));
+}
+.card-mindpilot:hover {
+  border-color: rgba(157,111,255,0.5);
+}
+.card-mindpilot::before {
+  background: linear-gradient(135deg, var(--violet-dim), transparent);
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,71,71,0.1);
+  border: 1px solid rgba(255,71,71,0.25);
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.live-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: status-pulse 1.5s ease-in-out infinite;
+}
+
+.progress-bar-wrap {
+  margin-top: 20px;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.progress-bar {
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--violet);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--violet);
+  transition: width 1s ease;
+}
+
+.card-future {
+  border-color: rgba(0,212,255,0.2);
+  background: linear-gradient(135deg, var(--bg-card), rgba(0,212,255,0.03));
+}
+.card-future:hover { border-color: rgba(0,212,255,0.4); }
+
+.future-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--cyan);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* TECH TAGS */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-mono {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+.footer-mono span { color: var(--accent); }
+
+/* PAGE HERO (for sub-pages) */
+.page-hero {
+  min-height: 40vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 120px 40px 60px;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* CARDS GRID */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+.project-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-4px);
+}
+.project-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.project-card:hover::after { opacity: 1; }
+
+.project-number {
+  font-family: var(--font-mono);
+  font-size: 60px;
+  font-weight: 700;
+  color: var(--border-bright);
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: -0.04em;
+}
+
+.project-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.project-subtitle {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.project-problem {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+.case-study-section {
+  margin-bottom: 20px;
+}
+.case-study-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.case-study-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* SKILLS */
+.skills-zone {
+  margin-bottom: 60px;
+}
+.zone-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.zone-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.zone-title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.zone-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.skill-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  transition: all var(--transition);
+  cursor: none;
+}
+.skill-item:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.skill-item.featured {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  background: var(--accent-dim);
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.about-text p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.about-text p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.about-acts {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.act {
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition);
+}
+.act:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+.act-number {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  margin-bottom: 8px;
+}
+.act-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.act-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* INSIGHTS */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: all var(--transition);
+  cursor: none;
+}
+.insight-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-3px);
+}
+.insight-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.insight-category {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.insight-date {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+.insight-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.insight-excerpt {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.contact-question {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+.contact-question span { color: var(--accent); }
+.contact-note {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.channel-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  transition: all var(--transition);
+  cursor: none;
+}
+.channel-item:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  background: var(--accent-dim);
+}
+.channel-icon {
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.form-input, .form-textarea, .form-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 14px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color var(--transition);
+  cursor: none;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  border-color: var(--accent);
+}
+.form-textarea { min-height: 120px; resize: vertical; }
+.form-select option { background: var(--bg-primary); }
+
+/* ANIMATIONS */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .span-4 { grid-column: span 6; }
+  .span-8 { grid-column: span 12; }
+  .span-3 { grid-column: span 6; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  .navbar { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  section { padding: 60px 20px; }
+  .hero { padding: 0 20px 60px; }
+  .bento-grid { padding: 0 20px 60px; gap: 8px; }
+  .span-4, .span-6, .span-8, .span-12, .span-3 { grid-column: span 12; }
+  .hero-stats { gap: 24px; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+  .page-hero { padding: 100px 20px 40px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .insights-grid { grid-template-columns: 1fr; }
+}
+
+/* RTL ADJUSTMENTS */
+[dir="rtl"] .hero-eyebrow::before { order: 1; }
+[dir="rtl"] .section-label::before { order: 1; }
+[dir="rtl"] .card-link { flex-direction: row-reverse; }
+[dir="rtl"] .status-badge { flex-direction: row-reverse; }
+[dir="rtl"] .hero-bottom { flex-direction: row-reverse; }
+[dir="rtl"] .hero-stats { flex-direction: row-reverse; }
+[dir="rtl"] .zone-header { flex-direction: row-reverse; }
+[dir="rtl"] .act-number { text-align: right; }
+  </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — AbdouX</title>
+<style>
+    .case-study-full {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px 100px;
+    }
+    .cs-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .cs-header {
+      padding: 48px 48px 0;
+      position: relative;
+    }
+    .cs-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .cs-number {
+      font-family: var(--font-mono);
+      font-size: 120px;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      position: absolute;
+      top: 20px; right: 48px;
+      pointer-events: none;
+      user-select: none;
+    }
+    [dir="rtl"] .cs-number { right: auto; left: 48px; }
+    .cs-system-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .cs-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+    .cs-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+    .cs-body {
+      padding: 32px 48px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 768px) {
+      .cs-header { padding: 32px 24px 0; }
+      .cs-number { font-size: 60px; top: 16px; right: 24px; }
+      .cs-body { padding: 24px; grid-template-columns: 1fr; gap: 20px; }
+    }
+    .cs-section {
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .cs-section-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--text-muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .cs-section-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .cs-section-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .cs-full-width {
+      grid-column: span 2;
+    }
+    @media (max-width: 768px) {
+      .cs-full-width { grid-column: span 1; }
+    }
+    .cs-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .cs-layer {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+    .cs-layer:hover { border-color: var(--accent); }
+    .cs-layer-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .cs-layer-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-primary);
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .cs-layer-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .cs-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .cs-stack-item {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+    .mindpilot-card::before {
+      background: linear-gradient(90deg, var(--violet), transparent) !important;
+    }
+    .ecommerce-card::before {
+      background: linear-gradient(90deg, var(--cyan), transparent) !important;
+    }
+
+    /* Anchor offset for nav */
+    .anchor-target { padding-top: 80px; margin-top: -80px; }
+  </style>
+
+<script>
+// FILE:// SAFE NAVIGATION
+(function(){
+  var loc = window.location.href;
+  var isPages = loc.indexOf('/pages/') > -1;
+  var base = isPages ? '../' : '';
+  
+  // Map of page keys to filenames
+  var pages = {
+    'home':     base + 'index.html',
+    'projects': base + 'pages/projects.html',
+    'about':    base + 'pages/about.html',
+    'skills':   base + 'pages/skills.html',
+    'insights': base + 'pages/insights.html',
+    'contact':  base + 'pages/contact.html',
+  };
+  
+  window.goTo = function(page) {
+    if(pages[page]) window.location.href = pages[page];
+  };
+  
+  // After DOM ready, fix all nav links
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('[data-page]').forEach(function(el){
+      var p = el.getAttribute('data-page');
+      if(pages[p]) {
+        el.href = pages[p];
+      }
+    });
+    
+    // Highlight active
+    var current = window.location.href.split('/').pop().replace('.html','') || 'index';
+    document.querySelectorAll('[data-page]').forEach(function(el){
+      var p = el.getAttribute('data-page');
+      if(p === current || (current === 'index' && p === 'home')) {
+        el.classList.add('active');
+      }
+    });
+  });
+})();
+</script>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="#" data-page="home" class="nav-logo">ABDOU<span>X</span></a>
+  <ul class="nav-links">
+    <li><a href="#" data-page="home" data-i18n="nav_home">Home</a></li>
+    <li><a href="#" data-page="projects" class="active" data-i18n="nav_projects">Projects</a></li>
+    <li><a href="#" data-page="about" data-i18n="nav_about">About</a></li>
+    <li><a href="#" data-page="skills" data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a></li>
+    <li><a href="#" data-page="contact" data-i18n="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="en" onclick="switchLang('en')">EN</button>
+      <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
+      <button class="lang-btn" data-lang="ar" onclick="switchLang('ar')">عر</button>
+    </div>
+    <button class="btn-control btn-theme" onclick="toggleTheme()">DAY</button>
+  </div>
+  <button class="nav-hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile">
+  <a href="#" data-page="home" data-i18n="nav_home">Home</a>
+  <a href="#" data-page="projects" data-i18n="nav_projects">Projects</a>
+  <a href="#" data-page="about" data-i18n="nav_about">About</a>
+  <a href="#" data-page="skills" data-i18n="nav_skills">Skills</a>
+  <a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a>
+  <a href="#" data-page="contact" data-i18n="nav_contact">Contact</a>
+</div>
+
+<main>
+
+  <!-- PAGE HERO -->
+  <div style="max-width:1200px; margin: 0 auto; padding: 140px 40px 60px;">
+    <div class="section-label">// Case Studies</div>
+    <h1 class="section-title fade-up">
+      Systems I've<br>
+      <span style="color: var(--accent);">Architected</span>
+    </h1>
+    <p style="margin-top: 24px; color: var(--text-secondary); font-size: 16px; max-width: 560px; line-height: 1.7;" class="fade-up">
+      Each project below is documented as a full case study — from the problem that required a system, to the architecture decisions that shaped the solution.
+    </p>
+  </div>
+
+  <!-- CASE STUDIES -->
+  <div class="case-study-full">
+
+    <!-- 01 — CIVICFLOW / WASTE MANAGEMENT -->
+    <div class="cs-block fade-up anchor-target" id="waste">
+      <div class="cs-header">
+        <div class="cs-number">01</div>
+        <div class="cs-system-tag">// Urban Logistics Ecosystem</div>
+        <div class="cs-title">CivicFlow</div>
+        <div class="cs-subtitle">Smart Waste Management &amp; Municipal Operations Platform</div>
+      </div>
+      <div class="cs-body">
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Problem</div>
+          <div class="cs-section-text">
+            Algerian municipalities manage waste operations through <strong>fragmented channels</strong> — phone calls, paper reports, manual coordination. There's no closed-loop accountability between citizens reporting issues, managers dispatching workers, and workers proving completion. Reports disappear. Problems persist. No audit trail exists.
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Architecture Decision</div>
+          <div class="cs-section-text">
+            Instead of a single app, I designed a <strong>3-tier operational ecosystem</strong> with separate interfaces for each stakeholder, unified by a shared real-time data layer and a state machine tracking every report through 5 distinct statuses — with zero data loss, even offline.
+          </div>
+        </div>
+
+        <div class="cs-section cs-full-width">
+          <div class="cs-section-label">The 3-Layer System</div>
+          <div class="cs-layers">
+            <div class="cs-layer">
+              <div class="cs-layer-icon">👥</div>
+              <div>
+                <div class="cs-layer-title">CITIZEN LAYER — Report Interface</div>
+                <div class="cs-layer-desc">Geo-tagged incident reporting with photo evidence. Transforms unstructured civic complaints into structured logistics tickets with location, timestamp, and severity classification.</div>
+              </div>
+            </div>
+            <div class="cs-layer">
+              <div class="cs-layer-icon">🏛️</div>
+              <div>
+                <div class="cs-layer-title">OPERATIONS LAYER — Municipality Dashboard</div>
+                <div class="cs-layer-desc">Real-time task management for municipality managers — ticket queuing by zone, worker assignment, priority escalation, and live status tracking across the city grid.</div>
+              </div>
+            </div>
+            <div class="cs-layer">
+              <div class="cs-layer-icon">⚙️</div>
+              <div>
+                <div class="cs-layer-title">FIELD LAYER — Worker Mobile Interface</div>
+                <div class="cs-layer-desc">GPS check-in, photo proof-of-completion, and task status updates. Creates an auditable chain of accountability — every action is timestamped and immutable.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Engineering Challenge</div>
+          <div class="cs-section-text">
+            The hardest part wasn't the code. It was designing a <strong>state machine</strong> where a single report travels through 5 statuses across 3 independent actors — Submitted → Assigned → In Progress → Completed → Verified — with no state ever being lost, duplicated, or bypassed, even in offline-first mobile scenarios.
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Outcome</div>
+          <div class="cs-section-text">
+            A closed-loop logistics system that transforms unstructured citizen complaints into <strong>verified, completed field operations</strong> with a full audit trail. Every problem has an owner, every action has a timestamp, every resolution has proof.
+          </div>
+        </div>
+
+        <div class="cs-section cs-full-width">
+          <div class="cs-section-label">Tech Stack</div>
+          <div class="cs-stack">
+            <span class="cs-stack-item">Flutter</span>
+            <span class="cs-stack-item">Laravel</span>
+            <span class="cs-stack-item">Firebase Auth</span>
+            <span class="cs-stack-item">Firestore</span>
+            <span class="cs-stack-item">OpenStreetMap</span>
+            <span class="cs-stack-item">REST API</span>
+            <span class="cs-stack-item">State Machine</span>
+            <span class="cs-stack-item">Offline-First</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 02 — LMS -->
+    <div class="cs-block fade-up anchor-target mindpilot-card" id="lms" style="border-color: rgba(157,111,255,0.25);">
+      <div class="cs-header">
+        <div class="cs-number" style="color: rgba(157,111,255,0.15);">02</div>
+        <div class="cs-system-tag" style="color: var(--violet);">// EdTech Infrastructure</div>
+        <div class="cs-title">SaaS Learning Platform</div>
+        <div class="cs-subtitle">Multi-Role Learning Management System with Revenue Architecture</div>
+      </div>
+      <div class="cs-body">
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Problem</div>
+          <div class="cs-section-text">
+            Existing LMS solutions in the Arab market either lack Arabic support, are prohibitively expensive for educators, or can't scale beyond a single institution. Educators needed a platform they could <strong>own and monetize</strong> — with real SaaS architecture under the hood.
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Architecture Decision</div>
+          <div class="cs-section-text">
+            Built on <strong>Clean Architecture with DDD patterns</strong> — 18-table schema, 10 bounded contexts, 3 roles (Admin, Instructor, Student). Not an app with roles — an architecture with clear domain boundaries that can scale horizontally into multi-tenancy.
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">Core Systems Built</div>
+          <div class="cs-layers" style="gap: 8px;">
+            <div class="cs-layer">
+              <div class="cs-layer-icon">🎓</div>
+              <div>
+                <div class="cs-layer-title">COURSE ENGINE</div>
+                <div class="cs-layer-desc">Structured content delivery with section/lesson hierarchy, progress tracking, and completion certificates via DomPDF.</div>
+              </div>
+            </div>
+            <div class="cs-layer">
+              <div class="cs-layer-icon">🧠</div>
+              <div>
+                <div class="cs-layer-title">QUIZ ENGINE</div>
+                <div class="cs-layer-desc">Auto-graded assessments with configurable scoring, time limits, and attempt tracking.</div>
+              </div>
+            </div>
+            <div class="cs-layer">
+              <div class="cs-layer-icon">💰</div>
+              <div>
+                <div class="cs-layer-title">REVENUE ARCHITECTURE</div>
+                <div class="cs-layer-desc">Stripe payments with instructor revenue split, webhook handling, wallet system, and withdrawal requests.</div>
+              </div>
+            </div>
+            <div class="cs-layer">
+              <div class="cs-layer-icon">📊</div>
+              <div>
+                <div class="cs-layer-title">ANALYTICS LAYER</div>
+                <div class="cs-layer-desc">Redis-cached dashboards with enrollment metrics, revenue analytics, and engagement tracking per instructor.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Engineering Challenge</div>
+          <div class="cs-section-text">
+            Designing a <strong>revenue-split system</strong> that correctly calculates instructor share vs. platform commission, handles Stripe webhook idempotency, and processes refund reversals — without ever creating a financial inconsistency in the wallet ledger.
+          </div>
+        </div>
+
+        <div class="cs-section cs-full-width">
+          <div class="cs-section-label">Tech Stack</div>
+          <div class="cs-stack">
+            <span class="cs-stack-item">Laravel 11</span>
+            <span class="cs-stack-item">Clean Architecture</span>
+            <span class="cs-stack-item">Filament v3</span>
+            <span class="cs-stack-item">Flutter</span>
+            <span class="cs-stack-item">Stripe</span>
+            <span class="cs-stack-item">Redis</span>
+            <span class="cs-stack-item">MySQL</span>
+            <span class="cs-stack-item">Laravel Sanctum</span>
+            <span class="cs-stack-item">DomPDF</span>
+            <span class="cs-stack-item">Laravel Telescope</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 03 — E-COMMERCE -->
+    <div class="cs-block fade-up anchor-target ecommerce-card" id="ecommerce" style="border-color: rgba(0,212,255,0.2);">
+      <div class="cs-header">
+        <div class="cs-number" style="color: rgba(0,212,255,0.12);">03</div>
+        <div class="cs-system-tag" style="color: var(--cyan);">// Commerce Infrastructure</div>
+        <div class="cs-title">E-Commerce Suite</div>
+        <div class="cs-subtitle">Full-Scale Laravel Platform with Comprehensive Admin Intelligence</div>
+      </div>
+      <div class="cs-body">
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Problem</div>
+          <div class="cs-section-text">
+            Most e-commerce solutions for Algerian businesses are either cheap templates with no extensibility, or expensive foreign platforms that don't understand local payment methods, currency, or Arabic product catalogs.
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Architecture Decision</div>
+          <div class="cs-section-text">
+            Built from scratch on Laravel to own every layer — <strong>custom admin dashboard</strong>, inventory management, order lifecycle, and analytics. Not a WooCommerce fork — a domain-specific commerce engine built for the Algerian market.
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">Key Systems</div>
+          <div class="cs-layers" style="gap: 8px;">
+            <div class="cs-layer">
+              <div class="cs-layer-icon">🛍️</div>
+              <div>
+                <div class="cs-layer-title">PRODUCT CATALOG ENGINE</div>
+                <div class="cs-layer-desc">Multi-variant products, category tree, inventory tracking with low-stock alerts.</div>
+              </div>
+            </div>
+            <div class="cs-layer">
+              <div class="cs-layer-icon">📋</div>
+              <div>
+                <div class="cs-layer-title">ORDER LIFECYCLE</div>
+                <div class="cs-layer-desc">Full order state management from cart to delivery, with admin override capabilities.</div>
+              </div>
+            </div>
+            <div class="cs-layer">
+              <div class="cs-layer-icon">📈</div>
+              <div>
+                <div class="cs-layer-title">ADMIN INTELLIGENCE LAYER</div>
+                <div class="cs-layer-desc">Comprehensive dashboard with sales analytics, customer behavior, top products, and revenue trends.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">The Outcome</div>
+          <div class="cs-section-text">
+            A production-ready commerce platform with <strong>full Arabic support, RTL layouts</strong>, and an admin dashboard that gives business owners real visibility into their operations — not just a list of orders.
+          </div>
+        </div>
+
+        <div class="cs-section cs-full-width">
+          <div class="cs-section-label">Tech Stack</div>
+          <div class="cs-stack">
+            <span class="cs-stack-item">Laravel</span>
+            <span class="cs-stack-item">Tailwind CSS</span>
+            <span class="cs-stack-item">MySQL</span>
+            <span class="cs-stack-item">Alpine.js</span>
+            <span class="cs-stack-item">Laravel Livewire</span>
+            <span class="cs-stack-item">RTL Support</span>
+            <span class="cs-stack-item">i18n</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 04 — MINDPILOT -->
+    <div class="cs-block fade-up anchor-target" id="mindpilot" style="border-color: rgba(157,111,255,0.4); background: linear-gradient(135deg, var(--bg-card), rgba(157,111,255,0.04));">
+      <div class="cs-header">
+        <div class="live-badge" style="display: inline-flex; margin-bottom: 16px;">
+          <span class="live-dot"></span>
+          Building in Public — Phase 5 of 6
+        </div>
+        <div class="cs-number" style="color: rgba(157,111,255,0.12);">04</div>
+        <div class="cs-system-tag" style="color: var(--violet);">// AI Productivity System</div>
+        <div class="cs-title">MindPilot</div>
+        <div class="cs-subtitle">An AI-powered productivity ecosystem — built, shipped, and documented in public</div>
+      </div>
+      <div class="cs-body">
+
+        <div class="cs-section cs-full-width">
+          <div class="cs-section-label">The Vision</div>
+          <div class="cs-section-text">
+            MindPilot is not a to-do list. It's a <strong>cognitive productivity system</strong> that uses AI to help knowledge workers — particularly in the Arab world — think clearer, prioritize better, and build with more intention. Building it in public because the journey is as valuable as the product.
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">Current Progress</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--green); font-size: 12px;">✓</span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary);">Phase 1 — Architecture & Core API</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--green); font-size: 12px;">✓</span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary);">Phase 2 — Auth & User System</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--green); font-size: 12px;">✓</span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary);">Phase 3 — Core Features & LLM Integration</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--green); font-size: 12px;">✓</span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary);">Phase 4 — Admin Panel & Analytics</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--violet); font-size: 12px;">→</span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--violet);">Phase 5 — Flutter Mobile App (Active)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--text-muted); font-size: 12px;">○</span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);">Phase 6 — SaaS & Scaling Layer</span>
+            </div>
+          </div>
+          <div class="progress-bar-wrap" style="margin-top: 20px;">
+            <div class="progress-label">
+              <span>Overall Progress</span>
+              <span>80%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 80%; background: var(--violet); box-shadow: 0 0 8px var(--violet);"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-section-label">Tech Stack</div>
+          <div class="cs-stack">
+            <span class="cs-stack-item" style="color: var(--violet);">Laravel 11</span>
+            <span class="cs-stack-item" style="color: var(--violet);">Flutter</span>
+            <span class="cs-stack-item" style="color: var(--violet);">Filament v3</span>
+            <span class="cs-stack-item" style="color: var(--violet);">AI/LLM</span>
+            <span class="cs-stack-item" style="color: var(--violet);">Sanctum</span>
+            <span class="cs-stack-item" style="color: var(--violet);">Redis</span>
+            <span class="cs-stack-item" style="color: var(--violet);">Clean Architecture</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<div style="border-top: 1px solid var(--border);">
+  <footer>
+    <div class="footer-mono">ABDOU<span>X</span> — System Architect</div>
+    <div class="footer-mono">
+      <a href="#" data-page="contact" style="color: var(--accent); text-decoration: none; letter-spacing: 0.1em;">Have a complex problem? Let's talk →</a>
+    </div>
+  </footer>
+</div>
+<script>
+// =====================
+// PORTFOLIO — MAIN JS
+// AbdouX — System Architect
+// =====================
+
+const Portfolio = {
+
+  // ─── STATE ───────────────────────────────────────
+  state: {
+    theme: 'dark',
+    lang: 'en',
+    menuOpen: false,
+  },
+
+  // ─── TRANSLATIONS ────────────────────────────────
+  i18n: {
+    en: {
+      nav_home: 'Home',
+      nav_projects: 'Projects',
+      nav_about: 'About',
+      nav_skills: 'Skills',
+      nav_insights: 'Thinking',
+      nav_contact: 'Contact',
+      hero_eyebrow: 'Product Engineer & Founder — Algeria',
+      hero_h1_1: "I don't build",
+      hero_h1_2: 'apps.',
+      hero_h1_3: 'I architect',
+      hero_h1_4: 'systems.',
+      hero_sub: 'Designing scalable ecosystems for the Arab world\'s most complex infrastructure challenges — from urban logistics to AI-powered productivity.',
+      hero_cta1: 'View Systems',
+      hero_cta2: 'Start a Project',
+      hero_stat1_num: '4+',
+      hero_stat1_label: 'Ecosystems Built',
+      hero_stat2_num: '3',
+      hero_stat2_label: 'Active Products',
+      hero_stat3_num: '∞',
+      hero_stat3_label: 'Scale Mindset',
+      hero_status: 'Available for strategic projects',
+      theme_day: 'DAY',
+      theme_night: 'NIGHT',
+    },
+    fr: {
+      nav_home: 'Accueil',
+      nav_projects: 'Projets',
+      nav_about: 'À propos',
+      nav_skills: 'Compétences',
+      nav_insights: 'Réflexions',
+      nav_contact: 'Contact',
+      hero_eyebrow: 'Ingénieur Produit & Fondateur — Algérie',
+      hero_h1_1: "Je ne code pas",
+      hero_h1_2: "des apps.",
+      hero_h1_3: "Je conçois des",
+      hero_h1_4: "systèmes.",
+      hero_sub: 'Concevoir des solutions scalables pour les défis infrastructurels complexes du monde arabe — de la logistique urbaine à la productivité IA.',
+      hero_cta1: 'Voir les systèmes',
+      hero_cta2: 'Démarrer un projet',
+      hero_stat1_num: '4+',
+      hero_stat1_label: 'Écosystèmes construits',
+      hero_stat2_num: '3',
+      hero_stat2_label: 'Produits actifs',
+      hero_stat3_num: '∞',
+      hero_stat3_label: 'Vision scalable',
+      hero_status: 'Disponible pour projets stratégiques',
+      theme_day: 'JOUR',
+      theme_night: 'NUIT',
+    },
+    ar: {
+      nav_home: 'الرئيسية',
+      nav_projects: 'المشاريع',
+      nav_about: 'عني',
+      nav_skills: 'المهارات',
+      nav_insights: 'أفكاري',
+      nav_contact: 'تواصل',
+      hero_eyebrow: 'مهندس منتجات ومؤسس — الجزائر',
+      hero_h1_1: 'أنا لا أبني',
+      hero_h1_2: 'تطبيقات.',
+      hero_h1_3: 'أنا أُصمِّم',
+      hero_h1_4: 'أنظمة.',
+      hero_sub: 'أحوّل التحديات المعقدة إلى بنى رقمية قابلة للتوسع — من إدارة المدن إلى الذكاء الاصطناعي.',
+      hero_cta1: 'استعرض الأنظمة',
+      hero_cta2: 'ابدأ مشروعاً',
+      hero_stat1_num: '+4',
+      hero_stat1_label: 'منظومات مبنية',
+      hero_stat2_num: '3',
+      hero_stat2_label: 'منتجات نشطة',
+      hero_stat3_num: '∞',
+      hero_stat3_label: 'تفكير قابل للتوسع',
+      hero_status: 'متاح للمشاريع الاستراتيجية',
+      theme_day: 'نهار',
+      theme_night: 'ليل',
+    }
+  },
+
+  // ─── INIT ─────────────────────────────────────────
+  init() {
+    this.detectLanguage();
+    this.initCursor();
+    this.initNavbar();
+    this.initTheme();
+    this.initLang();
+    this.initAnimations();
+    this.initMobileMenu();
+  },
+
+  // ─── LANGUAGE DETECTION ──────────────────────────
+  detectLanguage() {
+    const browserLang = navigator.language || navigator.userLanguage;
+    const saved = localStorage.getItem('portfolio_lang');
+    if (saved) {
+      this.state.lang = saved;
+    } else if (browserLang.startsWith('ar')) {
+      this.state.lang = 'ar';
+    } else if (browserLang.startsWith('fr')) {
+      this.state.lang = 'fr';
+    } else {
+      this.state.lang = 'en';
+    }
+  },
+
+  // ─── CURSOR ──────────────────────────────────────
+  initCursor() {
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor';
+    const ring = document.createElement('div');
+    ring.className = 'cursor-ring';
+    document.body.appendChild(cursor);
+    document.body.appendChild(ring);
+
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    const animate = () => {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animate);
+    };
+    animate();
+
+    document.querySelectorAll('a, button, .bento-card, .project-card, .skill-item, .act, .insight-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        ring.style.width = '48px';
+        ring.style.height = '48px';
+        ring.style.borderColor = 'rgba(232,255,71,0.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '8px';
+        cursor.style.height = '8px';
+        ring.style.width = '32px';
+        ring.style.height = '32px';
+        ring.style.borderColor = 'rgba(232,255,71,0.4)';
+      });
+    });
+  },
+
+  // ─── NAVBAR ──────────────────────────────────────
+  initNavbar() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Active link
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      const href = a.getAttribute('href');
+      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+        a.classList.add('active');
+      }
+    });
+  },
+
+  // ─── THEME ───────────────────────────────────────
+  initTheme() {
+    const saved = localStorage.getItem('portfolio_theme') || 'dark';
+    this.setTheme(saved);
+  },
+
+  setTheme(theme) {
+    this.state.theme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio_theme', theme);
+    const btn = document.querySelector('.btn-theme');
+    if (btn) {
+      const t = this.i18n[this.state.lang];
+      btn.textContent = theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
+    }
+  },
+
+  toggleTheme() {
+    this.setTheme(this.state.theme === 'dark' ? 'light' : 'dark');
+  },
+
+  // ─── LANGUAGE ────────────────────────────────────
+  initLang() {
+    this.applyLang(this.state.lang);
+  },
+
+  applyLang(lang) {
+    this.state.lang = lang;
+    localStorage.setItem('portfolio_lang', lang);
+    const t = this.i18n[lang];
+
+    // Direction
+    const isRTL = lang === 'ar';
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+
+    // Translate elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key]) el.textContent = t[key];
+    });
+
+    // Active lang btn
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // Update theme button text
+    const themeBtn = document.querySelector('.btn-theme');
+    if (themeBtn) {
+      themeBtn.textContent = this.state.theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
+    }
+  },
+
+  switchLang(lang) {
+    this.applyLang(lang);
+  },
+
+  // ─── ANIMATIONS ──────────────────────────────────
+  initAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  },
+
+  // ─── MOBILE MENU ─────────────────────────────────
+  initMobileMenu() {
+    const hamburger = document.querySelector('.nav-hamburger');
+    const mobileNav = document.querySelector('.nav-mobile');
+    if (!hamburger || !mobileNav) return;
+
+    hamburger.addEventListener('click', () => {
+      this.state.menuOpen = !this.state.menuOpen;
+      mobileNav.classList.toggle('open', this.state.menuOpen);
+    });
+
+    document.querySelectorAll('.nav-mobile a').forEach(a => {
+      a.addEventListener('click', () => {
+        this.state.menuOpen = false;
+        mobileNav.classList.remove('open');
+      });
+    });
+  },
+};
+
+// ─── GLOBAL HANDLERS ─────────────────────────────
+window.toggleTheme = () => Portfolio.toggleTheme();
+window.switchLang = (l) => Portfolio.switchLang(l);
+
+// ─── START ───────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => Portfolio.init());
+
+</script>
+</body>
+</html>
