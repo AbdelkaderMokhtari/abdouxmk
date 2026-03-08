@@ -4,1335 +4,185 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-:root {
-  --bg-primary: #080808;
-  --bg-secondary: #0f0f0f;
-  --bg-card: #111111;
-  --bg-card-hover: #161616;
-  --border: #1e1e1e;
-  --border-bright: #2a2a2a;
-  --text-primary: #f0f0f0;
-  --text-secondary: #888;
-  --text-muted: #444;
-  --accent: #e8ff47;
-  --accent-dim: rgba(232,255,71,0.08);
-  --accent-glow: rgba(232,255,71,0.15);
-  --violet: #9d6fff;
-  --violet-dim: rgba(157,111,255,0.1);
-  --cyan: #00d4ff;
-  --cyan-dim: rgba(0,212,255,0.08);
-  --red: #ff4747;
-  --green: #39ff84;
-  --font-display: 'Syne', sans-serif;
-  --font-mono: 'Space Mono', monospace;
-  --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
-  --radius: 4px;
-  --radius-lg: 8px;
-  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
-}
-
-[data-theme="light"] {
-  --bg-primary: #f5f5f0;
-  --bg-secondary: #ebebeb;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f9f9f9;
-  --border: #e0e0e0;
-  --border-bright: #cccccc;
-  --text-primary: #0a0a0a;
-  --text-secondary: #555;
-  --text-muted: #aaa;
-  --accent: #1a1a00;
-  --accent-dim: rgba(26,26,0,0.06);
-  --accent-glow: rgba(26,26,0,0.1);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  cursor: none;
-}
-
-body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  line-height: 1.6;
-  overflow-x: hidden;
-  transition: background var(--transition), color var(--transition);
-}
-
-body[dir="rtl"] {
-  font-family: var(--font-arabic);
-}
-
-/* CUSTOM CURSOR */
-.cursor {
-  width: 8px; height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  width: 32px; height: 32px;
-  border: 1px solid rgba(232,255,71,0.4);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: all 0.12s ease;
-}
-body:hover .cursor { opacity: 1; }
-
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: var(--border-bright); }
-
-/* NOISE OVERLAY */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.4;
-}
-
-/* NAVBAR */
-.navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 0 40px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid transparent;
-  transition: all var(--transition);
-  backdrop-filter: blur(0px);
-}
-.navbar.scrolled {
-  background: rgba(8,8,8,0.92);
-  border-bottom-color: var(--border);
-  backdrop-filter: blur(20px);
-}
-[data-theme="light"] .navbar.scrolled {
-  background: rgba(245,245,240,0.92);
-}
-
-.nav-logo {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-primary);
-  text-decoration: none;
-  letter-spacing: 0.1em;
-}
-.nav-logo span { color: var(--accent); }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  list-style: none;
-}
-.nav-links a {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transition: color var(--transition);
-}
-.nav-links a:hover { color: var(--text-primary); }
-.nav-links a.active { color: var(--accent); }
-
-.nav-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-control {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  padding: 6px 12px;
-  border-radius: var(--radius);
-  cursor: none;
-  letter-spacing: 0.1em;
-  transition: all var(--transition);
-}
-.btn-control:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.lang-switcher {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 4px;
-}
-.lang-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  padding: 4px 8px;
-  border-radius: 2px;
-  cursor: none;
-  transition: all var(--transition);
-  letter-spacing: 0.05em;
-}
-.lang-btn.active {
-  background: var(--accent);
-  color: #000;
-}
-.lang-btn:hover:not(.active) {
-  color: var(--text-primary);
-}
-
-/* NAV HAMBURGER */
-.nav-hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: none;
-  padding: 8px;
-  background: transparent;
-  border: none;
-}
-.nav-hamburger span {
-  display: block;
-  width: 20px; height: 1px;
-  background: var(--text-primary);
-  transition: all var(--transition);
-}
-
-/* MOBILE NAV */
-.nav-mobile {
-  display: none;
-  position: fixed;
-  inset: 64px 0 0 0;
-  background: var(--bg-primary);
-  z-index: 999;
-  padding: 40px;
-  flex-direction: column;
-  gap: 24px;
-  border-top: 1px solid var(--border);
-}
-.nav-mobile.open { display: flex; }
-.nav-mobile a {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-  transition: color var(--transition);
-}
-.nav-mobile a:hover { color: var(--accent); }
-
-/* MAIN CONTENT */
-main { position: relative; z-index: 1; }
-
-/* SECTION COMMON */
-section {
-  padding: 100px 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-label::before {
-  content: '';
-  display: inline-block;
-  width: 24px; height: 1px;
-  background: var(--accent);
-}
-[dir="rtl"] .section-label::before { order: 1; }
-
-.section-title {
-  font-size: clamp(36px, 6vw, 72px);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-}
-
-/* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 40px 80px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.hero-glow {
-  position: absolute;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(232,255,71,0.06) 0%, transparent 70%);
-  top: -100px; right: -100px;
-  pointer-events: none;
-  animation: pulse-glow 6s ease-in-out infinite;
-}
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-
-.hero-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
-
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--accent);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 40px; height: 1px;
-  background: var(--accent);
-}
-[dir="rtl"] .hero-eyebrow { flex-direction: row-reverse; }
-
-.hero-headline {
-  font-size: clamp(48px, 8vw, 110px);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  margin-bottom: 32px;
-}
-
-.hero-headline .line-accent { color: var(--accent); }
-.hero-headline .line-outline {
-  -webkit-text-stroke: 1px var(--border-bright);
-  color: transparent;
-}
-
-.hero-sub {
-  font-size: 16px;
-  color: var(--text-secondary);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 48px;
-}
-
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #000;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 14px 28px;
-  border: none;
-  border-radius: var(--radius);
-  cursor: none;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  transition: all var(--transition);
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px var(--accent-glow);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 13px 28px;
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius);
-  cursor: none;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all var(--transition);
-}
-.btn-secondary:hover {
-  border-color: var(--text-primary);
-  transform: translateY(-2px);
-}
-
-.hero-bottom {
-  margin-top: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid var(--border);
-  padding-top: 24px;
-}
-.hero-stats {
-  display: flex;
-  gap: 48px;
-}
-.hero-stat-num {
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-}
-.hero-stat-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--text-muted);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-top: 4px;
-}
-
-.status-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-secondary);
-  letter-spacing: 0.1em;
-}
-.status-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: status-pulse 2s ease-in-out infinite;
-}
-@keyframes status-pulse {
-  0%, 100% { box-shadow: 0 0 4px var(--green); }
-  50% { box-shadow: 0 0 12px var(--green); }
-}
-
-/* BENTO GRID */
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 12px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px 100px;
-}
-
-.bento-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  position: relative;
-  overflow: hidden;
-  transition: all var(--transition);
-  cursor: none;
-}
-.bento-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-bright);
-  transform: translateY(-2px);
-}
-.bento-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity var(--transition);
-  background: linear-gradient(135deg, var(--accent-dim), transparent);
-  pointer-events: none;
-}
-.bento-card:hover::before { opacity: 1; }
-
-/* Grid spans */
-.span-4 { grid-column: span 4; }
-.span-6 { grid-column: span 6; }
-.span-8 { grid-column: span 8; }
-.span-12 { grid-column: span 12; }
-.span-3 { grid-column: span 3; }
-
-.card-tag {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--text-muted);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-
-.card-title {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 10px;
-  line-height: 1.2;
-}
-
-.card-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-.card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent);
-  letter-spacing: 0.12em;
-  text-decoration: none;
-  text-transform: uppercase;
-  margin-top: 20px;
-  transition: gap var(--transition);
-}
-.card-link:hover { gap: 10px; }
-
-/* Special Cards */
-.card-mindpilot {
-  border-color: rgba(157,111,255,0.3);
-  background: linear-gradient(135deg, var(--bg-card), rgba(157,111,255,0.04));
-}
-.card-mindpilot:hover {
-  border-color: rgba(157,111,255,0.5);
-}
-.card-mindpilot::before {
-  background: linear-gradient(135deg, var(--violet-dim), transparent);
-}
-
-.live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,71,71,0.1);
-  border: 1px solid rgba(255,71,71,0.25);
-  color: var(--red);
-  font-family: var(--font-mono);
-  font-size: 9px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-.live-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--red);
-  animation: status-pulse 1.5s ease-in-out infinite;
-}
-
-.progress-bar-wrap {
-  margin-top: 20px;
-}
-.progress-label {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
-  margin-bottom: 6px;
-}
-.progress-bar {
-  height: 2px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--violet);
-  border-radius: 2px;
-  box-shadow: 0 0 8px var(--violet);
-  transition: width 1s ease;
-}
-
-.card-future {
-  border-color: rgba(0,212,255,0.2);
-  background: linear-gradient(135deg, var(--bg-card), rgba(0,212,255,0.03));
-}
-.card-future:hover { border-color: rgba(0,212,255,0.4); }
-
-.future-tag {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--cyan);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-
-/* TECH TAGS */
-.tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 16px;
-}
-.tech-tag {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-}
-
-/* FOOTER */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-mono {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
-}
-.footer-mono span { color: var(--accent); }
-
-/* PAGE HERO (for sub-pages) */
-.page-hero {
-  min-height: 40vh;
-  display: flex;
-  align-items: flex-end;
-  padding: 120px 40px 60px;
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* CARDS GRID */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 16px;
-}
-
-.project-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 36px;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-  cursor: none;
-}
-.project-card:hover {
-  border-color: var(--border-bright);
-  transform: translateY(-4px);
-}
-.project-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-.project-card:hover::after { opacity: 1; }
-
-.project-number {
-  font-family: var(--font-mono);
-  font-size: 60px;
-  font-weight: 700;
-  color: var(--border-bright);
-  line-height: 1;
-  margin-bottom: 20px;
-  letter-spacing: -0.04em;
-}
-
-.project-title {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-
-.project-subtitle {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.project-problem {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 24px;
-}
-
-.divider {
-  height: 1px;
-  background: var(--border);
-  margin: 24px 0;
-}
-
-.case-study-section {
-  margin-bottom: 20px;
-}
-.case-study-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--text-muted);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.case-study-text {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-/* SKILLS */
-.skills-zone {
-  margin-bottom: 60px;
-}
-.zone-header {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.zone-name {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.zone-title {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-.zone-line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.skill-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.skill-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 10px 16px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-secondary);
-  letter-spacing: 0.08em;
-  transition: all var(--transition);
-  cursor: none;
-}
-.skill-item:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-dim);
-}
-.skill-item.featured {
-  border-color: var(--accent);
-  color: var(--text-primary);
-  background: var(--accent-dim);
-}
-
-/* ABOUT */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: start;
-}
-.about-text p {
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 24px;
-}
-.about-text p strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-.about-acts {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-.act {
-  padding: 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  transition: all var(--transition);
-}
-.act:hover {
-  border-color: var(--accent);
-  background: var(--accent-dim);
-}
-.act-number {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--accent);
-  letter-spacing: 0.18em;
-  margin-bottom: 8px;
-}
-.act-title {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.act-text {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-/* INSIGHTS */
-.insights-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 16px;
-}
-.insight-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  transition: all var(--transition);
-  cursor: none;
-}
-.insight-card:hover {
-  border-color: var(--border-bright);
-  transform: translateY(-3px);
-}
-.insight-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-.insight-category {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-.insight-date {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
-}
-.insight-title {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-  line-height: 1.3;
-}
-.insight-excerpt {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-/* CONTACT */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-.contact-question {
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin-bottom: 24px;
-}
-.contact-question span { color: var(--accent); }
-.contact-note {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 40px;
-}
-.contact-channels {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.channel-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  transition: all var(--transition);
-  cursor: none;
-}
-.channel-item:hover {
-  border-color: var(--accent);
-  color: var(--text-primary);
-  background: var(--accent-dim);
-}
-.channel-icon {
-  font-size: 14px;
-  width: 20px;
-  text-align: center;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--text-muted);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-.form-input, .form-textarea, .form-select {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-size: 14px;
-  padding: 12px 16px;
-  outline: none;
-  transition: border-color var(--transition);
-  cursor: none;
-}
-.form-input:focus, .form-textarea:focus, .form-select:focus {
-  border-color: var(--accent);
-}
-.form-textarea { min-height: 120px; resize: vertical; }
-.form-select option { background: var(--bg-primary); }
-
-/* ANIMATIONS */
-.fade-up {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .span-4 { grid-column: span 6; }
-  .span-8 { grid-column: span 12; }
-  .span-3 { grid-column: span 6; }
-  .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-}
-
-@media (max-width: 768px) {
-  .navbar { padding: 0 20px; }
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
-  section { padding: 60px 20px; }
-  .hero { padding: 0 20px 60px; }
-  .bento-grid { padding: 0 20px 60px; gap: 8px; }
-  .span-4, .span-6, .span-8, .span-12, .span-3 { grid-column: span 12; }
-  .hero-stats { gap: 24px; }
-  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
-  .page-hero { padding: 100px 20px 40px; }
-  .cards-grid { grid-template-columns: 1fr; }
-  .insights-grid { grid-template-columns: 1fr; }
-}
-
-/* RTL ADJUSTMENTS */
-[dir="rtl"] .hero-eyebrow::before { order: 1; }
-[dir="rtl"] .section-label::before { order: 1; }
-[dir="rtl"] .card-link { flex-direction: row-reverse; }
-[dir="rtl"] .status-badge { flex-direction: row-reverse; }
-[dir="rtl"] .hero-bottom { flex-direction: row-reverse; }
-[dir="rtl"] .hero-stats { flex-direction: row-reverse; }
-[dir="rtl"] .zone-header { flex-direction: row-reverse; }
-[dir="rtl"] .act-number { text-align: right; }
-
-    /* ── PROFILE PHOTO ───────────────────────────────── */
-    .act-block-with-photo {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 40px;
-      align-items: center;
-    }
-    .act-block-with-photo .act-body { max-width: 100%; }
-    .profile-photo-wrap {
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .profile-photo {
-      width: 180px;
-      height: 180px;
-      border-radius: 12px;
-      object-fit: cover;
-      object-position: center top;
-      border: 1px solid var(--border-bright);
-      display: block;
-      filter: grayscale(20%);
-      transition: all 0.3s ease;
-    }
-    .profile-photo:hover {
-      filter: grayscale(0%);
-      border-color: var(--accent);
-      box-shadow: 0 0 32px var(--accent-glow), 0 0 0 1px var(--accent);
-      transform: translateY(-3px);
-    }
-    .profile-photo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border: 1px solid rgba(232,255,71,0.15);
-      border-radius: 16px;
-      pointer-events: none;
-    }
-    .profile-photo-wrap::after {
-      content: 'AbdouX';
-      position: absolute;
-      bottom: -24px;
-      left: 0; right: 0;
-      text-align: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      color: var(--text-muted);
-      letter-spacing: 0.15em;
-    }
-    @media (max-width: 768px) {
-      .act-block-with-photo {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      .profile-photo-wrap {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 16px;
-      }
-      .profile-photo { width: 140px; height: 140px; }
-    }
-
-  </style>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About — AbdouX</title>
-<style>
-    .about-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 100px; }
+  <title data-i18n-title="page_title">About — AbdouX</title>
+  <style>
+:root {
+  --bg-primary:#080808;--bg-secondary:#0f0f0f;--bg-card:#111111;--bg-card-hover:#161616;
+  --border:#1e1e1e;--border-bright:#2a2a2a;--text-primary:#f0f0f0;--text-secondary:#888;
+  --text-muted:#444;--accent:#e8ff47;--accent-dim:rgba(232,255,71,0.08);
+  --accent-glow:rgba(232,255,71,0.15);--violet:#9d6fff;--violet-dim:rgba(157,111,255,0.1);
+  --cyan:#00d4ff;--cyan-dim:rgba(0,212,255,0.08);--red:#ff4747;--green:#39ff84;
+  --font-display:'Syne',sans-serif;--font-mono:'Space Mono',monospace;
+  --font-arabic:'IBM Plex Sans Arabic',sans-serif;
+  --radius:4px;--radius-lg:8px;--transition:0.25s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"]{
+  --bg-primary:#f5f5f0;--bg-secondary:#ebebeb;--bg-card:#ffffff;--bg-card-hover:#f9f9f9;
+  --border:#e0e0e0;--border-bright:#cccccc;--text-primary:#0a0a0a;--text-secondary:#555;
+  --text-muted:#aaa;--accent:#1a1a00;--accent-dim:rgba(26,26,0,0.06);--accent-glow:rgba(26,26,0,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;cursor:none;}
+body{background:var(--bg-primary);color:var(--text-primary);font-family:var(--font-display);line-height:1.6;overflow-x:hidden;transition:background var(--transition),color var(--transition);}
+body[dir="rtl"]{font-family:var(--font-arabic);}
+.cursor{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference;}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(232,255,71,0.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg-primary);}::-webkit-scrollbar-thumb{background:var(--border-bright);}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:all var(--transition);backdrop-filter:blur(0px);}
+.navbar.scrolled{background:rgba(8,8,8,0.92);border-bottom-color:var(--border);backdrop-filter:blur(20px);}
+[data-theme="light"] .navbar.scrolled{background:rgba(245,245,240,0.92);}
+.nav-logo{font-family:var(--font-mono);font-size:13px;color:var(--text-primary);text-decoration:none;letter-spacing:0.1em;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;transition:color var(--transition);}
+.nav-links a:hover{color:var(--text-primary);}
+.nav-links a.active{color:var(--accent);}
+.nav-controls{display:flex;align-items:center;gap:8px;}
+.btn-control{background:transparent;border:1px solid var(--border);color:var(--text-secondary);font-family:var(--font-mono);font-size:10px;padding:6px 12px;border-radius:var(--radius);cursor:none;letter-spacing:0.1em;transition:all var(--transition);}
+.btn-control:hover{border-color:var(--accent);color:var(--accent);}
+.lang-switcher{display:flex;align-items:center;gap:4px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:4px;}
+.lang-btn{background:transparent;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:10px;padding:4px 8px;border-radius:2px;cursor:none;transition:all var(--transition);letter-spacing:0.05em;}
+.lang-btn.active{background:var(--accent);color:#000;}
+.lang-btn:hover:not(.active){color:var(--text-primary);}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:8px;background:transparent;border:none;}
+.nav-hamburger span{display:block;width:20px;height:1px;background:var(--text-primary);transition:all var(--transition);}
+.nav-mobile{display:none;position:fixed;inset:64px 0 0 0;background:var(--bg-primary);z-index:999;padding:40px;flex-direction:column;gap:24px;border-top:1px solid var(--border);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{font-family:var(--font-mono);font-size:14px;color:var(--text-secondary);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;padding:12px 0;border-bottom:1px solid var(--border);transition:color var(--transition);}
+.nav-mobile a:hover{color:var(--accent);}
+main{position:relative;z-index:1;}
+.section-label{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.section-label::before{content:'';display:inline-block;width:24px;height:1px;background:var(--accent);}
+[dir="rtl"] .section-label::before{order:1;}
+.section-title{font-size:clamp(36px,6vw,72px);font-weight:800;line-height:0.95;letter-spacing:-0.03em;}
+.footer-mono{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em;}
+.footer-mono span{color:var(--accent);}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
 
-    .timeline {
-      position: relative;
-      padding-left: 32px;
-      border-left: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      margin-top: 40px;
-    }
-    [dir="rtl"] .timeline {
-      padding-left: 0;
-      padding-right: 32px;
-      border-left: none;
-      border-right: 1px solid var(--border);
-    }
-    .timeline-item {
-      position: relative;
-    }
-    .timeline-dot {
-      position: absolute;
-      left: -38px;
-      top: 6px;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent-glow);
-    }
-    [dir="rtl"] .timeline-dot { left: auto; right: -38px; }
-    .timeline-year {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      margin-bottom: 6px;
-    }
-    .timeline-event {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .timeline-note {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
+/* ABOUT PAGE */
+.about-wrap{max-width:1200px;margin:0 auto;padding:0 40px 100px;}
+.act-block{padding:48px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:16px;position:relative;overflow:hidden;transition:all var(--transition);}
+.act-block:hover{border-color:var(--border-bright);}
+.act-block::before{content:attr(data-act);position:absolute;top:-20px;right:40px;font-size:160px;font-weight:800;color:var(--border);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.05em;}
+[dir="rtl"] .act-block::before{right:auto;left:40px;}
+.act-num{font-family:var(--font-mono);font-size:9px;color:var(--accent);letter-spacing:0.2em;margin-bottom:12px;}
+.act-heading{font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-0.03em;margin-bottom:16px;line-height:1.1;}
+.act-body{font-size:15px;color:var(--text-secondary);line-height:1.8;max-width:640px;position:relative;z-index:1;}
+.act-body strong{color:var(--text-primary);font-weight:600;}
 
-    .act-block {
-      padding: 48px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      margin-bottom: 16px;
-      position: relative;
-      overflow: hidden;
-      transition: all var(--transition);
-    }
-    .act-block:hover { border-color: var(--border-bright); }
-    .act-block::before {
-      content: attr(data-act);
-      position: absolute;
-      top: -20px; right: 40px;
-      font-size: 160px;
-      font-weight: 800;
-      color: var(--border);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.05em;
-    }
-    [dir="rtl"] .act-block::before { right: auto; left: 40px; }
-    .act-num {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      margin-bottom: 12px;
-    }
-    .act-heading {
-      font-size: clamp(24px, 4vw, 40px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-      line-height: 1.1;
-    }
-    .act-body {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      max-width: 640px;
-      position: relative;
-      z-index: 1;
-    }
-    .act-body strong { color: var(--text-primary); font-weight: 600; }
+/* PHOTO */
+.act-block-with-photo{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+[dir="rtl"] .act-block-with-photo{grid-template-columns:auto 1fr;}
+.profile-photo-wrap{flex-shrink:0;position:relative;z-index:1;}
+.profile-photo{width:180px;height:180px;border-radius:12px;object-fit:cover;object-position:center top;border:1px solid var(--border-bright);display:block;filter:grayscale(20%);transition:all 0.3s ease;}
+.profile-photo:hover{filter:grayscale(0%);border-color:var(--accent);box-shadow:0 0 32px var(--accent-glow),0 0 0 1px var(--accent);transform:translateY(-3px);}
+.profile-photo-wrap::before{content:'';position:absolute;inset:-6px;border:1px solid rgba(232,255,71,0.15);border-radius:16px;pointer-events:none;}
+.profile-photo-wrap::after{content:'AbdouX';position:absolute;bottom:-24px;left:0;right:0;text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--text-muted);letter-spacing:0.15em;}
 
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      margin-top: 40px;
-    }
-    .value-card {
-      padding: 20px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      transition: all var(--transition);
-    }
-    .value-card:hover { border-color: var(--accent); background: var(--accent-dim); }
-    .value-icon { font-size: 24px; margin-bottom: 10px; }
-    .value-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-    .value-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+/* VALUES */
+.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:40px;}
+.value-card{padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);transition:all var(--transition);}
+.value-card:hover{border-color:var(--accent);background:var(--accent-dim);}
+.value-icon{font-size:24px;margin-bottom:10px;}
+.value-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.value-text{font-size:12px;color:var(--text-secondary);line-height:1.5;}
 
-    @media (max-width: 768px) {
-      .about-wrap { padding: 0 20px 60px; }
-      .act-block { padding: 28px; }
-      .act-block::before { font-size: 80px; top: -10px; right: 20px; }
-    }
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:40px;margin-top:40px;}
+[dir="rtl"] .timeline{padding-left:0;padding-right:32px;border-left:none;border-right:1px solid var(--border);}
+.timeline-item{position:relative;}
+.timeline-dot{position:absolute;left:-38px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);}
+[dir="rtl"] .timeline-dot{left:auto;right:-38px;}
+.timeline-year{font-family:var(--font-mono);font-size:9px;color:var(--accent);letter-spacing:0.2em;margin-bottom:6px;}
+.timeline-event{font-size:16px;font-weight:600;margin-bottom:4px;}
+.timeline-note{font-size:13px;color:var(--text-secondary);line-height:1.6;}
+
+@media(max-width:768px){
+  .navbar{padding:0 20px;}.nav-links{display:none;}.nav-hamburger{display:flex;}
+  .about-wrap{padding:0 20px 60px;}
+  .act-block{padding:28px;}.act-block::before{font-size:80px;top:-10px;right:20px;}
+  .act-block-with-photo{grid-template-columns:1fr;gap:24px;}
+  [dir="rtl"] .act-block-with-photo{grid-template-columns:1fr;}
+  .profile-photo-wrap{display:flex;justify-content:center;margin-bottom:16px;}
+  .profile-photo{width:140px;height:140px;}
+  footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
+}
   </style>
 
 <script>
-// FILE:// SAFE NAVIGATION
 (function(){
-  var loc = window.location.href;
-  var isPages = loc.indexOf('/pages/') > -1;
-  var base = isPages ? '../' : '';
-  
-  // Map of page keys to filenames
-  var pages = {
-    'home':     base + 'index.html',
-    'projects': base + 'pages/projects.html',
-    'about':    base + 'pages/about.html',
-    'skills':   base + 'pages/skills.html',
-    'insights': base + 'pages/insights.html',
-    'contact':  base + 'pages/contact.html',
-  };
-  
-  window.goTo = function(page) {
-    if(pages[page]) window.location.href = pages[page];
-  };
-  
-  // After DOM ready, fix all nav links
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(pages[p]) {
-        el.href = pages[p];
-      }
-    });
-    
-    // Highlight active
-    var current = window.location.href.split('/').pop().replace('.html','') || 'index';
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(p === current || (current === 'index' && p === 'home')) {
-        el.classList.add('active');
-      }
-    });
+  var loc=window.location.href;
+  var isPages=loc.indexOf('/pages/')>-1;
+  var base=isPages?'../':'';
+  var pages={'home':base+'index.html','projects':base+'pages/projects.html','about':base+'pages/about.html','skills':base+'pages/skills.html','insights':base+'pages/insights.html','contact':base+'pages/contact.html'};
+  window.goTo=function(page){if(pages[page])window.location.href=pages[page];};
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(pages[p])el.href=pages[p];});
+    var current=window.location.href.split('/').pop().replace('.html','')||'index';
+    document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(p===current||(current==='index'&&p==='home'))el.classList.add('active');});
   });
 })();
 </script>
-
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <a href="#" data-page="home" class="nav-logo">ABDOU<span>X</span></a>
   <ul class="nav-links">
-    <li><a href="#" data-page="home" data-i18n="nav_home">Home</a></li>
+    <li><a href="#" data-page="home"     data-i18n="nav_home">Home</a></li>
     <li><a href="#" data-page="projects" data-i18n="nav_projects">Projects</a></li>
     <li><a href="#" data-page="about" class="active" data-i18n="nav_about">About</a></li>
-    <li><a href="#" data-page="skills" data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a></li>
     <li><a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a></li>
-    <li><a href="#" data-page="contact" data-i18n="nav_contact">Contact</a></li>
+    <li><a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="nav-controls">
     <div class="lang-switcher">
       <button class="lang-btn active" data-lang="en" onclick="switchLang('en')">EN</button>
       <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
-      <button class="lang-btn" data-lang="ar" onclick="switchLang('ar')">عر</button>
+      <button class="lang-btn" data-lang="ar" onclick="switchLang('ar')">AR</button>
     </div>
     <button class="btn-control btn-theme" onclick="toggleTheme()">DAY</button>
   </div>
   <button class="nav-hamburger"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile">
-  <a href="#" data-page="home">Home</a>
-  <a href="#" data-page="projects">Projects</a>
-  <a href="#" data-page="about">About</a>
-  <a href="#" data-page="skills">Skills</a>
-  <a href="#" data-page="insights">Thinking</a>
-  <a href="#" data-page="contact">Contact</a>
+  <a href="#" data-page="home"     data-i18n="nav_home">Home</a>
+  <a href="#" data-page="projects" data-i18n="nav_projects">Projects</a>
+  <a href="#" data-page="about"    data-i18n="nav_about">About</a>
+  <a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a>
+  <a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a>
+  <a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a>
 </div>
 
 <main>
-
-  <div style="max-width: 1200px; margin: 0 auto; padding: 140px 40px 60px;">
-    <div class="section-label">// The Person Behind the Systems</div>
+  <div style="max-width:1200px;margin:0 auto;padding:140px 40px 60px;">
+    <div class="section-label" data-i18n="page_label">// The Person Behind the Systems</div>
     <h1 class="section-title fade-up">
       Abdelkader<br>
-      <span style="color: var(--accent);">AbdouX</span>
+      <span style="color:var(--accent);">Mokhtari</span>
     </h1>
   </div>
 
   <div class="about-wrap">
 
-    <!-- THREE ACTS -->
+    <!-- ACT 01 -->
     <div class="act-block fade-up" data-act="I">
-      <div class="act-num">// ACT 01 — PRESENT</div>
-      <div class="act-heading">Who I am today</div>
+      <div class="act-num" data-i18n="act1_num">// ACT 01 — PRESENT</div>
+      <div class="act-heading" data-i18n="act1_heading">Who I am today</div>
       <div class="act-block-with-photo">
-        <div class="act-body">
-          I'm a <strong>Product Engineer and Founder</strong> based in Tlemcen, Algeria. I specialize in designing systems that solve real problems — not just shipping features. My work sits at the intersection of backend architecture, mobile engineering, and product thinking.<br><br>
+        <div class="act-body" data-i18n-html="act1_body">
+          I'm a <strong>Product Engineer and Founder</strong> based in Saida, Algeria. I specialize in designing systems that solve real problems — not just shipping features. My work sits at the intersection of backend architecture, mobile engineering, and product thinking.<br><br>
           My core stack is <strong>Laravel for backend APIs</strong>, <strong>Flutter for mobile</strong>, and Clean Architecture as a discipline across everything I build. When I take on a project, I'm not thinking about the next sprint — I'm thinking about what this system looks like at 10x scale.
         </div>
         <div class="profile-photo-wrap">
-          <img class="profile-photo" src="../images/abdelkader.jpg" alt="Abdelkader — AbdouX" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img class="profile-photo" src="../images/abdelkader.jpg" alt="Abdelkader — AbdouX"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div style="display:none;width:180px;height:180px;border-radius:12px;border:1px solid var(--border-bright);align-items:center;justify-content:center;flex-direction:column;gap:8px;background:var(--bg-card);">
             <span style="font-size:36px;">👤</span>
             <span style="font-family:'Space Mono',monospace;font-size:8px;color:var(--text-muted);letter-spacing:0.12em;text-align:center;">images/abdelkader.jpg</span>
@@ -1341,85 +191,87 @@ footer {
       </div>
     </div>
 
+    <!-- ACT 02 -->
     <div class="act-block fade-up" data-act="II">
-      <div class="act-num">// ACT 02 — JOURNEY</div>
-      <div class="act-heading">How I got here</div>
-      <div class="act-body">
+      <div class="act-num" data-i18n="act2_num">// ACT 02 — JOURNEY</div>
+      <div class="act-heading" data-i18n="act2_heading">How I got here</div>
+      <div class="act-body" data-i18n-html="act2_body">
         Self-taught in a market where the path isn't obvious. I started as most developers do — building things to learn. But somewhere along the way, I stopped asking "how do I build this feature" and started asking <strong>"why does this system need to exist, and how should it be designed to last?"</strong><br><br>
         Algeria gave me a particular kind of problem set — real infrastructure gaps, real operational challenges, real markets that global SaaS products ignore. That became my advantage. I learned to design for <strong>constraints that force creativity</strong>, not comfort that breeds mediocrity.<br><br>
         Now in my final year of a Computer Science degree, I'm not waiting to graduate before building — I've been building production systems the whole time.
       </div>
     </div>
 
-    <div class="act-block fade-up" data-act="III" style="border-color: rgba(0,212,255,0.2); background: linear-gradient(135deg, var(--bg-card), rgba(0,212,255,0.03));">
-      <div class="act-num" style="color: var(--cyan);">// ACT 03 — FUTURE</div>
-      <div class="act-heading">Where I'm going</div>
-      <div class="act-body">
+    <!-- ACT 03 -->
+    <div class="act-block fade-up" data-act="III" style="border-color:rgba(0,212,255,0.2);background:linear-gradient(135deg,var(--bg-card),rgba(0,212,255,0.03));">
+      <div class="act-num" style="color:var(--cyan);" data-i18n="act3_num">// ACT 03 — FUTURE</div>
+      <div class="act-heading" data-i18n="act3_heading">Where I'm going</div>
+      <div class="act-body" data-i18n-html="act3_body">
         The next chapter isn't just about building better software — it's about building <strong>infrastructure that changes how Algeria operates</strong>. Two domains are on my radar: Solar Energy management systems (because Algeria has enormous untapped solar potential and zero digital infrastructure to manage it), and AI-native productivity tools for Arabic-speaking knowledge workers.<br><br>
         I'm also considering a <strong>Master's in AI</strong> — not because I need a degree, but because I want to go deeper into the systems I'm building on top of. The combination of deep engineering skills and product vision is rare. That's the territory I'm claiming.
       </div>
     </div>
 
     <!-- VALUES -->
-    <div style="margin-top: 60px;" class="fade-up">
-      <div class="section-label">// What I Stand For</div>
+    <div style="margin-top:60px;" class="fade-up">
+      <div class="section-label" data-i18n="values_label">// What I Stand For</div>
       <div class="values-grid">
         <div class="value-card">
           <div class="value-icon">🏗️</div>
-          <div class="value-title">Systems over features</div>
-          <div class="value-text">Features are temporary. Architecture is permanent. I design for durability.</div>
+          <div class="value-title" data-i18n="val1_title">Systems over features</div>
+          <div class="value-text"  data-i18n="val1_text">Features are temporary. Architecture is permanent. I design for durability.</div>
         </div>
         <div class="value-card">
           <div class="value-icon">🎯</div>
-          <div class="value-title">Problems before solutions</div>
-          <div class="value-text">Every line of code should trace back to a real problem worth solving.</div>
+          <div class="value-title" data-i18n="val2_title">Problems before solutions</div>
+          <div class="value-text"  data-i18n="val2_text">Every line of code should trace back to a real problem worth solving.</div>
         </div>
         <div class="value-card">
           <div class="value-icon">🌍</div>
-          <div class="value-title">Local context, global quality</div>
-          <div class="value-text">Building for Algeria and the Arab world — at the standard of the best software anywhere.</div>
+          <div class="value-title" data-i18n="val3_title">Local context, global quality</div>
+          <div class="value-text"  data-i18n="val3_text">Building for Algeria and the Arab world — at the standard of the best software anywhere.</div>
         </div>
         <div class="value-card">
           <div class="value-icon">🔭</div>
-          <div class="value-title">Long-term thinking</div>
-          <div class="value-text">I'm not optimizing for the next freelance project. I'm building toward something bigger.</div>
+          <div class="value-title" data-i18n="val4_title">Long-term thinking</div>
+          <div class="value-text"  data-i18n="val4_text">I'm not optimizing for the next freelance project. I'm building toward something bigger.</div>
         </div>
       </div>
     </div>
 
     <!-- TIMELINE -->
-    <div style="margin-top: 80px;" class="fade-up">
-      <div class="section-label">// Journey Timeline</div>
+    <div style="margin-top:80px;" class="fade-up">
+      <div class="section-label" data-i18n="timeline_label">// Journey Timeline</div>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2020</div>
-          <div class="timeline-event">First line of code</div>
-          <div class="timeline-note">Started programming. Immediately knew this was more than a career — it was a way of thinking.</div>
+          <div class="timeline-event" data-i18n="tl1_event">First line of code</div>
+          <div class="timeline-note"  data-i18n="tl1_note">Started programming. Immediately knew this was more than a career — it was a way of thinking.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2021–2022</div>
-          <div class="timeline-event">Mastering the stack</div>
-          <div class="timeline-note">Deep dives into Laravel and Flutter. First production projects. Learning what breaks at scale.</div>
+          <div class="timeline-event" data-i18n="tl2_event">Mastering the stack</div>
+          <div class="timeline-note"  data-i18n="tl2_note">Deep dives into Laravel and Flutter. First production projects. Learning what breaks at scale.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2023</div>
-          <div class="timeline-event">The architecture shift</div>
-          <div class="timeline-note">Discovered Clean Architecture and DDD. Stopped thinking in files, started thinking in domains.</div>
+          <div class="timeline-event" data-i18n="tl3_event">The architecture shift</div>
+          <div class="timeline-note"  data-i18n="tl3_note">Discovered Clean Architecture and DDD. Stopped thinking in files, started thinking in domains.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2024</div>
-          <div class="timeline-event">Systems at scale</div>
-          <div class="timeline-note">Built complex multi-tier ecosystems — waste management, LMS with Stripe, AI tools. Defined my identity as a System Architect.</div>
+          <div class="timeline-event" data-i18n="tl4_event">Systems at scale</div>
+          <div class="timeline-note"  data-i18n="tl4_note">Built complex multi-tier ecosystems — waste management, LMS with Stripe, AI tools. Defined my identity as a System Architect.</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-dot" style="background: var(--cyan); box-shadow: 0 0 10px rgba(0,212,255,0.4);"></div>
-          <div class="timeline-year" style="color: var(--cyan);">2025 →</div>
-          <div class="timeline-event">Building the next chapter</div>
-          <div class="timeline-note">MindPilot in public. Exploring Solar SaaS. Considering AI master's. Building products that last.</div>
+          <div class="timeline-dot" style="background:var(--cyan);box-shadow:0 0 10px rgba(0,212,255,0.4);"></div>
+          <div class="timeline-year" style="color:var(--cyan);">2025 →</div>
+          <div class="timeline-event" data-i18n="tl5_event">Building the next chapter</div>
+          <div class="timeline-note"  data-i18n="tl5_note">MindPilot in public. Exploring Solar SaaS. Considering AI master's. Building products that last.</div>
         </div>
       </div>
     </div>
@@ -1427,109 +279,116 @@ footer {
   </div>
 </main>
 
-<div style="border-top: 1px solid var(--border);">
+<div style="border-top:1px solid var(--border);">
   <footer>
-    <div class="footer-mono">ABDOU<span>X</span> — Tlemcen, Algeria</div>
+    <div class="footer-mono">ABDOU<span>X</span> — Saida, Algeria</div>
     <div class="footer-mono">
-      <a href="#" data-page="contact" style="color: var(--accent); text-decoration: none; letter-spacing: 0.1em;">Let's build something →</a>
+      <a href="#" data-page="contact" style="color:var(--accent);text-decoration:none;letter-spacing:0.1em;" data-i18n="footer_cta">Let's build something →</a>
     </div>
   </footer>
 </div>
+
 <script>
-// =====================
-// PORTFOLIO — MAIN JS
-// AbdouX — System Architect
-// =====================
-
 const Portfolio = {
+  state: { theme: 'dark', lang: 'en', menuOpen: false },
 
-  // ─── STATE ───────────────────────────────────────
-  state: {
-    theme: 'dark',
-    lang: 'en',
-    menuOpen: false,
-  },
-
-  // ─── TRANSLATIONS ────────────────────────────────
   i18n: {
     en: {
-      nav_home: 'Home',
-      nav_projects: 'Projects',
-      nav_about: 'About',
-      nav_skills: 'Skills',
-      nav_insights: 'Thinking',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Product Engineer & Founder — Algeria',
-      hero_h1_1: "I don't build",
-      hero_h1_2: 'apps.',
-      hero_h1_3: 'I architect',
-      hero_h1_4: 'systems.',
-      hero_sub: 'Designing scalable ecosystems for the Arab world\'s most complex infrastructure challenges — from urban logistics to AI-powered productivity.',
-      hero_cta1: 'View Systems',
-      hero_cta2: 'Start a Project',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Ecosystems Built',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Active Products',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Scale Mindset',
-      hero_status: 'Available for strategic projects',
-      theme_day: 'DAY',
-      theme_night: 'NIGHT',
+      // NAV
+      nav_home:'Home', nav_projects:'Projects', nav_about:'About',
+      nav_skills:'Skills', nav_insights:'Thinking', nav_contact:'Contact',
+      theme_day:'DAY', theme_night:'NIGHT',
+      // PAGE
+      page_title:'About — AbdouX',
+      page_label:'// The Person Behind the Systems',
+      // ACT 01
+      act1_num:'// ACT 01 — PRESENT',
+      act1_heading:'Who I am today',
+      act1_body:`I'm a <strong>Product Engineer and Founder</strong> based in Saida, Algeria. I specialize in designing systems that solve real problems — not just shipping features. My work sits at the intersection of backend architecture, mobile engineering, and product thinking.<br><br>My core stack is <strong>Laravel for backend APIs</strong>, <strong>Flutter for mobile</strong>, and Clean Architecture as a discipline across everything I build. When I take on a project, I'm not thinking about the next sprint — I'm thinking about what this system looks like at 10x scale.`,
+      // ACT 02
+      act2_num:'// ACT 02 — JOURNEY',
+      act2_heading:'How I got here',
+      act2_body:`Self-taught in a market where the path isn't obvious. I started as most developers do — building things to learn. But somewhere along the way, I stopped asking "how do I build this feature" and started asking <strong>"why does this system need to exist, and how should it be designed to last?"</strong><br><br>Algeria gave me a particular kind of problem set — real infrastructure gaps, real operational challenges, real markets that global SaaS products ignore. That became my advantage. I learned to design for <strong>constraints that force creativity</strong>, not comfort that breeds mediocrity.<br><br>Now in my final year of a Computer Science degree, I'm not waiting to graduate before building — I've been building production systems the whole time.`,
+      // ACT 03
+      act3_num:'// ACT 03 — FUTURE',
+      act3_heading:"Where I'm going",
+      act3_body:`The next chapter isn't just about building better software — it's about building <strong>infrastructure that changes how Algeria operates</strong>. Two domains are on my radar: Solar Energy management systems (because Algeria has enormous untapped solar potential and zero digital infrastructure to manage it), and AI-native productivity tools for Arabic-speaking knowledge workers.<br><br>I'm also considering a <strong>Master's in AI</strong> — not because I need a degree, but because I want to go deeper into the systems I'm building on top of. The combination of deep engineering skills and product vision is rare. That's the territory I'm claiming.`,
+      // VALUES
+      values_label:'// What I Stand For',
+      val1_title:'Systems over features',  val1_text:'Features are temporary. Architecture is permanent. I design for durability.',
+      val2_title:'Problems before solutions', val2_text:'Every line of code should trace back to a real problem worth solving.',
+      val3_title:'Local context, global quality', val3_text:'Building for Algeria and the Arab world — at the standard of the best software anywhere.',
+      val4_title:'Long-term thinking', val4_text:"I'm not optimizing for the next freelance project. I'm building toward something bigger.",
+      // TIMELINE
+      timeline_label:'// Journey Timeline',
+      tl1_event:'First line of code', tl1_note:'Started programming. Immediately knew this was more than a career — it was a way of thinking.',
+      tl2_event:'Mastering the stack', tl2_note:'Deep dives into Laravel and Flutter. First production projects. Learning what breaks at scale.',
+      tl3_event:'The architecture shift', tl3_note:'Discovered Clean Architecture and DDD. Stopped thinking in files, started thinking in domains.',
+      tl4_event:'Systems at scale', tl4_note:'Built complex multi-tier ecosystems — waste management, LMS with Stripe, AI tools. Defined my identity as a System Architect.',
+      tl5_event:'Building the next chapter', tl5_note:"MindPilot in public. Exploring Solar SaaS. Considering AI master's. Building products that last.",
+      // FOOTER
+      footer_cta:'Let\'s build something →',
     },
+
     fr: {
-      nav_home: 'Accueil',
-      nav_projects: 'Projets',
-      nav_about: 'À propos',
-      nav_skills: 'Compétences',
-      nav_insights: 'Réflexions',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Ingénieur Produit & Fondateur — Algérie',
-      hero_h1_1: "Je ne code pas",
-      hero_h1_2: "des apps.",
-      hero_h1_3: "Je conçois des",
-      hero_h1_4: "systèmes.",
-      hero_sub: 'Concevoir des solutions scalables pour les défis infrastructurels complexes du monde arabe — de la logistique urbaine à la productivité IA.',
-      hero_cta1: 'Voir les systèmes',
-      hero_cta2: 'Démarrer un projet',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Écosystèmes construits',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Produits actifs',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Vision scalable',
-      hero_status: 'Disponible pour projets stratégiques',
-      theme_day: 'JOUR',
-      theme_night: 'NUIT',
+      nav_home:'Accueil', nav_projects:'Projets', nav_about:'À propos',
+      nav_skills:'Compétences', nav_insights:'Réflexions', nav_contact:'Contact',
+      theme_day:'JOUR', theme_night:'NUIT',
+      page_title:'À propos — AbdouX',
+      page_label:'// La personne derrière les systèmes',
+      act1_num:'// ACTE 01 — PRÉSENT',
+      act1_heading:"Qui je suis aujourd'hui",
+      act1_body:`Je suis un <strong>Ingénieur Produit et Fondateur</strong> basé à Saida, Algérie. Je me spécialise dans la conception de systèmes qui résolvent de vrais problèmes — pas seulement livrer des fonctionnalités. Mon travail se situe à l'intersection de l'architecture backend, de l'ingénierie mobile et de la pensée produit.<br><br>Ma stack principale : <strong>Laravel pour les APIs backend</strong>, <strong>Flutter pour le mobile</strong>, et la Clean Architecture comme discipline dans tout ce que je construis. Quand je prends un projet, je ne pense pas au prochain sprint — je pense à ce que ce système ressemblera à 10x sa taille actuelle.`,
+      act2_num:'// ACTE 02 — PARCOURS',
+      act2_heading:"Comment j'en suis arrivé là",
+      act2_body:`Autodidacte dans un marché où la voie n'est pas évidente. J'ai commencé comme la plupart des développeurs — en construisant pour apprendre. Mais en chemin, j'ai arrêté de me demander "comment construire cette fonctionnalité" et j'ai commencé à me demander <strong>"pourquoi ce système doit-il exister, et comment doit-il être conçu pour durer ?"</strong><br><br>L'Algérie m'a donné un ensemble de problèmes particuliers — de vrais manques d'infrastructure, de vrais défis opérationnels, de vrais marchés que les produits SaaS mondiaux ignorent. C'est devenu mon avantage. J'ai appris à concevoir pour des <strong>contraintes qui forcent la créativité</strong>, pas pour le confort qui engendre la médiocrité.<br><br>En dernière année de licence en informatique, je n'attends pas de diplôme avant de construire — j'ai construit des systèmes en production tout ce temps.`,
+      act3_num:'// ACTE 03 — FUTUR',
+      act3_heading:"Où je vais",
+      act3_body:`Le prochain chapitre ne concerne pas seulement la construction de meilleurs logiciels — il s'agit de construire une <strong>infrastructure qui change le fonctionnement de l'Algérie</strong>. Deux domaines sont dans mon radar : les systèmes de gestion d'énergie solaire (car l'Algérie a un énorme potentiel solaire inexploité et zéro infrastructure numérique pour le gérer), et des outils de productivité natifs à l'IA pour les travailleurs du savoir arabophones.<br><br>J'envisage également un <strong>Master en IA</strong> — non pas parce que j'ai besoin d'un diplôme, mais parce que je veux aller plus loin dans les systèmes sur lesquels je construis. La combinaison de compétences d'ingénierie profondes et de vision produit est rare. C'est le territoire que je revendique.`,
+      values_label:'// Ce pour quoi je me bats',
+      val1_title:'Systèmes avant les features', val1_text:'Les features sont temporaires. L\'architecture est permanente. Je conçois pour la durabilité.',
+      val2_title:'Problèmes avant solutions', val2_text:'Chaque ligne de code doit remonter à un vrai problème qui mérite d\'être résolu.',
+      val3_title:'Contexte local, qualité mondiale', val3_text:'Construire pour l\'Algérie et le monde arabe — au niveau des meilleurs logiciels partout.',
+      val4_title:'Pensée long terme', val4_text:"Je n'optimise pas pour le prochain projet freelance. Je construis vers quelque chose de plus grand.",
+      timeline_label:'// Chronologie du parcours',
+      tl1_event:'Première ligne de code', tl1_note:'Début de la programmation. J\'ai immédiatement su que c\'était plus qu\'une carrière — c\'était une façon de penser.',
+      tl2_event:'Maîtrise de la stack', tl2_note:'Plongées profondes dans Laravel et Flutter. Premiers projets en production. Apprendre ce qui casse à grande échelle.',
+      tl3_event:'Le virage architecture', tl3_note:'Découverte de la Clean Architecture et DDD. Arrêté de penser en fichiers, commencé à penser en domaines.',
+      tl4_event:'Systèmes à grande échelle', tl4_note:'Construit des écosystèmes multi-niveaux complexes — gestion des déchets, LMS avec Stripe, outils IA. Défini mon identité d\'Architecte Système.',
+      tl5_event:'Construction du prochain chapitre', tl5_note:'MindPilot en public. Exploration du Solar SaaS. Envisage un master en IA. Construction de produits durables.',
+      footer_cta:'Construisons quelque chose →',
     },
+
     ar: {
-      nav_home: 'الرئيسية',
-      nav_projects: 'المشاريع',
-      nav_about: 'عني',
-      nav_skills: 'المهارات',
-      nav_insights: 'أفكاري',
-      nav_contact: 'تواصل',
-      hero_eyebrow: 'مهندس منتجات ومؤسس — الجزائر',
-      hero_h1_1: 'أنا لا أبني',
-      hero_h1_2: 'تطبيقات.',
-      hero_h1_3: 'أنا أُصمِّم',
-      hero_h1_4: 'أنظمة.',
-      hero_sub: 'أحوّل التحديات المعقدة إلى بنى رقمية قابلة للتوسع — من إدارة المدن إلى الذكاء الاصطناعي.',
-      hero_cta1: 'استعرض الأنظمة',
-      hero_cta2: 'ابدأ مشروعاً',
-      hero_stat1_num: '+4',
-      hero_stat1_label: 'منظومات مبنية',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'منتجات نشطة',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'تفكير قابل للتوسع',
-      hero_status: 'متاح للمشاريع الاستراتيجية',
-      theme_day: 'نهار',
-      theme_night: 'ليل',
+      nav_home:'الرئيسية', nav_projects:'المشاريع', nav_about:'عني',
+      nav_skills:'المهارات', nav_insights:'أفكاري', nav_contact:'تواصل',
+      theme_day:'نهار', theme_night:'ليل',
+      page_title:'عني — AbdouX',
+      page_label:'// الشخص خلف الأنظمة',
+      act1_num:'// الفصل الأول — الحاضر',
+      act1_heading:'من أنا اليوم',
+      act1_body:`أنا <strong>مهندس منتجات ومؤسس</strong> مقيم في سعيدة الجزائر. أتخصص في تصميم الأنظمة التي تحل مشاكل حقيقية — لا مجرد إرسال ميزات. عملي يقع عند تقاطع هندسة الخوادم، وهندسة الموبايل، والتفكير المنتجي.<br><br>مجموعة أدواتي الأساسية: <strong>Laravel لواجهات API الخلفية</strong>، و<strong>Flutter للموبايل</strong>، والـ Clean Architecture كمنهج في كل ما أبنيه. حين أتولى مشروعاً، لا أفكر في السبرينت القادم — أفكر في كيف سيبدو هذا النظام عند مضاعفة حجمه عشر مرات.`,
+      act2_num:'// الفصل الثاني — الرحلة',
+      act2_heading:'كيف وصلت إلى هنا',
+      act2_body:`معلّم نفسه في سوق لا تكون فيه الطريق واضحة. بدأت كمعظم المطورين — أبني لأتعلم. لكن في مكان ما على الطريق، توقفت عن السؤال "كيف أبني هذه الميزة" وبدأت أسأل <strong>"لماذا يجب أن يوجد هذا النظام، وكيف ينبغي تصميمه ليدوم؟"</strong><br><br>الجزائر أعطتني مجموعة مشكلات خاصة — ثغرات بنية تحتية حقيقية، تحديات تشغيلية حقيقية، أسواق حقيقية تتجاهلها منتجات SaaS العالمية. هذا أصبح ميزتي. تعلمت التصميم تحت <strong>قيود تفرض الإبداع</strong>، لا الراحة التي تولّد التواضع.<br><br>في سنتي الأخيرة من درجة البكالوريوس في علوم الحاسوب، لا أنتظر التخرج لأبدأ البناء — كنت أبني أنظمة إنتاجية طوال هذا الوقت.`,
+      act3_num:'// الفصل الثالث — المستقبل',
+      act3_heading:'أين أتجه',
+      act3_body:`الفصل القادم لا يتعلق فقط ببناء برمجيات أفضل — بل ببناء <strong>بنية تحتية تغيّر طريقة عمل الجزائر</strong>. مجالان في رادار تفكيري: أنظمة إدارة الطاقة الشمسية (لأن الجزائر لديها إمكانات شمسية هائلة غير مستغلة وصفر بنية تحتية رقمية لإدارتها)، وأدوات إنتاجية أصيلة بالذكاء الاصطناعي لموظفي المعرفة الناطقين بالعربية.<br><br>أفكر أيضاً في <strong>ماجستير في الذكاء الاصطناعي</strong> — ليس لأنني أحتاج شهادة، بل لأنني أريد التعمق أكثر في الأنظمة التي أبني فوقها. الجمع بين مهارات هندسية عميقة ورؤية منتجية نادر. هذه هي الأرض التي أطالب بها.`,
+      values_label:'// ما أؤمن به',
+      val1_title:'الأنظمة فوق الميزات', val1_text:'الميزات مؤقتة. البنية دائمة. أصمم للمتانة.',
+      val2_title:'المشاكل قبل الحلول', val2_text:'كل سطر كود يجب أن يعود إلى مشكلة حقيقية تستحق الحل.',
+      val3_title:'سياق محلي، جودة عالمية', val3_text:'أبني للجزائر والعالم العربي — بمستوى أفضل البرمجيات في أي مكان.',
+      val4_title:'التفكير بعيد المدى', val4_text:'لا أُحسّن لمشروع فريلانس قادم. أبني نحو شيء أكبر.',
+      timeline_label:'// خط زمني للرحلة',
+      tl1_event:'أول سطر كود', tl1_note:'بدأت البرمجة. عرفت فوراً أن هذا أكثر من مجرد مهنة — إنه طريقة تفكير.',
+      tl2_event:'إتقان المجموعة التقنية', tl2_note:'غوص عميق في Laravel وFlutter. أولى مشاريع الإنتاج. تعلم ما ينكسر عند التوسع.',
+      tl3_event:'تحول نحو البنية المعمارية', tl3_note:'اكتشاف Clean Architecture وDDD. توقفت عن التفكير في الملفات، وبدأت التفكير في النطاقات.',
+      tl4_event:'أنظمة على نطاق واسع', tl4_note:'بناء منظومات متعددة الطبقات المعقدة — إدارة النفايات، LMS مع Stripe، أدوات ذكاء اصطناعي. حددت هويتي كمهندس أنظمة.',
+      tl5_event:'بناء الفصل القادم', tl5_note:'MindPilot أمام الجمهور. استكشاف Solar SaaS. التفكير في ماجستير ذكاء اصطناعي. بناء منتجات تدوم.',
+      footer_cta:'لنبني شيئاً معاً →',
     }
   },
 
-  // ─── INIT ─────────────────────────────────────────
   init() {
     this.detectLanguage();
     this.initCursor();
@@ -1540,93 +399,37 @@ const Portfolio = {
     this.initMobileMenu();
   },
 
-  // ─── LANGUAGE DETECTION ──────────────────────────
   detectLanguage() {
-    const browserLang = navigator.language || navigator.userLanguage;
     const saved = localStorage.getItem('portfolio_lang');
-    if (saved) {
-      this.state.lang = saved;
-    } else if (browserLang.startsWith('ar')) {
-      this.state.lang = 'ar';
-    } else if (browserLang.startsWith('fr')) {
-      this.state.lang = 'fr';
-    } else {
-      this.state.lang = 'en';
-    }
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (saved) this.state.lang = saved;
+    else if (browserLang.startsWith('ar')) this.state.lang = 'ar';
+    else if (browserLang.startsWith('fr')) this.state.lang = 'fr';
+    else this.state.lang = 'en';
   },
 
-  // ─── CURSOR ──────────────────────────────────────
   initCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor';
-    const ring = document.createElement('div');
-    ring.className = 'cursor-ring';
-    document.body.appendChild(cursor);
-    document.body.appendChild(ring);
-
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
-
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animate);
-    };
-    animate();
-
-    document.querySelectorAll('a, button, .bento-card, .project-card, .skill-item, .act, .insight-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '48px';
-        ring.style.height = '48px';
-        ring.style.borderColor = 'rgba(232,255,71,0.6)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '8px';
-        cursor.style.height = '8px';
-        ring.style.width = '32px';
-        ring.style.height = '32px';
-        ring.style.borderColor = 'rgba(232,255,71,0.4)';
-      });
+    const cursor = document.createElement('div'); cursor.className = 'cursor';
+    const ring   = document.createElement('div'); ring.className   = 'cursor-ring';
+    document.body.appendChild(cursor); document.body.appendChild(ring);
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+    const anim=()=>{rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);};
+    anim();
+    document.querySelectorAll('a,button,.value-card,.act-block').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='rgba(232,255,71,0.6)';});
+      el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(232,255,71,0.4)';});
     });
   },
 
-  // ─── NAVBAR ──────────────────────────────────────
   initNavbar() {
     const navbar = document.querySelector('.navbar');
     if (!navbar) return;
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Active link
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      const href = a.getAttribute('href');
-      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-        a.classList.add('active');
-      }
-    });
+    window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled', window.scrollY>20));
   },
 
-  // ─── THEME ───────────────────────────────────────
   initTheme() {
-    const saved = localStorage.getItem('portfolio_theme') || 'dark';
-    this.setTheme(saved);
+    this.setTheme(localStorage.getItem('portfolio_theme') || 'dark');
   },
 
   setTheme(theme) {
@@ -1634,95 +437,61 @@ const Portfolio = {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('portfolio_theme', theme);
     const btn = document.querySelector('.btn-theme');
-    if (btn) {
-      const t = this.i18n[this.state.lang];
-      btn.textContent = theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
+    if (btn) { const t=this.i18n[this.state.lang]; btn.textContent = theme==='dark'?(t.theme_day||'DAY'):(t.theme_night||'NIGHT'); }
   },
 
-  toggleTheme() {
-    this.setTheme(this.state.theme === 'dark' ? 'light' : 'dark');
-  },
-
-  // ─── LANGUAGE ────────────────────────────────────
-  initLang() {
-    this.applyLang(this.state.lang);
-  },
+  toggleTheme() { this.setTheme(this.state.theme==='dark'?'light':'dark'); },
 
   applyLang(lang) {
     this.state.lang = lang;
     localStorage.setItem('portfolio_lang', lang);
     const t = this.i18n[lang];
-
-    // Direction
     const isRTL = lang === 'ar';
-    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('dir', isRTL?'rtl':'ltr');
+    document.body.setAttribute('dir', isRTL?'rtl':'ltr');
 
-    // Translate elements
-    document.querySelectorAll('[data-i18n]').forEach(el => {
+    // Simple text keys
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
       const key = el.getAttribute('data-i18n');
-      if (t[key]) el.textContent = t[key];
+      if (t[key] !== undefined) el.textContent = t[key];
     });
 
-    // Active lang btn
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    // HTML keys (act bodies with <strong> and <br>)
+    document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
     });
 
-    // Update theme button text
+    // Page title
+    if (t.page_title) document.title = t.page_title;
+
+    document.querySelectorAll('.lang-btn').forEach(btn=>btn.classList.toggle('active', btn.getAttribute('data-lang')===lang));
     const themeBtn = document.querySelector('.btn-theme');
-    if (themeBtn) {
-      themeBtn.textContent = this.state.theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
+    if (themeBtn) themeBtn.textContent = this.state.theme==='dark'?(t.theme_day||'DAY'):(t.theme_night||'NIGHT');
   },
 
-  switchLang(lang) {
-    this.applyLang(lang);
-  },
+  initLang()  { this.applyLang(this.state.lang); },
+  switchLang(lang) { this.applyLang(lang); },
 
-  // ─── ANIMATIONS ──────────────────────────────────
   initAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*80); });
+    },{threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
   },
 
-  // ─── MOBILE MENU ─────────────────────────────────
   initMobileMenu() {
-    const hamburger = document.querySelector('.nav-hamburger');
-    const mobileNav = document.querySelector('.nav-mobile');
-    if (!hamburger || !mobileNav) return;
-
-    hamburger.addEventListener('click', () => {
-      this.state.menuOpen = !this.state.menuOpen;
-      mobileNav.classList.toggle('open', this.state.menuOpen);
-    });
-
-    document.querySelectorAll('.nav-mobile a').forEach(a => {
-      a.addEventListener('click', () => {
-        this.state.menuOpen = false;
-        mobileNav.classList.remove('open');
-      });
-    });
+    const h = document.querySelector('.nav-hamburger');
+    const m = document.querySelector('.nav-mobile');
+    if (!h||!m) return;
+    h.addEventListener('click',()=>{ this.state.menuOpen=!this.state.menuOpen; m.classList.toggle('open',this.state.menuOpen); });
+    document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>{ this.state.menuOpen=false; m.classList.remove('open'); }));
   },
 };
 
-// ─── GLOBAL HANDLERS ─────────────────────────────
 window.toggleTheme = () => Portfolio.toggleTheme();
-window.switchLang = (l) => Portfolio.switchLang(l);
-
-// ─── START ───────────────────────────────────────
+window.switchLang  = (l) => Portfolio.switchLang(l);
 document.addEventListener('DOMContentLoaded', () => Portfolio.init());
-
 </script>
 </body>
 </html>
