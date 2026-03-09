@@ -1222,6 +1222,99 @@ footer {
       .featured-post { padding: 28px; }
       .newsletter-block { padding: 28px; gap: 24px; }
     }
+
+    /* FOLLOW CTA BAR */
+    .follow-cta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      margin-bottom: 24px;
+      transition: all var(--transition);
+    }
+    [dir="rtl"] .follow-cta-bar { border-left: 1px solid var(--border); border-right: 3px solid var(--accent); }
+    .follow-cta-bar:hover { border-color: var(--border-bright); border-left-color: var(--accent); }
+    [dir="rtl"] .follow-cta-bar:hover { border-right-color: var(--accent); }
+
+    .follow-cta-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .follow-cta-pulse {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .follow-pulse-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.3;
+      animation: follow-pulse 1.8s ease-in-out infinite;
+    }
+    .follow-pulse-dot:nth-child(1) { animation-delay: 0s; opacity: 1; }
+    .follow-pulse-dot:nth-child(2) { animation-delay: 0.3s; opacity: 0.6; }
+    .follow-pulse-dot:nth-child(3) { animation-delay: 0.6s; opacity: 0.3; }
+    @keyframes follow-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+    .follow-cta-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 3px;
+    }
+    .follow-cta-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+    .follow-cta-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 9px 16px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: none;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .follow-btn:hover { transform: translateY(-2px); }
+    .follow-btn-linkedin:hover { border-color: #0a66c2; color: #0a66c2; background: rgba(10,102,194,0.06); }
+    .follow-btn-github:hover { border-color: var(--text-secondary); color: var(--text-primary); background: rgba(240,240,240,0.05); }
+    .follow-btn-newsletter { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+    .follow-btn-newsletter:hover { background: var(--text-primary); border-color: var(--text-primary); box-shadow: 0 4px 20px var(--accent-glow); }
+    .follow-btn-all { border-color: var(--border-bright); color: var(--text-primary); }
+    .follow-btn-all:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+    @media (max-width: 600px) {
+      .follow-cta-bar { flex-direction: column; align-items: flex-start; }
+      .follow-cta-right { width: 100%; }
+      .follow-btn { flex: 1; justify-content: center; }
+    }
   </style>
 <script>
 (function(){var loc=window.location.href,isP=loc.indexOf('/pages/')>-1,base=isP?'../':'';var pages={home:base+'index.html',projects:base+'pages/projects.html',about:base+'pages/about.html',skills:base+'pages/skills.html',insights:base+'pages/insights.html',contact:base+'pages/contact.html'};window.goTo=function(p){if(pages[p])window.location.href=pages[p];};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(pages[p])el.href=pages[p];});var cur=window.location.href.split('/').pop().replace('.html','')||'index';document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(p===cur||(cur==='index'&&p==='home'))el.classList.add('active');});});})();
@@ -1285,7 +1378,40 @@ footer {
         <span class="post-category-tag" data-i18n="p1_cat1">Identity</span>
         <span class="post-category-tag" data-i18n="p1_cat2">Systems</span>
         <span class="post-read-time" data-i18n="p1_time">6 min read</span>
-        <a href="#" class="card-link" style="margin-top:0;" data-i18n="read_essay">Read Essay →</a>
+        <a href="post-developer-to-architect.html" class="card-link" style="margin-top:0;" data-i18n="read_essay">Read Essay →</a>
+      </div>
+    </div>
+
+    <!-- Follow CTA Bar -->
+    <div class="follow-cta-bar fade-up">
+      <div class="follow-cta-left">
+        <div class="follow-cta-pulse">
+          <span class="follow-pulse-dot"></span>
+          <span class="follow-pulse-dot"></span>
+          <span class="follow-pulse-dot"></span>
+        </div>
+        <div>
+          <div class="follow-cta-title" data-i18n="follow_title">تابع المقالات الجديدة</div>
+          <div class="follow-cta-sub" data-i18n="follow_sub">مقال جديد كل أسبوعين — أنظمة، هوية، بناء</div>
+        </div>
+      </div>
+      <div class="follow-cta-right">
+        <a href="https://linkedin.com/in/abdoux" target="_blank" class="follow-btn follow-btn-linkedin">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span data-i18n="follow_linkedin">LinkedIn</span>
+        </a>
+        <a href="https://github.com/abdoux" target="_blank" class="follow-btn follow-btn-github">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          <span data-i18n="follow_github">GitHub</span>
+        </a>
+        <button class="follow-btn follow-btn-newsletter" onclick="document.querySelector('.newsletter-block').scrollIntoView({behavior:'smooth'})">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span data-i18n="follow_newsletter">النشرة البريدية</span>
+        </button>
+        <a href="all-articles.html" class="follow-btn follow-btn-all">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <span data-i18n="follow_all">جميع المقالات</span>
+        </a>
       </div>
     </div>
 
@@ -1397,6 +1523,7 @@ const Portfolio={
       p5_cat:'AI',p5_date:'March 2025',p5_title:"MindPilot: what I've learned building an AI product in public",p5_excerpt:'Six months of building in public. Here\'s what shipping in the open taught me about product design, user feedback, and the gap between "AI feature" and "AI product."',p5_tag:'Building in Public',p5_time:'8 min read',
       next_label:'NEXT ESSAY',coming_soon:'Coming soon...',coming_topic:'Solar energy & digital infrastructure',
       newsletter_title:'Get the thinking first',newsletter_sub:"Essays on systems, product architecture, and building from Algeria — delivered before they're public.",newsletter_placeholder:'your@email.com',newsletter_btn:'Subscribe',
+      follow_title:'Follow new essays',follow_sub:'New essay every two weeks — systems, identity, building',follow_linkedin:'LinkedIn',follow_github:'GitHub',follow_newsletter:'Newsletter',follow_all:'All Articles',
       footer_role:'System Architect',footer_cta:"Have a complex problem? Let's talk →",
     },
     fr:{
@@ -1415,6 +1542,7 @@ const Portfolio={
       p5_cat:'IA',p5_date:'Mars 2025',p5_title:'MindPilot : ce que j\'ai appris en construisant un produit IA en public',p5_excerpt:'Six mois de construction en public. Voici ce que livrer ouvertement m\'a appris sur le design produit, les retours utilisateurs, et l\'écart entre "fonctionnalité IA" et "produit IA".',p5_tag:'Construction en Public',p5_time:'8 min de lecture',
       next_label:'PROCHAIN ESSAI',coming_soon:'Bientôt...',coming_topic:'Énergie solaire & infrastructure numérique',
       newsletter_title:'Recevez les réflexions en avant-première',newsletter_sub:"Essais sur les systèmes, l'architecture produit et construire depuis l'Algérie — livrés avant leur publication.",newsletter_placeholder:'votre@email.com',newsletter_btn:"S'abonner",
+      follow_title:'Suivre les nouveaux essais',follow_sub:'Nouvel essai toutes les deux semaines — systèmes, identité, construction',follow_linkedin:'LinkedIn',follow_github:'GitHub',follow_newsletter:'Newsletter',follow_all:'Tous les articles',
       footer_role:'Architecte Système',footer_cta:'Un problème complexe ? Parlons-en →',
     },
     ar:{
@@ -1433,6 +1561,7 @@ const Portfolio={
       p5_cat:'ذكاء اصطناعي',p5_date:'مارس 2025',p5_title:'MindPilot: ما تعلمته من بناء منتج ذكاء اصطناعي أمام الجمهور',p5_excerpt:'ستة أشهر من البناء العلني. إليك ما علّمني الشحن في الخارج عن تصميم المنتج وملاحظات المستخدم والفجوة بين "ميزة الذكاء الاصطناعي" و"منتج الذكاء الاصطناعي".',p5_tag:'البناء أمام الجمهور',p5_time:'8 دقائق قراءة',
       next_label:'المقال القادم',coming_soon:'قريباً...',coming_topic:'الطاقة الشمسية والبنية التحتية الرقمية',
       newsletter_title:'احصل على الأفكار أولاً',newsletter_sub:'مقالات عن الأنظمة وهندسة المنتجات والبناء من الجزائر — تُسلَّم قبل نشرها للعموم.',newsletter_placeholder:'بريدك@الإلكتروني.com',newsletter_btn:'اشترك',
+      follow_title:'تابع المقالات الجديدة',follow_sub:'مقال جديد كل أسبوعين — أنظمة، هوية، بناء',follow_linkedin:'لينكدإن',follow_github:'GitHub',follow_newsletter:'النشرة البريدية',follow_all:'جميع المقالات',
       footer_role:'مهندس أنظمة',footer_cta:'عندك مشكلة معقدة؟ لنتحدث →',
     }
   },

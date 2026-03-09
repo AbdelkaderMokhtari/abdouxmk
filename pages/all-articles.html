@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n-title="page_title">جميع المقالات — AbdouX</title>
+  <style>
+:root {
+  --bg-primary: #080808;
+  --bg-secondary: #0f0f0f;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --border: #1e1e1e;
+  --border-bright: #2a2a2a;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888;
+  --text-muted: #444;
+  --accent: #e8ff47;
+  --accent-dim: rgba(232,255,71,0.08);
+  --accent-glow: rgba(232,255,71,0.15);
+  --violet: #9d6fff;
+  --violet-dim: rgba(157,111,255,0.1);
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0,212,255,0.08);
+  --red: #ff4747;
+  --green: #39ff84;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"] {
+  --bg-primary: #f5f5f0; --bg-secondary: #ebebeb; --bg-card: #ffffff;
+  --bg-card-hover: #f9f9f9; --border: #e0e0e0; --border-bright: #cccccc;
+  --text-primary: #0a0a0a; --text-secondary: #555; --text-muted: #aaa;
+  --accent: #1a1a00; --accent-dim: rgba(26,26,0,0.06); --accent-glow: rgba(26,26,0,0.1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; cursor:none; }
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-arabic);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--border-bright); }
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:0; opacity:0.4;
+}
+.cursor { width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference; }
+.cursor-ring { width:32px;height:32px;border:1px solid rgba(232,255,71,0.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease; }
+
+/* NAVBAR */
+.navbar { position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:all var(--transition); }
+.navbar.scrolled { background:rgba(8,8,8,0.92);border-bottom-color:var(--border);backdrop-filter:blur(20px); }
+[data-theme="light"] .navbar.scrolled { background:rgba(245,245,240,0.92); }
+.nav-logo { font-family:var(--font-mono);font-size:13px;color:var(--text-primary);text-decoration:none;letter-spacing:0.1em; }
+.nav-logo span { color:var(--accent); }
+.nav-links { display:flex;align-items:center;gap:32px;list-style:none; }
+.nav-links a { font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;transition:color var(--transition); }
+.nav-links a:hover { color:var(--text-primary); }
+.nav-links a.active { color:var(--accent); }
+.nav-controls { display:flex;align-items:center;gap:8px; }
+.btn-control { background:transparent;border:1px solid var(--border);color:var(--text-secondary);font-family:var(--font-mono);font-size:10px;padding:6px 12px;border-radius:var(--radius);cursor:none;letter-spacing:0.1em;transition:all var(--transition); }
+.btn-control:hover { border-color:var(--accent);color:var(--accent); }
+.lang-switcher { display:flex;align-items:center;gap:4px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:4px; }
+.lang-btn { background:transparent;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:10px;padding:4px 8px;border-radius:2px;cursor:none;transition:all var(--transition); }
+.lang-btn.active { background:var(--accent);color:#000; }
+.lang-btn:hover:not(.active) { color:var(--text-primary); }
+.nav-hamburger { display:none;flex-direction:column;gap:5px;cursor:none;padding:8px;background:transparent;border:none; }
+.nav-hamburger span { display:block;width:20px;height:1px;background:var(--text-primary);transition:all var(--transition); }
+.nav-mobile { display:none;position:fixed;inset:64px 0 0 0;background:var(--bg-primary);z-index:999;padding:40px;flex-direction:column;gap:24px;border-top:1px solid var(--border); }
+.nav-mobile.open { display:flex; }
+.nav-mobile a { font-family:var(--font-mono);font-size:14px;color:var(--text-secondary);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;padding:12px 0;border-bottom:1px solid var(--border);transition:color var(--transition); }
+.nav-mobile a:hover { color:var(--accent); }
+
+main { position:relative;z-index:1; }
+
+/* PAGE HEADER */
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 120px 40px 60px;
+  position: relative;
+}
+.page-header-grid {
+  position: fixed; inset: 0;
+  background-image: linear-gradient(var(--border) 1px,transparent 1px), linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size: 60px 60px; opacity: 0.12; pointer-events: none; z-index: 0;
+}
+.section-label {
+  font-family: var(--font-mono); font-size: 10px; color: var(--accent);
+  letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::before { content:''; width:24px; height:1px; background:var(--accent); }
+[dir="rtl"] .section-label::before { order:1; }
+
+.page-title {
+  font-size: clamp(40px, 7vw, 80px);
+  font-weight: 800; line-height: 0.95;
+  letter-spacing: -0.03em; margin-bottom: 20px;
+}
+.page-title span { color: var(--accent); }
+.page-subtitle {
+  font-size: 15px; color: var(--text-secondary);
+  max-width: 500px; line-height: 1.7; margin-bottom: 40px;
+}
+
+/* STATS ROW */
+.stats-row {
+  display: flex; align-items: center; gap: 32px;
+  padding: 20px 0; border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.stat-item { display: flex; flex-direction: column; gap: 3px; }
+.stat-num { font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; }
+.stat-lbl { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; }
+.stat-divider { width: 1px; height: 32px; background: var(--border); }
+
+/* FILTER TABS */
+.filters-wrap {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 40px 32px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 8px 16px;
+  border: 1px solid var(--border); border-radius: 20px;
+  background: transparent; color: var(--text-muted);
+  cursor: none; transition: all var(--transition);
+}
+.filter-btn:hover { border-color: var(--border-bright); color: var(--text-secondary); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+.filter-btn[data-filter="systems"].active { background: var(--accent); border-color: var(--accent); }
+.filter-btn[data-filter="ai"].active { background: var(--violet); border-color: var(--violet); color: #fff; }
+.filter-btn[data-filter="product"].active { background: var(--cyan); border-color: var(--cyan); color: #000; }
+.filter-btn[data-filter="identity"].active { background: var(--green); border-color: var(--green); color: #000; }
+
+/* ARTICLES LIST */
+.articles-wrap {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 40px 100px;
+}
+
+.article-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text-primary);
+  cursor: none;
+  transition: all var(--transition);
+  position: relative;
+}
+.article-row::before {
+  content: '';
+  position: absolute;
+  inset: 0 -16px;
+  border-radius: var(--radius);
+  background: var(--accent-dim);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.article-row:hover::before { opacity: 1; }
+.article-row:hover .article-title { color: var(--accent); }
+.article-row:hover .article-num { color: var(--accent); }
+
+.article-num {
+  font-family: var(--font-mono); font-size: 28px; font-weight: 700;
+  color: var(--border-bright); letter-spacing: -0.04em;
+  line-height: 1; transition: color var(--transition);
+  text-align: center;
+}
+
+.article-body {}
+.article-tags {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 8px; flex-wrap: wrap;
+}
+.article-tag {
+  font-family: var(--font-mono); font-size: 9px;
+  padding: 3px 9px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--text-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.article-tag.identity { color: var(--green); border-color: rgba(57,255,132,0.25); background: rgba(57,255,132,0.05); }
+.article-tag.systems { color: var(--accent); border-color: rgba(232,255,71,0.2); background: var(--accent-dim); }
+.article-tag.ai { color: var(--violet); border-color: rgba(157,111,255,0.25); background: var(--violet-dim); }
+.article-tag.product { color: var(--cyan); border-color: rgba(0,212,255,0.2); background: var(--cyan-dim); }
+.article-tag.featured { color: var(--red); border-color: rgba(255,71,71,0.25); background: rgba(255,71,71,0.06); }
+
+.article-title {
+  font-size: clamp(16px, 2.2vw, 22px); font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.3;
+  margin-bottom: 6px; transition: color var(--transition);
+}
+.article-excerpt {
+  font-size: 13px; color: var(--text-secondary);
+  line-height: 1.6; max-width: 600px;
+}
+
+.article-meta {
+  display: flex; flex-direction: column;
+  align-items: flex-end; gap: 6px;
+  flex-shrink: 0;
+}
+[dir="rtl"] .article-meta { align-items: flex-start; }
+.article-date { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; white-space: nowrap; }
+.article-time { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; white-space: nowrap; }
+.article-arrow {
+  font-family: var(--font-mono); font-size: 14px;
+  color: var(--text-muted); transition: all var(--transition);
+}
+.article-row:hover .article-arrow { color: var(--accent); transform: translateX(-4px); }
+[dir="ltr"] .article-row:hover .article-arrow { transform: translateX(4px); }
+
+/* COMING SOON ROW */
+.article-row.coming {
+  opacity: 0.4; pointer-events: none;
+}
+.article-row.coming .article-title { font-style: italic; }
+
+/* FOOTER */
+footer { border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px; }
+.footer-mono { font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em; }
+.footer-mono span { color:var(--accent); }
+
+/* ANIMATIONS */
+.fade-up { opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease; }
+.fade-up.visible { opacity:1;transform:translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .navbar { padding:0 20px; }
+  .nav-links { display:none; }
+  .nav-hamburger { display:flex; }
+  .page-header { padding:100px 20px 40px; }
+  .filters-wrap { padding:0 20px 24px; }
+  .articles-wrap { padding:0 20px 60px; }
+  .article-row { grid-template-columns: 40px 1fr; gap: 16px; }
+  .article-meta { display:none; }
+  footer { padding:24px 20px;flex-direction:column;align-items:flex-start; }
+}
+  </style>
+  <script>
+  (function(){
+    var loc=window.location.href,isP=loc.indexOf('/pages/')>-1,base=isP?'../':'';
+    var pages={home:base+'index.html',projects:base+'pages/projects.html',about:base+'pages/about.html',skills:base+'pages/skills.html',insights:base+'pages/insights.html',contact:base+'pages/contact.html'};
+    window.goTo=function(p){if(pages[p])window.location.href=pages[p];};
+    document.addEventListener('DOMContentLoaded',function(){
+      document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(pages[p])el.href=pages[p];});
+    });
+  })();
+  </script>
+</head>
+<body>
+
+<div class="page-header-grid"></div>
+
+<nav class="navbar">
+  <a href="#" data-page="home" class="nav-logo">ABDOU<span>X</span></a>
+  <ul class="nav-links">
+    <li><a href="#" data-page="home"     data-i18n="nav_home">Home</a></li>
+    <li><a href="#" data-page="projects" data-i18n="nav_projects">Projects</a></li>
+    <li><a href="#" data-page="about"    data-i18n="nav_about">About</a></li>
+    <li><a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#" data-page="insights" class="active" data-i18n="nav_insights">Thinking</a></li>
+    <li><a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+      <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
+      <button class="lang-btn active" data-lang="ar" onclick="switchLang('ar')">عر</button>
+    </div>
+    <button class="btn-control btn-theme" onclick="toggleTheme()">DAY</button>
+  </div>
+  <button class="nav-hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile">
+  <a href="#" data-page="home"     data-i18n="nav_home">Home</a>
+  <a href="#" data-page="projects" data-i18n="nav_projects">Projects</a>
+  <a href="#" data-page="about"    data-i18n="nav_about">About</a>
+  <a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a>
+  <a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a>
+  <a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a>
+</div>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-label fade-up" data-i18n="page_label">// جميع المقالات</div>
+    <h1 class="page-title fade-up">
+      <span data-i18n="page_h1">أفكار</span>
+      <span style="color:var(--accent);" data-i18n="page_h2">مكتوبة</span>
+    </h1>
+    <p class="page-subtitle fade-up" data-i18n="page_sub">
+      مقالات عن بناء الأنظمة، هندسة المنتجات، والبناء من الجزائر للعالم.
+    </p>
+    <div class="stats-row fade-up">
+      <div class="stat-item">
+        <div class="stat-num">1</div>
+        <div class="stat-lbl" data-i18n="stat_published">منشور</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">30</div>
+        <div class="stat-lbl" data-i18n="stat_min">دقيقة قراءة</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-lbl" data-i18n="stat_topics">محاور</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-wrap fade-up">
+    <button class="filter-btn active" data-filter="all" onclick="filterArticles('all')" data-i18n="filter_all">الكل</button>
+    <button class="filter-btn" data-filter="systems" onclick="filterArticles('systems')" data-i18n="filter_systems">أنظمة</button>
+    <button class="filter-btn" data-filter="identity" onclick="filterArticles('identity')" data-i18n="filter_identity">هوية</button>
+    <button class="filter-btn" data-filter="ai" onclick="filterArticles('ai')" data-i18n="filter_ai">ذكاء اصطناعي</button>
+    <button class="filter-btn" data-filter="product" onclick="filterArticles('product')" data-i18n="filter_product">منتج</button>
+  </div>
+
+  <!-- ARTICLES LIST -->
+  <div class="articles-wrap">
+
+    <a href="post-developer-to-architect.html" class="article-row fade-up" data-categories="identity systems">
+      <div class="article-num">01</div>
+      <div class="article-body">
+        <div class="article-tags">
+          <span class="article-tag featured" data-i18n="tag_featured">مميز</span>
+          <span class="article-tag identity" data-i18n="tag_identity">هوية</span>
+          <span class="article-tag systems" data-i18n="tag_systems">أنظمة</span>
+        </div>
+        <div class="article-title" data-i18n="a1_title">لماذا توقفتُ عن تسمية نفسي مطوراً</div>
+        <div class="article-excerpt" data-i18n="a1_excerpt">اللحظة التي بدأت فيها التفكير في الأنظمة بدلاً من الميزات — تغيّر كل شيء: كيف أُسعّر، كيف أُحدّد النطاق، وكيف أبني.</div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date" data-i18n="a1_date">يناير 2025</span>
+        <span class="article-time" data-i18n="a1_time">6 د</span>
+        <span class="article-arrow">←</span>
+      </div>
+    </a>
+
+    <a href="#" class="article-row fade-up" data-categories="systems">
+      <div class="article-num">02</div>
+      <div class="article-body">
+        <div class="article-tags">
+          <span class="article-tag systems" data-i18n="tag_systems">أنظمة</span>
+        </div>
+        <div class="article-title" data-i18n="a2_title">Clean Architecture ليست مبالغة — إنها تأمين</div>
+        <div class="article-excerpt" data-i18n="a2_excerpt">قريبا...</div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date" data-i18n="a2_date">قريباً</span>
+        <span class="article-time" data-i18n="a2_time">4 د</span>
+        <span class="article-arrow">←</span>
+      </div>
+    </a>
+
+    <a href="#" class="article-row fade-up" data-categories="product">
+      <div class="article-num">03</div>
+      <div class="article-body">
+        <div class="article-tags">
+          <span class="article-tag product" data-i18n="tag_product">منتج</span>
+        </div>
+        <div class="article-title" data-i18n="a3_title">البناء في الجزائر: القيود كميزة تنافسية</div>
+        <div class="article-excerpt" data-i18n="a3_excerpt">قريبا...</div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date" data-i18n="a3_date">قريباً</span>
+        <span class="article-time" data-i18n="a3_time">5 د</span>
+        <span class="article-arrow">←</span>
+      </div>
+    </a>
+
+    <a href="#" class="article-row fade-up" data-categories="systems">
+      <div class="article-num">04</div>
+      <div class="article-body">
+        <div class="article-tags">
+          <span class="article-tag systems" data-i18n="tag_systems">أنظمة</span>
+        </div>
+        <div class="article-title" data-i18n="a4_title">آلة الحالة: الأداة الأكثر إهمالاً في تطوير التطبيقات</div>
+        <div class="article-excerpt" data-i18n="a4_excerpt">قريبا...</div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date" data-i18n="a4_date">قريباً</span>
+        <span class="article-time" data-i18n="a4_time">7 د</span>
+        <span class="article-arrow">←</span>
+      </div>
+    </a>
+
+    <a href="#" class="article-row fade-up" data-categories="ai product">
+      <div class="article-num">05</div>
+      <div class="article-body">
+        <div class="article-tags">
+          <span class="article-tag ai" data-i18n="tag_ai">ذكاء اصطناعي</span>
+          <span class="article-tag product" data-i18n="tag_product">منتج</span>
+        </div>
+        <div class="article-title" data-i18n="a5_title">MindPilot: ما تعلمته من بناء منتج ذكاء اصطناعي أمام الجمهور</div>
+        <div class="article-excerpt" data-i18n="a5_excerpt">قريبا...</div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date" data-i18n="a5_date">قريباً</span>
+        <span class="article-time" data-i18n="a5_time">8 د</span>
+        <span class="article-arrow">←</span>
+      </div>
+    </a>
+
+    <div class="article-row coming fade-up" data-categories="product">
+      <div class="article-num">06</div>
+      <div class="article-body">
+        <div class="article-tags">
+          <span class="article-tag product" data-i18n="tag_product">منتج</span>
+        </div>
+        <div class="article-title" data-i18n="a6_title">الطاقة الشمسية والبنية التحتية الرقمية</div>
+        <div class="article-excerpt" data-i18n="a6_coming">قريباً...</div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date" data-i18n="a6_date">قريباً</span>
+        <span class="article-arrow">←</span>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-mono">ABDOU<span>X</span> — <span data-i18n="footer_role">مهندس أنظمة</span></div>
+  <div class="footer-mono">
+    <a href="#" data-page="insights" style="color:var(--text-secondary);text-decoration:none;letter-spacing:0.1em;font-family:var(--font-mono);font-size:10px;" data-i18n="footer_back">← العودة للرئيسية</a>
+  </div>
+</footer>
+
+<script>
+const t = {
+  ar: {
+    page_title:'جميع المقالات — AbdouX',
+    nav_home:'الرئيسية',nav_projects:'المشاريع',nav_about:'عني',nav_skills:'المهارات',nav_insights:'أفكاري',nav_contact:'تواصل',
+    page_label:'// جميع المقالات',
+    page_h1:'أفكار',page_h2:'مكتوبة',
+    page_sub:'مقالات عن بناء الأنظمة، هندسة المنتجات، والبناء من الجزائر للعالم.',
+    stat_published:'منشور',stat_min:'دقيقة قراءة',stat_topics:'محاور',
+    filter_all:'الكل',filter_systems:'أنظمة',filter_identity:'هوية',filter_ai:'ذكاء اصطناعي',filter_product:'منتج',
+    tag_featured:'مميز',tag_identity:'هوية',tag_systems:'أنظمة',tag_ai:'ذكاء اصطناعي',tag_product:'منتج',
+    a1_title:'لماذا توقفتُ عن تسمية نفسي مطوراً',a1_excerpt:'اللحظة التي بدأت فيها التفكير في الأنظمة بدلاً من الميزات — تغيّر كل شيء: كيف أُسعّر، كيف أُحدّد النطاق، وكيف أبني.',a1_date:'يناير 2025',a1_time:'6 د',
+    a2_title:'Clean Architecture ليست مبالغة — إنها تأمين',a2_excerpt:'قريبا....',a2_date:'قريبا ',a2_time:'4 د',
+    a3_title:'البناء في الجزائر: القيود كميزة تنافسية',a3_excerpt:'قريبا...',a3_date:'قريبا ',a3_time:'5 د',
+    a4_title:'آلة الحالة: الأداة الأكثر إهمالاً في تطوير التطبيقات',a4_excerpt:'قريبا...',a4_date:'قريبا',a4_time:'7 د',
+    a5_title:'MindPilot: ما تعلمته من بناء منتج ذكاء اصطناعي أمام الجمهور',a5_excerpt:'قريبا...".',a5_date:'قريبا',a5_time:'8 د',
+    a6_title:'الطاقة الشمسية والبنية التحتية الرقمية',a6_coming:'قريباً...',a6_date:'قريباً',
+    footer_role:'مهندس أنظمة',footer_back:'← العودة للمقالات',
+  },
+  en: {
+    page_title:'All Articles — AbdouX',
+    nav_home:'Home',nav_projects:'Projects',nav_about:'About',nav_skills:'Skills',nav_insights:'Thinking',nav_contact:'Contact',
+    page_label:'// All Articles',
+    page_h1:'Written',page_h2:'Thinking',
+    page_sub:'Essays on building systems, product architecture, and building from Algeria for the world.',
+    stat_published:'Published',stat_min:'Min read',stat_topics:'Topics',
+    filter_all:'All',filter_systems:'Systems',filter_identity:'Identity',filter_ai:'AI',filter_product:'Product',
+    tag_featured:'Featured',tag_identity:'Identity',tag_systems:'Systems',tag_ai:'AI',tag_product:'Product',
+    a1_title:'Why I Stopped Calling Myself a Developer',a1_excerpt:'The moment I started thinking in systems instead of features — everything changed: how I price, how I scope, and how I build.',a1_date:'January 2025',a1_time:'6 min',
+    a2_title:"Clean Architecture Isn't Overkill — It's Insurance",a2_excerpt:"cooming soon...",a2_date:'cooming',a2_time:'4 min',
+    a3_title:'Building in Algeria: Constraints as a Competitive Advantage',a3_excerpt:"cooming soon...",a3_date:'cooming',a3_time:'5 min',
+    a4_title:'The State Machine: The Most Underused Tool in App Development',a4_excerpt:'cooming soon.',a4_date:'cooming',a4_time:'7 min',
+    a5_title:"MindPilot: What I've Learned Building an AI Product in Public",a5_excerpt:"comming soon...",a5_date:'cooming',a5_time:'8 min',
+    a6_title:'Solar Energy & Digital Infrastructure',a6_coming:'Coming soon...',a6_date:'Soon',
+    footer_role:'System Architect',footer_back:'← Back to Thinking',
+  },
+  fr: {
+    page_title:'Tous les Articles — AbdouX',
+    nav_home:'Accueil',nav_projects:'Projets',nav_about:'À propos',nav_skills:'Compétences',nav_insights:'Réflexions',nav_contact:'Contact',
+    page_label:'// Tous les articles',
+    page_h1:'Pensées',page_h2:'Écrites',
+    page_sub:"Essais sur la construction de systèmes, l'architecture produit, et construire depuis l'Algérie pour le monde.",
+    stat_published:'Publiés',stat_min:'Min de lecture',stat_topics:'Thèmes',
+    filter_all:'Tout',filter_systems:'Systèmes',filter_identity:'Identité',filter_ai:'IA',filter_product:'Produit',
+    tag_featured:'Vedette',tag_identity:'Identité',tag_systems:'Systèmes',tag_ai:'IA',tag_product:'Produit',
+    a1_title:"Pourquoi j'ai arrêté de me dire développeur",a1_excerpt:"Le moment où j'ai commencé à penser en systèmes — tout a changé : comment je facture, comment je cadre, comment je construis.",a1_date:'Janvier 2025',a1_time:'6 min',
+    a2_title:"La Clean Architecture n'est pas excessive — c'est une assurance",a2_excerpt:"cooming soon.",a2_date:'cooming',a2_time:'4 min',
+    a3_title:'Construire en Algérie : les contraintes comme avantage concurrentiel',a3_excerpt:"comming soon...",a3_date:'cooming soon',a3_time:'5 min',
+    a4_title:"La machine à états : l'outil le plus sous-utilisé en développement",a4_excerpt:"cooming soon.",a4_date:'cooming',a4_time:'7 min',
+    a5_title:"MindPilot : ce que j'ai appris en construisant un produit IA en public",a5_excerpt:"cooming soon.",a5_date:'cooming',a5_time:'8 min',
+    a6_title:'Énergie solaire & infrastructure numérique',a6_coming:'Bientôt...',a6_date:'Bientôt',
+    footer_role:'Architecte Système',footer_back:'← Retour aux réflexions',
+  }
+};
+
+const App = {
+  state: { lang: 'ar', theme: 'dark', menuOpen: false },
+
+  init() {
+    this.initTheme();
+    this.initLang();
+    this.initCursor();
+    this.initNavbar();
+    this.initAnimations();
+    this.initMobileMenu();
+  },
+
+  initTheme() {
+    const saved = localStorage.getItem('portfolio_theme') || 'dark';
+    this.state.theme = saved;
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.querySelector('.btn-theme');
+    if (btn) btn.textContent = saved === 'dark' ? 'DAY' : 'NIGHT';
+  },
+
+  toggleTheme() {
+    const th = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.state.theme = th;
+    document.documentElement.setAttribute('data-theme', th);
+    localStorage.setItem('portfolio_theme', th);
+    const btn = document.querySelector('.btn-theme');
+    if (btn) btn.textContent = th === 'dark' ? 'DAY' : 'NIGHT';
+  },
+
+  initLang() {
+    const saved = localStorage.getItem('portfolio_lang') || 'ar';
+    this.applyLang(saved);
+  },
+
+  applyLang(lang) {
+    if (!t[lang]) return;
+    this.state.lang = lang;
+    const tr = t[lang];
+    const isRTL = lang === 'ar';
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', lang);
+    document.body.style.fontFamily = isRTL ? "'IBM Plex Sans Arabic',sans-serif" : "'Syne',sans-serif";
+    if (tr.page_title) document.title = tr.page_title;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (tr[k] !== undefined) el.textContent = tr[k];
+    });
+    // arrow direction
+    document.querySelectorAll('.article-arrow').forEach(el => {
+      el.textContent = isRTL ? '←' : '→';
+    });
+    document.querySelectorAll('.lang-btn').forEach(b =>
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang)
+    );
+    localStorage.setItem('portfolio_lang', lang);
+  },
+
+  initCursor() {
+    const c = document.createElement('div'); c.className = 'cursor';
+    const r = document.createElement('div'); r.className = 'cursor-ring';
+    document.body.appendChild(c); document.body.appendChild(r);
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; c.style.left=mx+'px'; c.style.top=my+'px'; });
+    const a = () => { rx+=(mx-rx)*.12; ry+=(my-ry)*.12; r.style.left=rx+'px'; r.style.top=ry+'px'; requestAnimationFrame(a); };
+    a();
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => { c.style.width='12px'; c.style.height='12px'; r.style.width='48px'; r.style.height='48px'; r.style.borderColor='rgba(232,255,71,0.6)'; });
+      el.addEventListener('mouseleave', () => { c.style.width='8px'; c.style.height='8px'; r.style.width='32px'; r.style.height='32px'; r.style.borderColor='rgba(232,255,71,0.4)'; });
+    });
+  },
+
+  initNavbar() {
+    const n = document.querySelector('.navbar');
+    if (!n) return;
+    window.addEventListener('scroll', () => n.classList.toggle('scrolled', window.scrollY > 20));
+  },
+
+  initAnimations() {
+    const o = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 50);
+      });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.fade-up').forEach(el => o.observe(el));
+  },
+
+  initMobileMenu() {
+    const h = document.querySelector('.nav-hamburger'), m = document.querySelector('.nav-mobile');
+    if (!h || !m) return;
+    h.addEventListener('click', () => { this.state.menuOpen = !this.state.menuOpen; m.classList.toggle('open', this.state.menuOpen); });
+    document.querySelectorAll('.nav-mobile a').forEach(a => a.addEventListener('click', () => { this.state.menuOpen = false; m.classList.remove('open'); }));
+  },
+};
+
+window.toggleTheme = () => App.toggleTheme();
+window.switchLang  = l => App.applyLang(l);
+window.filterArticles = (cat) => {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === cat));
+  document.querySelectorAll('.article-row').forEach(row => {
+    if (row.classList.contains('coming')) return;
+    const cats = row.getAttribute('data-categories') || '';
+    const show = cat === 'all' || cats.includes(cat);
+    row.style.display = show ? 'grid' : 'none';
+  });
+};
+
+document.addEventListener('DOMContentLoaded', () => App.init());
+</script>
+</body>
+</html>

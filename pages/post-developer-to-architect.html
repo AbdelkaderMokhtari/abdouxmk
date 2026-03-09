@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n-title="page_title">لماذا توقفتُ عن تسمية نفسي مطوراً — AbdouX</title>
+  <style>
+:root {
+  --bg-primary: #080808;
+  --bg-secondary: #0f0f0f;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --border: #1e1e1e;
+  --border-bright: #2a2a2a;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888;
+  --text-muted: #444;
+  --accent: #e8ff47;
+  --accent-dim: rgba(232,255,71,0.08);
+  --accent-glow: rgba(232,255,71,0.15);
+  --violet: #9d6fff;
+  --violet-dim: rgba(157,111,255,0.1);
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0,212,255,0.08);
+  --red: #ff4747;
+  --green: #39ff84;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="light"] {
+  --bg-primary: #f5f5f0;
+  --bg-secondary: #ebebeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f9f9f9;
+  --border: #e0e0e0;
+  --border-bright: #cccccc;
+  --text-primary: #0a0a0a;
+  --text-secondary: #555;
+  --text-muted: #aaa;
+  --accent: #1a1a00;
+  --accent-dim: rgba(26,26,0,0.06);
+  --accent-glow: rgba(26,26,0,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; cursor: none; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-arabic);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* CURSOR */
+.cursor { width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference; }
+.cursor-ring { width:32px;height:32px;border:1px solid rgba(232,255,71,0.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--border-bright); }
+
+/* NOISE */
+body::before { content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4; }
+
+/* NAVBAR */
+.navbar { position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:all var(--transition); }
+.navbar.scrolled { background:rgba(8,8,8,0.92);border-bottom-color:var(--border);backdrop-filter:blur(20px); }
+[data-theme="light"] .navbar.scrolled { background:rgba(245,245,240,0.92); }
+.nav-logo { font-family:var(--font-mono);font-size:13px;color:var(--text-primary);text-decoration:none;letter-spacing:0.1em; }
+.nav-logo span { color:var(--accent); }
+.nav-links { display:flex;align-items:center;gap:32px;list-style:none; }
+.nav-links a { font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;transition:color var(--transition); }
+.nav-links a:hover { color:var(--text-primary); }
+.nav-links a.active { color:var(--accent); }
+.nav-controls { display:flex;align-items:center;gap:8px; }
+.btn-control { background:transparent;border:1px solid var(--border);color:var(--text-secondary);font-family:var(--font-mono);font-size:10px;padding:6px 12px;border-radius:var(--radius);cursor:none;letter-spacing:0.1em;transition:all var(--transition); }
+.btn-control:hover { border-color:var(--accent);color:var(--accent); }
+.lang-switcher { display:flex;align-items:center;gap:4px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:4px; }
+.lang-btn { background:transparent;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:10px;padding:4px 8px;border-radius:2px;cursor:none;transition:all var(--transition); }
+.lang-btn.active { background:var(--accent);color:#000; }
+.lang-btn:hover:not(.active) { color:var(--text-primary); }
+.nav-hamburger { display:none;flex-direction:column;gap:5px;cursor:none;padding:8px;background:transparent;border:none; }
+.nav-hamburger span { display:block;width:20px;height:1px;background:var(--text-primary);transition:all var(--transition); }
+.nav-mobile { display:none;position:fixed;inset:64px 0 0 0;background:var(--bg-primary);z-index:999;padding:40px;flex-direction:column;gap:24px;border-top:1px solid var(--border); }
+.nav-mobile.open { display:flex; }
+.nav-mobile a { font-family:var(--font-mono);font-size:14px;color:var(--text-secondary);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;padding:12px 0;border-bottom:1px solid var(--border);transition:color var(--transition); }
+.nav-mobile a:hover { color:var(--accent); }
+
+main { position:relative;z-index:1; }
+
+/* SECTION LABEL */
+.section-label { font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px; }
+.section-label::before { content:'';display:inline-block;width:24px;height:1px;background:var(--accent);order:1; }
+
+/* ─── POST HERO ─── */
+.post-hero {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px 40px 80px;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.post-hero-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.post-hero-glow {
+  position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(232,255,71,0.05) 0%, transparent 70%);
+  top: 0; left: -100px;
+  pointer-events: none;
+}
+
+.post-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.post-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.post-tag.identity { color: var(--accent); border-color: rgba(232,255,71,0.25); background: var(--accent-dim); }
+.post-tag.systems { color: var(--violet); border-color: rgba(157,111,255,0.25); background: var(--violet-dim); }
+.post-tag.featured { color: var(--red); border-color: rgba(255,71,71,0.25); background: rgba(255,71,71,0.06); }
+
+.post-date-read {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.post-date-read::before { content: '—'; color: var(--border-bright); }
+
+.post-hero-title {
+  font-family: var(--font-arabic);
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.post-hero-title .accent { color: var(--accent); }
+
+.post-hero-excerpt {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 620px;
+  border-right: 2px solid var(--accent);
+  padding-right: 24px;
+  margin-bottom: 0;
+}
+
+/* ─── DIVIDER ─── */
+.post-divider {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--border), transparent);
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── POST BODY ─── */
+.post-body-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 40px 120px;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+/* ARTICLE CONTENT */
+.post-content {}
+
+.post-content h2 {
+  font-family: var(--font-arabic);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 56px 0 20px;
+  color: var(--text-primary);
+  position: relative;
+}
+.post-content h2::before {
+  content: attr(data-num);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.post-content p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+
+.post-content p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.post-content .highlight-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-right: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 32px 0;
+  font-size: 17px;
+  color: var(--text-primary);
+  line-height: 1.75;
+  font-weight: 500;
+}
+
+.post-content .callout {
+  background: var(--violet-dim);
+  border: 1px solid rgba(157,111,255,0.2);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin: 32px 0;
+}
+.post-content .callout-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--violet);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.post-content .callout p {
+  margin-bottom: 0;
+  color: var(--text-secondary);
+}
+
+.post-content .comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 32px 0;
+}
+.comparison-item {
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.comparison-item.old {
+  background: rgba(255,71,71,0.04);
+  border-color: rgba(255,71,71,0.15);
+}
+.comparison-item.new {
+  background: rgba(57,255,132,0.04);
+  border-color: rgba(57,255,132,0.15);
+}
+.comparison-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.comparison-item.old .comparison-label { color: var(--red); }
+.comparison-item.new .comparison-label { color: var(--green); }
+.comparison-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.post-content .closing-line {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 48px 0 0;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+.post-content .closing-line span { color: var(--accent); }
+
+/* SIDEBAR */
+.post-sidebar {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+.sidebar-card-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.toc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toc-list li a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color var(--transition);
+  line-height: 1.5;
+}
+.toc-list li a::before {
+  content: '';
+  width: 16px; height: 1px;
+  background: var(--border-bright);
+  flex-shrink: 0;
+  transition: background var(--transition), width var(--transition);
+}
+.toc-list li a:hover { color: var(--accent); }
+.toc-list li a:hover::before { background: var(--accent); width: 24px; }
+.toc-list li a.active { color: var(--accent); }
+.toc-list li a.active::before { background: var(--accent); width: 24px; }
+
+.author-card {
+  border-top: 2px solid var(--accent);
+}
+.author-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.author-role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.author-links {
+  display: flex;
+  gap: 8px;
+}
+.author-link {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: all var(--transition);
+}
+.author-link:hover { border-color: var(--accent); color: var(--accent); }
+
+.reading-progress-wrap {
+  margin-bottom: 8px;
+}
+.reading-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.reading-progress-bar {
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.reading-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.1s ease;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* POST FOOTER */
+.post-footer-nav {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+.post-nav-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: none;
+}
+.post-nav-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.post-nav-dir {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.post-nav-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+.post-nav-card.back-to-list {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.post-nav-card.back-to-list .post-nav-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* FADE */
+.fade-up { opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease; }
+.fade-up.visible { opacity:1;transform:translateY(0); }
+
+/* FOOTER */
+footer { border-top:1px solid var(--border);padding:40px;max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:1; }
+.footer-mono { font-family:var(--font-mono);font-size:10px;color:var(--text-muted);letter-spacing:0.1em; }
+.footer-mono span { color:var(--accent); }
+
+.post-nav-card.all-articles-cta {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  transition: all var(--transition);
+}
+.post-nav-card.all-articles-cta:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px var(--accent-glow);
+}
+.post-nav-card.all-articles-cta:hover .all-articles-label,
+.post-nav-card.all-articles-cta:hover .all-articles-title,
+.post-nav-card.all-articles-cta:hover .all-articles-sub,
+.post-nav-card.all-articles-cta:hover .all-articles-icon,
+.post-nav-card.all-articles-cta:hover .all-articles-arrow { color: #000; }
+
+.all-articles-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.all-articles-icon {
+  font-size: 28px;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: color var(--transition);
+}
+.all-articles-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  transition: color var(--transition);
+}
+.all-articles-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  transition: color var(--transition);
+}
+.all-articles-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  transition: color var(--transition);
+}
+.all-articles-arrow {
+  font-size: 22px;
+  color: var(--accent);
+  margin-right: auto;
+  transition: color var(--transition), transform var(--transition);
+}
+.post-nav-card.all-articles-cta:hover .all-articles-arrow {
+  transform: translateX(-4px);
+}
+[dir="ltr"] .all-articles-arrow { margin-right: auto; margin-left: 0; }
+[dir="rtl"] .all-articles-arrow { margin-left: auto; margin-right: 0; }
+[dir="ltr"] .post-nav-card.all-articles-cta:hover .all-articles-arrow { transform: translateX(4px); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .all-articles-title { font-size: 15px; }
+  .all-articles-icon { font-size: 22px; }
+}
+  </style>
+
+  <script>
+  (function(){
+    var loc=window.location.href,isP=loc.indexOf('/pages/')>-1,base=isP?'../':'';
+    var pages={home:base+'index.html',projects:base+'pages/projects.html',about:base+'pages/about.html',skills:base+'pages/skills.html',insights:base+'pages/insights.html',contact:base+'pages/contact.html'};
+    window.goTo=function(p){if(pages[p])window.location.href=pages[p];};
+    document.addEventListener('DOMContentLoaded',function(){
+      document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(pages[p])el.href=pages[p];});
+    });
+  })();
+  </script>
+</head>
+<body>
+
+<div class="post-hero-grid"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="#" data-page="home" class="nav-logo">ABDOU<span>X</span></a>
+  <ul class="nav-links">
+    <li><a href="#" data-page="home">Home</a></li>
+    <li><a href="#" data-page="projects">Projects</a></li>
+    <li><a href="#" data-page="about">About</a></li>
+    <li><a href="#" data-page="skills">Skills</a></li>
+    <li><a href="#" data-page="insights" class="active">Thinking</a></li>
+    <li><a href="#" data-page="contact">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+      <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
+      <button class="lang-btn active" data-lang="ar" onclick="switchLang('ar')">عر</button>
+    </div>
+    <button class="btn-control btn-theme" onclick="toggleTheme()">DAY</button>
+  </div>
+  <button class="nav-hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile">
+  <a href="#" data-page="home">Home</a>
+  <a href="#" data-page="projects">Projects</a>
+  <a href="#" data-page="about">About</a>
+  <a href="#" data-page="skills">Skills</a>
+  <a href="#" data-page="insights">Thinking</a>
+  <a href="#" data-page="contact">Contact</a>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <div class="post-hero">
+    <div class="post-hero-glow"></div>
+
+    <div class="post-meta-top fade-up">
+      <span class="post-tag featured" data-i18n="tag_featured">مقال مميز</span>
+      <span class="post-tag identity" data-i18n="tag_identity">الهوية</span>
+      <span class="post-tag systems" data-i18n="tag_systems">الأنظمة</span>
+      <div class="post-date-read">
+        <span data-i18n="post_date">يناير 2025</span>
+        <span>·</span>
+        <span data-i18n="post_read_time">6 دقائق قراءة</span>
+      </div>
+    </div>
+
+    <h1 class="post-hero-title fade-up" data-i18n-html="hero_title">
+      لماذا توقفتُ عن<br>تسمية نفسي <span class="accent">مطوراً</span>
+    </h1>
+
+    <p class="post-hero-excerpt fade-up" data-i18n="hero_excerpt">
+      اللحظة التي بدأت فيها التفكير في الأنظمة بدلاً من الميزات — تغيّر كل شيء: كيف أُسعّر، كيف أُحدّد النطاق، وكيف أبني. لقب "مطور" يصف أداة. "مهندس أنظمة" يصف طريقة تفكير.
+    </p>
+  </div>
+
+  <div class="post-divider"></div>
+
+  <!-- BODY -->
+  <div class="post-body-wrap">
+
+    <!-- ARTICLE -->
+    <article class="post-content">
+
+      <p class="fade-up" data-i18n-html="intro_p1">
+        في مرحلة ما من مسيرتي، كنت أعرّف نفسي بالأدوات التي أستخدمها. <strong>"أنا مطوّر Laravel"</strong>، أو <strong>"أبني تطبيقات Flutter"</strong>. وفي كل مرة كنت أقدّم نفسي بهذه الطريقة، كنت أضع سقفاً غير مرئي على ما يمكن أن أكون عليه — وعلى ما يمكن أن يطلبه مني العملاء.
+      </p>
+
+      <p class="fade-up" data-i18n="intro_p2">
+        لم أدرك المشكلة دفعةً واحدة. بل تراكمت عبر مشاريع متعددة، في كل مرة كنت أُنجز فيها ما طُلب مني تقنياً، لكن المنتج النهائي كان يفتقر إلى شيء ما — تماسك، قابلية للتوسع، أو ببساطة منطق داخلي يجعله يصمد أمام الاختبار الحقيقي.
+      </p>
+
+      <h2 id="section-1" data-num="// 01" data-i18n="s1_title">اللحظة التي غيّرت كل شيء</h2>
+
+      <p class="fade-up" data-i18n="s1_p1">
+        كان المشروع منصة تعليمية SaaS. الطلب بدا بسيطاً: نظام تسجيل، دورات، مدفوعات. لكن حين جلست لأكتب السطر الأول، سألت نفسي سؤالاً مختلفاً لأول مرة:
+      </p>
+
+      <div class="highlight-block fade-up" data-i18n="s1_highlight">
+        "ما هي الكيانات الموجودة في هذا النظام؟ كيف تتفاعل؟ ما الذي يتغير عندما تتغير الحالة؟"
+      </div>
+
+      <p class="fade-up" data-i18n="s1_p2">
+        لم أسأل "كيف أبني الـ route؟" — بل سألت "ما هو النظام الذي أبنيه؟". هذا التحول في السؤال غيّر كل شيء. أمضيت ثلاثة أيام في تصميم المخطط المعماري قبل أن أكتب سطراً واحداً من الكود. وكانت تلك الأيام الثلاثة أكثر قيمةً من أسابيع من الكتابة العشوائية.
+      </p>
+
+      <h2 id="section-2" data-num="// 02" data-i18n="s2_title">الفرق بين المطوّر ومهندس الأنظمة</h2>
+
+      <p class="fade-up" data-i18n-html="s2_p1">
+        الفرق ليس في المعرفة التقنية — فكلاهما يعرف الكود. الفرق في <strong>مستوى السؤال</strong>.
+      </p>
+
+      <div class="comparison fade-up">
+        <div class="comparison-item old">
+          <div class="comparison-label" data-i18n="s2_dev_label">المطوّر يسأل</div>
+          <div class="comparison-text" data-i18n-html="s2_dev_text">كيف أبني هذه الميزة؟<br>ما هو الـ framework الأفضل؟<br>كيف أُصلح هذا الـ bug؟</div>
+        </div>
+        <div class="comparison-item new">
+          <div class="comparison-label" data-i18n="s2_arch_label">مهندس الأنظمة يسأل</div>
+          <div class="comparison-text" data-i18n-html="s2_arch_text">لماذا نبني هذه الميزة أصلاً؟<br>كيف يتفاعل هذا مع باقي النظام؟<br>كيف يبدو هذا بعد ثلاث سنوات؟</div>
+        </div>
+      </div>
+
+      <p class="fade-up" data-i18n="s2_p2">
+        المطوّر يحل مشكلة. مهندس الأنظمة يبني بنية تحل مشاكل لم تُطرح بعد.
+      </p>
+
+      <h2 id="section-3" data-num="// 03" data-i18n="s3_title">كيف تغيّر التسعير</h2>
+
+      <p class="fade-up" data-i18n-html="s3_p1">
+        قبل هذا التحوّل، كنت أُسعّر بالساعة أو بالمهمة. "كم ساعة يأخذ بناء هذه الصفحة؟". وكنت دائماً أشعر أن وقتي لا يساوي فعلاً ما أقدّمه — لأنني كنت أُسعّر <em>الكود</em>، لا <strong>التفكير</strong>.
+      </p>
+
+      <p class="fade-up" data-i18n="s3_p2">
+        حين بدأت أُقدّم نفسي كمهندس أنظمة، تغيّرت المحادثة برمّتها. العملاء لا يسألونني عن الساعات بعد الآن — يسألونني عن البنية. وهذا نوع مختلف تماماً من المحادثة، ونوع مختلف تماماً من القيمة.
+      </p>
+
+      <div class="callout fade-up">
+        <div class="callout-label" data-i18n="s3_callout_label">// ملاحظة عملية</div>
+        <p data-i18n="s3_callout_text">عندما تبدأ بتقديم نفسك كمهندس أنظمة، الأسئلة التي يطرحها عليك العملاء تتغير. وعندما تتغير الأسئلة، تتغير الإجابات، ومعها تتغير القيمة التي تقدّمها — والسعر الذي تطلبه.</p>
+      </div>
+
+      <h2 id="section-4" data-num="// 04" data-i18n="s4_title">ماذا يعني هذا عملياً؟</h2>
+
+      <p class="fade-up" data-i18n="s4_p1">
+        التحوّل ليس في اللقب — هو في العادات اليومية. حين تتعامل مع أي مشروع، ابدأ بهذه الأسئلة قبل أي كود:
+      </p>
+
+      <p class="fade-up" data-i18n-html="s4_p2">
+        <strong>ما هي الكيانات الرئيسية في هذا النظام؟</strong> كلّ نظام لديه "مواطنون" — Users, Products, Orders, Courses. حدّدهم أولاً. ثم <strong>كيف تتعلق هذه الكيانات ببعضها؟</strong> العلاقات هي القلب الحقيقي لأي نظام — وأكثر ما يُخطئ فيه المطوّرون. وأخيراً: <strong>ما الذي يتغير مع الوقت؟</strong> كل نظام فيه "حالات" — طلب معلّق، مكتمل، مرفوض. صمّم هذه الانتقالات صراحةً.
+      </p>
+
+      <p class="fade-up" data-i18n="s4_p3">
+        هذه الأسئلة الثلاثة تأخذ 30 دقيقة وتوفّر 30 ساعة من إعادة الكتابة.
+      </p>
+
+      <h2 id="section-5" data-num="// 05" data-i18n="s5_title">التسمية مهمة</h2>
+
+      <p class="fade-up" data-i18n="s5_p1">
+        قد يبدو هذا كلاماً في اللقب فقط — لكنه في الحقيقة كلام في الهوية المهنية. ما تُسمّي نفسه يُحدّد نوع المشاكل التي تجذبها، نوع العملاء الذين يتواصلون معك، ونوع المحادثات التي تدور.
+      </p>
+
+      <p class="fade-up" data-i18n="s5_p2">
+        "مطوّر" يجذب من يريد تنفيذ قائمة مهام. "مهندس أنظمة" يجذب من يريد بناء شيء يدوم.
+      </p>
+
+      <div class="closing-line fade-up" data-i18n-html="s5_closing">
+        لقب "مطور" يصف ما أفعله.<br>
+        <span>"مهندس أنظمة" يصف كيف أُفكّر.</span><br>
+        وهذا الفرق يساوي كل شيء.
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="post-sidebar">
+
+      <!-- Reading progress -->
+      <div class="sidebar-card fade-up">
+        <div class="reading-progress-wrap">
+          <div class="reading-progress-label">
+            <span data-i18n="progress_label">التقدم في القراءة</span>
+            <span id="progress-pct">0%</span>
+          </div>
+          <div class="reading-progress-bar">
+            <div class="reading-progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOC -->
+      <div class="sidebar-card fade-up">
+        <div class="sidebar-card-label" data-i18n="toc_label">// المحتويات</div>
+        <ul class="toc-list">
+          <li><a href="#section-1" class="toc-link" data-i18n="s1_title">اللحظة التي غيّرت كل شيء</a></li>
+          <li><a href="#section-2" class="toc-link" data-i18n="s2_title">الفرق بين المطوّر ومهندس الأنظمة</a></li>
+          <li><a href="#section-3" class="toc-link" data-i18n="s3_title">كيف تغيّر التسعير</a></li>
+          <li><a href="#section-4" class="toc-link" data-i18n="s4_title">ماذا يعني هذا عملياً؟</a></li>
+          <li><a href="#section-5" class="toc-link" data-i18n="s5_title">التسمية مهمة</a></li>
+        </ul>
+      </div>
+
+      <!-- Author -->
+      <div class="sidebar-card author-card fade-up">
+        <div class="sidebar-card-label" data-i18n="author_label">// الكاتب</div>
+        <div class="author-name">Abdelkader — AbdouX</div>
+        <div class="author-role">System Architect · Tlemcen, Algeria</div>
+        <div class="author-links">
+          <a class="author-link" href="https://linkedin.com/in/abdoux" target="_blank">LinkedIn</a>
+          <a class="author-link" href="https://github.com/abdoux" target="_blank">GitHub</a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- POST FOOTER NAV -->
+  <div class="post-footer-nav">
+
+    <!-- Next article -->
+    <a href="#" class="post-nav-card" style="border-color:rgba(157,111,255,0.2);">
+      <div class="post-nav-dir" data-i18n="nav_next">المقال التالي →</div>
+      <div class="post-nav-title" style="color:var(--violet);" data-i18n="nav_next_title">Clean Architecture ليست مبالغة — إنها تأمين</div>
+    </a>
+
+    <!-- All articles CTA — prominent card -->
+    <a href="all-articles.html" class="post-nav-card all-articles-cta">
+      <div class="all-articles-inner">
+        <div class="all-articles-icon">✦</div>
+        <div>
+          <div class="all-articles-label" data-i18n="nav_all_label">المقالات</div>
+          <div class="all-articles-title" data-i18n="nav_all_title">تصفّح جميع المقالات</div>
+          <div class="all-articles-sub" data-i18n="nav_all_sub">أنظمة · هوية · بناء من الجزائر</div>
+        </div>
+        <div class="all-articles-arrow" data-i18n="nav_all_arrow">←</div>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-mono">ABDOU<span>X</span> — <span data-i18n="footer_role">مهندس أنظمة</span></div>
+  <div class="footer-mono">
+    <a href="#" data-page="contact" style="color:var(--accent);text-decoration:none;letter-spacing:0.1em;" data-i18n="footer_cta">هل لديك مشروع؟ تحدّث معي →</a>
+  </div>
+</footer>
+
+<script>
+// ─── TRANSLATIONS ───────────────────────────────────────────────
+const translations = {
+  ar: {
+    page_title: 'لماذا توقفتُ عن تسمية نفسي مطوراً — AbdouX',
+    tag_featured: 'مقال مميز',
+    tag_identity: 'الهوية',
+    tag_systems: 'الأنظمة',
+    post_date: 'يناير 2025',
+    post_read_time: '6 دقائق قراءة',
+    hero_title: 'لماذا توقفتُ عن<br>تسمية نفسي <span class="accent">مطوراً</span>',
+    hero_excerpt: 'اللحظة التي بدأت فيها التفكير في الأنظمة بدلاً من الميزات — تغيّر كل شيء: كيف أُسعّر، كيف أُحدّد النطاق، وكيف أبني. لقب "مطور" يصف أداة. "مهندس أنظمة" يصف طريقة تفكير.',
+    intro_p1: 'في مرحلة ما من مسيرتي، كنت أعرّف نفسي بالأدوات التي أستخدمها. <strong>"أنا مطوّر Laravel"</strong>، أو <strong>"أبني تطبيقات Flutter"</strong>. وفي كل مرة كنت أقدّم نفسي بهذه الطريقة، كنت أضع سقفاً غير مرئي على ما يمكن أن أكون عليه — وعلى ما يمكن أن يطلبه مني العملاء.',
+    intro_p2: 'لم أدرك المشكلة دفعةً واحدة. بل تراكمت عبر مشاريع متعددة، في كل مرة كنت أُنجز فيها ما طُلب مني تقنياً، لكن المنتج النهائي كان يفتقر إلى شيء ما — تماسك، قابلية للتوسع، أو ببساطة منطق داخلي يجعله يصمد أمام الاختبار الحقيقي.',
+    s1_title: 'اللحظة التي غيّرت كل شيء',
+    s1_p1: 'كان المشروع منصة تعليمية SaaS. الطلب بدا بسيطاً: نظام تسجيل، دورات، مدفوعات. لكن حين جلست لأكتب السطر الأول، سألت نفسي سؤالاً مختلفاً لأول مرة:',
+    s1_highlight: '"ما هي الكيانات الموجودة في هذا النظام؟ كيف تتفاعل؟ ما الذي يتغير عندما تتغير الحالة؟"',
+    s1_p2: 'لم أسأل "كيف أبني الـ route؟" — بل سألت "ما هو النظام الذي أبنيه؟". هذا التحول في السؤال غيّر كل شيء. أمضيت ثلاثة أيام في تصميم المخطط المعماري قبل أن أكتب سطراً واحداً من الكود. وكانت تلك الأيام الثلاثة أكثر قيمةً من أسابيع من الكتابة العشوائية.',
+    s2_title: 'الفرق بين المطوّر ومهندس الأنظمة',
+    s2_p1: 'الفرق ليس في المعرفة التقنية — فكلاهما يعرف الكود. الفرق في <strong>مستوى السؤال</strong>.',
+    s2_dev_label: 'المطوّر يسأل',
+    s2_dev_text: 'كيف أبني هذه الميزة؟<br>ما هو الـ framework الأفضل؟<br>كيف أُصلح هذا الـ bug؟',
+    s2_arch_label: 'مهندس الأنظمة يسأل',
+    s2_arch_text: 'لماذا نبني هذه الميزة أصلاً؟<br>كيف يتفاعل هذا مع باقي النظام؟<br>كيف يبدو هذا بعد ثلاث سنوات؟',
+    s2_p2: 'المطوّر يحل مشكلة. مهندس الأنظمة يبني بنية تحل مشاكل لم تُطرح بعد.',
+    s3_title: 'كيف تغيّر التسعير',
+    s3_p1: 'قبل هذا التحوّل، كنت أُسعّر بالساعة أو بالمهمة. "كم ساعة يأخذ بناء هذه الصفحة؟". وكنت دائماً أشعر أن وقتي لا يساوي فعلاً ما أقدّمه — لأنني كنت أُسعّر <em>الكود</em>، لا <strong>التفكير</strong>.',
+    s3_p2: 'حين بدأت أُقدّم نفسي كمهندس أنظمة، تغيّرت المحادثة برمّتها. العملاء لا يسألونني عن الساعات بعد الآن — يسألونني عن البنية. وهذا نوع مختلف تماماً من المحادثة، ونوع مختلف تماماً من القيمة.',
+    s3_callout_label: '// ملاحظة عملية',
+    s3_callout_text: 'عندما تبدأ بتقديم نفسك كمهندس أنظمة، الأسئلة التي يطرحها عليك العملاء تتغير. وعندما تتغير الأسئلة، تتغير الإجابات، ومعها تتغير القيمة التي تقدّمها — والسعر الذي تطلبه.',
+    s4_title: 'ماذا يعني هذا عملياً؟',
+    s4_p1: 'التحوّل ليس في اللقب — هو في العادات اليومية. حين تتعامل مع أي مشروع، ابدأ بهذه الأسئلة قبل أي كود:',
+    s4_p2: '<strong>ما هي الكيانات الرئيسية في هذا النظام؟</strong> كلّ نظام لديه "مواطنون" — Users, Products, Orders, Courses. حدّدهم أولاً. ثم <strong>كيف تتعلق هذه الكيانات ببعضها؟</strong> العلاقات هي القلب الحقيقي لأي نظام — وأكثر ما يُخطئ فيه المطوّرون. وأخيراً: <strong>ما الذي يتغير مع الوقت؟</strong> كل نظام فيه "حالات" — طلب معلّق، مكتمل، مرفوض. صمّم هذه الانتقالات صراحةً.',
+    s4_p3: 'هذه الأسئلة الثلاثة تأخذ 30 دقيقة وتوفّر 30 ساعة من إعادة الكتابة.',
+    s5_title: 'التسمية مهمة',
+    s5_p1: 'قد يبدو هذا كلاماً في اللقب فقط — لكنه في الحقيقة كلام في الهوية المهنية. ما تُسمّي نفسه يُحدّد نوع المشاكل التي تجذبها، نوع العملاء الذين يتواصلون معك، ونوع المحادثات التي تدور.',
+    s5_p2: '"مطوّر" يجذب من يريد تنفيذ قائمة مهام. "مهندس أنظمة" يجذب من يريد بناء شيء يدوم.',
+    s5_closing: 'لقب "مطور" يصف ما أفعله.<br><span>"مهندس أنظمة" يصف كيف أُفكّر.</span><br>وهذا الفرق يساوي كل شيء.',
+    progress_label: 'التقدم في القراءة',
+    toc_label: '// المحتويات',
+    author_label: '// الكاتب',
+    nav_next: 'المقال التالي →',
+    nav_next_title: 'Clean Architecture ليست مبالغة — إنها تأمين',
+    nav_back: '← العودة إلى جميع المقالات',
+    nav_all_label: 'المقالات',
+    nav_all_title: 'تصفّح جميع المقالات',
+    nav_all_sub: 'أنظمة · هوية · بناء من الجزائر',
+    nav_all_arrow: '←',
+    footer_role: 'مهندس أنظمة',
+    footer_cta: 'هل لديك مشروع؟ تحدّث معي →',
+    // Nav
+    nav_home: 'Home', nav_projects: 'Projects', nav_about: 'About',
+    nav_skills: 'Skills', nav_thinking: 'Thinking', nav_contact: 'Contact',
+  },
+
+  en: {
+    page_title: 'Why I Stopped Calling Myself a Developer — AbdouX',
+    tag_featured: 'Featured',
+    tag_identity: 'Identity',
+    tag_systems: 'Systems',
+    post_date: 'January 2025',
+    post_read_time: '6 min read',
+    hero_title: 'Why I Stopped Calling<br>Myself a <span class="accent">Developer</span>',
+    hero_excerpt: 'The moment I started thinking in systems instead of features — everything changed: how I price, how I scope, and how I build. "Developer" describes a tool. "Systems architect" describes a way of thinking.',
+    intro_p1: 'At some point in my career, I used to define myself by the tools I used. <strong>"I\'m a Laravel developer"</strong>, or <strong>"I build Flutter apps"</strong>. Every time I introduced myself that way, I was placing an invisible ceiling on what I could become — and on what clients could even ask of me.',
+    intro_p2: 'I didn\'t realise the problem all at once. It accumulated across multiple projects — each time I delivered exactly what was asked technically, but the final product lacked something: cohesion, scalability, or simply the internal logic to survive real-world use.',
+    s1_title: 'The Moment Everything Changed',
+    s1_p1: 'The project was a SaaS learning platform. The ask seemed simple: a registration system, courses, payments. But when I sat down to write the first line, I asked myself a different question for the first time:',
+    s1_highlight: '"What are the entities in this system? How do they interact? What changes when state changes?"',
+    s1_p2: 'I didn\'t ask "how do I build the route?" — I asked "what system am I actually building?". That shift in question changed everything. I spent three days designing the architectural blueprint before writing a single line of code. Those three days were worth more than weeks of unplanned writing.',
+    s2_title: 'Developer vs. Systems Architect',
+    s2_p1: 'The difference isn\'t in technical knowledge — both know how to code. The difference is in <strong>the level of the question</strong>.',
+    s2_dev_label: 'The developer asks',
+    s2_dev_text: 'How do I build this feature?<br>Which framework is best?<br>How do I fix this bug?',
+    s2_arch_label: 'The systems architect asks',
+    s2_arch_text: 'Why are we building this feature at all?<br>How does this interact with the rest of the system?<br>What does this look like in three years?',
+    s2_p2: 'A developer solves a problem. A systems architect builds a structure that solves problems not yet asked.',
+    s3_title: 'How Pricing Changed',
+    s3_p1: 'Before this shift, I priced by the hour or by the task. "How many hours does it take to build this page?". I always felt my time wasn\'t worth what I was delivering — because I was pricing <em>code</em>, not <strong>thinking</strong>.',
+    s3_p2: 'When I started presenting myself as a systems architect, the whole conversation changed. Clients no longer ask me about hours — they ask me about architecture. And that\'s an entirely different kind of conversation, and an entirely different kind of value.',
+    s3_callout_label: '// Practical Note',
+    s3_callout_text: 'When you start presenting yourself as a systems architect, the questions clients ask you change. And when the questions change, the answers change — and with them, the value you deliver and the price you charge.',
+    s4_title: 'What Does This Mean in Practice?',
+    s4_p1: 'The shift isn\'t in the title — it\'s in daily habits. When you approach any project, start with these questions before any code:',
+    s4_p2: '<strong>What are the core entities in this system?</strong> Every system has "citizens" — Users, Products, Orders, Courses. Identify them first. Then: <strong>How do these entities relate to each other?</strong> Relationships are the true heart of any system — and where most developers go wrong. Finally: <strong>What changes over time?</strong> Every system has "states" — a pending order, completed, rejected. Design these transitions explicitly.',
+    s4_p3: 'These three questions take 30 minutes and save 30 hours of rewrites.',
+    s5_title: 'The Label Matters',
+    s5_p1: 'This might sound like it\'s just about a title — but it\'s really about professional identity. What you call yourself determines the types of problems you attract, the kinds of clients who reach out, and the nature of conversations that happen.',
+    s5_p2: '"Developer" attracts people who want a to-do list executed. "Systems architect" attracts people who want to build something that lasts.',
+    s5_closing: '"Developer" describes what I do.<br><span>"Systems architect" describes how I think.</span><br>And that difference is everything.',
+    progress_label: 'Reading progress',
+    toc_label: '// Contents',
+    author_label: '// Author',
+    nav_next: 'Next Article →',
+    nav_next_title: 'Clean Architecture Isn\'t Overkill — It\'s Insurance',
+    nav_back: '← Back to All Articles',
+    nav_all_label: 'Articles',
+    nav_all_title: 'Browse All Articles',
+    nav_all_sub: 'Systems · Identity · Building from Algeria',
+    nav_all_arrow: '→',
+    footer_role: 'Systems Architect',
+    footer_cta: 'Have a project? Let\'s talk →',
+    nav_home: 'Home', nav_projects: 'Projects', nav_about: 'About',
+    nav_skills: 'Skills', nav_thinking: 'Thinking', nav_contact: 'Contact',
+  },
+
+  fr: {
+    page_title: 'Pourquoi j\'ai arrêté de me dire développeur — AbdouX',
+    tag_featured: 'Article phare',
+    tag_identity: 'Identité',
+    tag_systems: 'Systèmes',
+    post_date: 'Janvier 2025',
+    post_read_time: '6 min de lecture',
+    hero_title: 'Pourquoi j\'ai arrêté de<br>me dire <span class="accent">développeur</span>',
+    hero_excerpt: 'Le moment où j\'ai commencé à penser en systèmes plutôt qu\'en fonctionnalités — tout a changé : ma façon de tarifer, de cadrer, et de construire. "Développeur" décrit un outil. "Architecte système" décrit une façon de penser.',
+    intro_p1: 'À un moment de ma carrière, je me définissais par les outils que j\'utilisais. <strong>"Je suis développeur Laravel"</strong>, ou <strong>"je construis des apps Flutter"</strong>. Chaque fois que je me présentais ainsi, je posais un plafond invisible sur ce que je pouvais devenir — et sur ce que les clients pouvaient me demander.',
+    intro_p2: 'Je n\'ai pas réalisé le problème d\'un coup. Il s\'est accumulé sur plusieurs projets — à chaque fois que je livrais exactement ce qui était demandé techniquement, mais le produit final manquait de quelque chose : cohérence, extensibilité, ou simplement une logique interne capable de survivre à l\'usage réel.',
+    s1_title: 'Le Moment Où Tout a Changé',
+    s1_p1: 'Le projet était une plateforme d\'apprentissage SaaS. La demande semblait simple : un système d\'inscription, des cours, des paiements. Mais quand je me suis assis pour écrire la première ligne, je me suis posé une question différente pour la première fois :',
+    s1_highlight: '"Quelles sont les entités de ce système ? Comment interagissent-elles ? Qu\'est-ce qui change quand l\'état change ?"',
+    s1_p2: 'Je n\'ai pas demandé "comment je construis la route ?" — j\'ai demandé "quel système suis-je en train de construire ?". Ce changement de question a tout changé. J\'ai passé trois jours à concevoir le plan architectural avant d\'écrire une seule ligne de code. Ces trois jours valaient plus que des semaines d\'écriture non planifiée.',
+    s2_title: 'Développeur vs. Architecte Système',
+    s2_p1: 'La différence n\'est pas dans les connaissances techniques — les deux savent coder. La différence est dans <strong>le niveau de la question</strong>.',
+    s2_dev_label: 'Le développeur demande',
+    s2_dev_text: 'Comment construire cette fonctionnalité ?<br>Quel framework est le meilleur ?<br>Comment corriger ce bug ?',
+    s2_arch_label: 'L\'architecte système demande',
+    s2_arch_text: 'Pourquoi construire cette fonctionnalité ?<br>Comment cela interagit avec le reste du système ?<br>À quoi cela ressemble dans trois ans ?',
+    s2_p2: 'Un développeur résout un problème. Un architecte système construit une structure qui résout des problèmes pas encore posés.',
+    s3_title: 'Comment la Tarification a Changé',
+    s3_p1: 'Avant ce changement, je facturais à l\'heure ou à la tâche. "Combien d\'heures pour construire cette page ?". Je sentais toujours que mon temps ne valait pas vraiment ce que je livrais — parce que je facturais <em>le code</em>, pas <strong>la réflexion</strong>.',
+    s3_p2: 'Quand j\'ai commencé à me présenter comme architecte système, toute la conversation a changé. Les clients ne me demandent plus combien d\'heures — ils me demandent l\'architecture. Et c\'est un tout autre type de conversation, et une tout autre valeur.',
+    s3_callout_label: '// Note pratique',
+    s3_callout_text: 'Quand vous commencez à vous présenter comme architecte système, les questions que vous posent les clients changent. Et quand les questions changent, les réponses changent — et avec elles, la valeur que vous apportez et le prix que vous demandez.',
+    s4_title: 'Qu\'est-ce que ça signifie concrètement ?',
+    s4_p1: 'Le changement n\'est pas dans le titre — il est dans les habitudes quotidiennes. Quand vous abordez n\'importe quel projet, commencez par ces questions avant tout code :',
+    s4_p2: '<strong>Quelles sont les entités principales de ce système ?</strong> Tout système a ses "citoyens" — Users, Products, Orders, Courses. Identifiez-les d\'abord. Puis : <strong>Comment ces entités se relient-elles entre elles ?</strong> Les relations sont le vrai cœur de tout système — et là où la plupart des développeurs se trompent. Enfin : <strong>Qu\'est-ce qui change dans le temps ?</strong> Tout système a des "états" — une commande en attente, complétée, rejetée. Concevez ces transitions explicitement.',
+    s4_p3: 'Ces trois questions prennent 30 minutes et évitent 30 heures de réécriture.',
+    s5_title: 'Le Label Compte',
+    s5_p1: 'Cela peut sembler n\'être qu\'une question de titre — mais c\'est vraiment une question d\'identité professionnelle. Ce que vous vous appelez détermine le type de problèmes que vous attirez, le type de clients qui vous contactent, et la nature des conversations qui s\'ensuivent.',
+    s5_p2: '"Développeur" attire ceux qui veulent exécuter une liste de tâches. "Architecte système" attire ceux qui veulent construire quelque chose qui dure.',
+    s5_closing: '"Développeur" décrit ce que je fais.<br><span>"Architecte système" décrit comment je pense.</span><br>Et cette différence, c\'est tout.',
+    progress_label: 'Progression de lecture',
+    toc_label: '// Sommaire',
+    author_label: '// Auteur',
+    nav_next: 'Article suivant →',
+    nav_next_title: 'La Clean Architecture n\'est pas excessive — c\'est une assurance',
+    nav_back: '← Retour aux articles',
+    nav_all_label: 'Articles',
+    nav_all_title: 'Voir tous les articles',
+    nav_all_sub: 'Systèmes · Identité · Construire depuis l\'Algérie',
+    nav_all_arrow: '→',
+    footer_role: 'Architecte Système',
+    footer_cta: 'Un projet en tête ? Parlons-en →',
+    nav_home: 'Home', nav_projects: 'Projects', nav_about: 'About',
+    nav_skills: 'Skills', nav_thinking: 'Thinking', nav_contact: 'Contact',
+  }
+};
+
+// ─── PORTFOLIO APP ───────────────────────────────────────────────
+const Portfolio = {
+  state: { theme: 'dark', lang: 'ar', menuOpen: false },
+
+  init() {
+    this.initTheme();
+    this.initLang();
+    this.initCursor();
+    this.initNavbar();
+    this.initAnimations();
+    this.initMobileMenu();
+    this.initReadingProgress();
+    this.initTOC();
+  },
+
+  initTheme() {
+    const saved = localStorage.getItem('portfolio_theme') || 'dark';
+    this.state.theme = saved;
+    document.documentElement.setAttribute('data-theme', saved);
+    const btn = document.querySelector('.btn-theme');
+    if (btn) btn.textContent = saved === 'dark' ? 'DAY' : 'NIGHT';
+  },
+
+  toggleTheme() {
+    const t = this.state.theme === 'dark' ? 'light' : 'dark';
+    this.state.theme = t;
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('portfolio_theme', t);
+    const btn = document.querySelector('.btn-theme');
+    if (btn) btn.textContent = t === 'dark' ? 'DAY' : 'NIGHT';
+  },
+
+  initLang() {
+    const saved = localStorage.getItem('portfolio_lang') || 'ar';
+    this.applyLang(saved);
+  },
+
+  applyLang(lang) {
+    if (!translations[lang]) return;
+    this.state.lang = lang;
+    const t = translations[lang];
+    const isRTL = lang === 'ar';
+
+    // HTML dir + lang
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', lang);
+
+    // Font family for body
+    document.body.style.fontFamily = isRTL
+      ? "'IBM Plex Sans Arabic', sans-serif"
+      : "'Syne', sans-serif";
+
+    // Page title
+    if (t.page_title) document.title = t.page_title;
+
+    // Simple text
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // HTML content
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+
+    // Active lang btn
+    document.querySelectorAll('.lang-btn').forEach(b =>
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang)
+    );
+
+    // nav-mobile links (static labels)
+    const mobileLinks = document.querySelectorAll('.nav-mobile a');
+    const mobileKeys = ['nav_home','nav_projects','nav_about','nav_skills','nav_thinking','nav_contact'];
+    mobileLinks.forEach((a, i) => { if (t[mobileKeys[i]]) a.textContent = t[mobileKeys[i]]; });
+
+    // Save
+    localStorage.setItem('portfolio_lang', lang);
+  },
+
+  initCursor() {
+    const c = document.createElement('div'); c.className = 'cursor';
+    const r = document.createElement('div'); r.className = 'cursor-ring';
+    document.body.appendChild(c); document.body.appendChild(r);
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      c.style.left = mx + 'px'; c.style.top = my + 'px';
+    });
+    const animate = () => {
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      r.style.left = rx + 'px'; r.style.top = ry + 'px';
+      requestAnimationFrame(animate);
+    };
+    animate();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { c.style.width='12px'; c.style.height='12px'; r.style.width='48px'; r.style.height='48px'; r.style.borderColor='rgba(232,255,71,0.6)'; });
+      el.addEventListener('mouseleave', () => { c.style.width='8px'; c.style.height='8px'; r.style.width='32px'; r.style.height='32px'; r.style.borderColor='rgba(232,255,71,0.4)'; });
+    });
+  },
+
+  initNavbar() {
+    const n = document.querySelector('.navbar');
+    if (!n) return;
+    window.addEventListener('scroll', () => n.classList.toggle('scrolled', window.scrollY > 20));
+  },
+
+  initAnimations() {
+    const o = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60);
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => o.observe(el));
+  },
+
+  initMobileMenu() {
+    const h = document.querySelector('.nav-hamburger'), m = document.querySelector('.nav-mobile');
+    if (!h || !m) return;
+    h.addEventListener('click', () => { this.state.menuOpen = !this.state.menuOpen; m.classList.toggle('open', this.state.menuOpen); });
+    document.querySelectorAll('.nav-mobile a').forEach(a => a.addEventListener('click', () => { this.state.menuOpen = false; m.classList.remove('open'); }));
+  },
+
+  initReadingProgress() {
+    const fill = document.getElementById('progress-fill');
+    const pct = document.getElementById('progress-pct');
+    if (!fill) return;
+    window.addEventListener('scroll', () => {
+      const article = document.querySelector('.post-content');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const total = article.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const progress = Math.min(100, Math.round((scrolled / total) * 100));
+      fill.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    });
+  },
+
+  initTOC() {
+    const links = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('h2[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  },
+};
+
+window.toggleTheme = () => Portfolio.toggleTheme();
+window.switchLang  = (l) => Portfolio.applyLang(l);
+
+document.addEventListener('DOMContentLoaded', () => Portfolio.init());
+</script>
+</body>
+</html>
