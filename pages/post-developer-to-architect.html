@@ -562,9 +562,118 @@ footer { border-top:1px solid var(--border);padding:40px;max-width:900px;margin:
 [dir="ltr"] .post-nav-card.all-articles-cta:hover .all-articles-arrow { transform: translateX(4px); }
 
 /* RESPONSIVE */
+/* ─── RESPONSIVE ─── */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .post-body-wrap {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 60px 40px 80px;
+  }
+  .post-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .sidebar-card {
+    flex: 1;
+    min-width: 240px;
+  }
+  .post-hero-excerpt {
+    font-size: 16px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
+  /* Navbar */
+  .navbar { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Hero */
+  .post-hero {
+    padding: 100px 20px 60px;
+    min-height: auto;
+  }
+  .post-hero-title {
+    font-size: clamp(28px, 8vw, 44px);
+  }
+  .post-hero-excerpt {
+    font-size: 15px;
+    border-right: none;
+    border-right-width: 0;
+    padding-right: 0;
+    border-top: 2px solid var(--accent);
+    padding-top: 20px;
+  }
+  [dir="ltr"] .post-hero-excerpt {
+    border-left: none;
+    border-left-width: 0;
+    padding-left: 0;
+    border-top: 2px solid var(--accent);
+    padding-top: 20px;
+  }
+
+  /* Divider */
+  .post-divider { padding: 0 20px; }
+
+  /* Body */
+  .post-body-wrap {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 20px 60px;
+  }
+
+  /* Content */
+  .post-content h2 { font-size: 22px; margin: 40px 0 16px; }
+  .post-content p { font-size: 15px; }
+  .post-content .highlight-block { font-size: 15px; padding: 18px 20px; }
+  .post-content .callout { padding: 18px 20px; }
+  .post-content .comparison { grid-template-columns: 1fr; gap: 8px; }
+  .post-content .closing-line { font-size: 18px; }
+
+  /* Sidebar — stack vertically, no sticky */
+  .post-sidebar {
+    position: static;
+    flex-direction: column;
+    order: -1; /* show sidebar ABOVE article on mobile */
+  }
+  /* Hide TOC and author on mobile, keep reading progress */
+  .post-sidebar .sidebar-card:nth-child(2),
+  .post-sidebar .sidebar-card:nth-child(3) {
+    display: none;
+  }
+
+  /* Post footer nav */
+  .post-footer-nav {
+    padding: 0 20px 60px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .post-nav-card.back-to-list { grid-column: auto; }
+
+  /* all-articles CTA */
   .all-articles-title { font-size: 15px; }
   .all-articles-icon { font-size: 22px; }
+  .all-articles-inner { gap: 14px; }
+
+  /* Footer */
+  footer {
+    padding: 24px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+  .post-hero-title { font-size: 26px; }
+  .post-meta-top { gap: 8px; }
+  .post-tag { font-size: 8px; padding: 4px 9px; }
 }
   </style>
 
