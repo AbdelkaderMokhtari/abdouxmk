@@ -4,6 +4,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n-title="page_title">Skills — AbdouX</title>
   <style>
 :root {
   --bg-primary: #080808;
@@ -1047,9 +1050,6 @@ footer {
 [dir="rtl"] .zone-header { flex-direction: row-reverse; }
 [dir="rtl"] .act-number { text-align: right; }
   </style>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Skills — AbdouX</title>
 <style>
     .skills-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 100px; }
 
@@ -1205,106 +1205,62 @@ footer {
       .zone-heading { font-size: 22px; }
     }
   </style>
-
 <script>
-// FILE:// SAFE NAVIGATION
-(function(){
-  var loc = window.location.href;
-  var isPages = loc.indexOf('/pages/') > -1;
-  var base = isPages ? '../' : '';
-  
-  // Map of page keys to filenames
-  var pages = {
-    'home':     base + 'index.html',
-    'projects': base + 'pages/projects.html',
-    'about':    base + 'pages/about.html',
-    'skills':   base + 'pages/skills.html',
-    'insights': base + 'pages/insights.html',
-    'contact':  base + 'pages/contact.html',
-  };
-  
-  window.goTo = function(page) {
-    if(pages[page]) window.location.href = pages[page];
-  };
-  
-  // After DOM ready, fix all nav links
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(pages[p]) {
-        el.href = pages[p];
-      }
-    });
-    
-    // Highlight active
-    var current = window.location.href.split('/').pop().replace('.html','') || 'index';
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(p === current || (current === 'index' && p === 'home')) {
-        el.classList.add('active');
-      }
-    });
-  });
-})();
+(function(){var loc=window.location.href,isP=loc.indexOf('/pages/')>-1,base=isP?'../':'';var pages={home:base+'index.html',projects:base+'pages/projects.html',about:base+'pages/about.html',skills:base+'pages/skills.html',insights:base+'pages/insights.html',contact:base+'pages/contact.html'};window.goTo=function(p){if(pages[p])window.location.href=pages[p];};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(pages[p])el.href=pages[p];});var cur=window.location.href.split('/').pop().replace('.html','')||'index';document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(p===cur||(cur==='index'&&p==='home'))el.classList.add('active');});});})();
 </script>
-
 </head>
 <body>
-
-<!-- NAVBAR -->
 <nav class="navbar">
   <a href="#" data-page="home" class="nav-logo">ABDOU<span>X</span></a>
   <ul class="nav-links">
-    <li><a href="#" data-page="home" data-i18n="nav_home">Home</a></li>
+    <li><a href="#" data-page="home"     data-i18n="nav_home">Home</a></li>
     <li><a href="#" data-page="projects" data-i18n="nav_projects">Projects</a></li>
-    <li><a href="#" data-page="about" data-i18n="nav_about">About</a></li>
-    <li><a href="#" data-page="skills" class="active" data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#" data-page="about"    data-i18n="nav_about">About</a></li>
+    <li><a href="#" data-page="skills"   class="active" data-i18n="nav_skills">Skills</a></li>
     <li><a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a></li>
-    <li><a href="#" data-page="contact" data-i18n="nav_contact">Contact</a></li>
+    <li><a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="nav-controls">
     <div class="lang-switcher">
       <button class="lang-btn active" data-lang="en" onclick="switchLang('en')">EN</button>
       <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
-      <button class="lang-btn" data-lang="ar" onclick="switchLang('ar')">AR</button>
+      <button class="lang-btn" data-lang="ar" onclick="switchLang('ar')">عر</button>
     </div>
     <button class="btn-control btn-theme" onclick="toggleTheme()">DAY</button>
   </div>
   <button class="nav-hamburger"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile">
-  <a href="#" data-page="home">Home</a>
-  <a href="#" data-page="projects">Projects</a>
-  <a href="#" data-page="about">About</a>
-  <a href="#" data-page="skills">Skills</a>
-  <a href="#" data-page="insights">Thinking</a>
-  <a href="#" data-page="contact">Contact</a>
+  <a href="#" data-page="home"     data-i18n="nav_home">Home</a>
+  <a href="#" data-page="projects" data-i18n="nav_projects">Projects</a>
+  <a href="#" data-page="about"    data-i18n="nav_about">About</a>
+  <a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a>
+  <a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a>
+  <a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a>
 </div>
 
 <main>
-
-  <div style="max-width: 1200px; margin: 0 auto; padding: 140px 40px 60px;">
-    <div class="section-label">// Technical Arsenal</div>
+  <div style="max-width:1200px;margin:0 auto;padding:140px 40px 60px;">
+    <div class="section-label" data-i18n="page_label">// Technical Arsenal</div>
     <h1 class="section-title fade-up">
-      What I<br>
-      <span style="color: var(--accent);">Build With</span>
+      <span data-i18n="hero_h1">What I</span><br>
+      <span style="color:var(--accent);" data-i18n="hero_h2">Build With</span>
     </h1>
   </div>
 
   <div class="skills-wrap">
 
-    <!-- Philosophy -->
     <div class="skills-philosophy fade-up">
-      <div class="skills-philosophy-text">
+      <div class="skills-philosophy-text" data-i18n-html="philosophy">
         I don't list skills like a resume. I organize them by <strong>how I think</strong> — what I build, what I architect, and what I think in. Because the difference between a developer and a system architect isn't the tools — it's the mental model.
       </div>
     </div>
 
-    <!-- ZONE 1: I BUILD -->
+    <!-- ZONE 1 -->
     <div class="zone-block fade-up">
       <div class="zone-header-row">
-        <span class="zone-verb build">I BUILD</span>
-        <div class="zone-heading">The hands-on tools</div>
+        <span class="zone-verb build" data-i18n="z1_verb">I BUILD</span>
+        <div class="zone-heading" data-i18n="z1_heading">The hands-on tools</div>
         <div class="zone-rule"></div>
       </div>
       <div class="skills-list">
@@ -1326,11 +1282,11 @@ footer {
       </div>
     </div>
 
-    <!-- ZONE 2: I ARCHITECT -->
+    <!-- ZONE 2 -->
     <div class="zone-block fade-up">
       <div class="zone-header-row">
-        <span class="zone-verb architect">I ARCHITECT</span>
-        <div class="zone-heading">The structural thinking</div>
+        <span class="zone-verb architect" data-i18n="z2_verb">I ARCHITECT</span>
+        <div class="zone-heading" data-i18n="z2_heading">The structural thinking</div>
         <div class="zone-rule"></div>
       </div>
       <div class="skills-list">
@@ -1349,147 +1305,99 @@ footer {
       </div>
     </div>
 
-    <!-- ZONE 3: I THINK IN -->
+    <!-- ZONE 3 -->
     <div class="zone-block fade-up">
       <div class="zone-header-row">
-        <span class="zone-verb think">I THINK IN</span>
-        <div class="zone-heading">The meta-skills</div>
+        <span class="zone-verb think" data-i18n="z3_verb">I THINK IN</span>
+        <div class="zone-heading" data-i18n="z3_heading">The meta-skills</div>
         <div class="zone-rule"></div>
       </div>
       <div class="skills-list">
-        <div class="skill-chip think core"><span class="skill-dot"></span>Systems Thinking</div>
-        <div class="skill-chip think core"><span class="skill-dot"></span>Product Architecture</div>
-        <div class="skill-chip think core"><span class="skill-dot"></span>SaaS Business Models</div>
-        <div class="skill-chip think"><span class="skill-dot"></span>Scalability Planning</div>
-        <div class="skill-chip think"><span class="skill-dot"></span>Technical Scoping</div>
-        <div class="skill-chip think"><span class="skill-dot"></span>Multilingual UX (AR/FR/EN)</div>
-        <div class="skill-chip think"><span class="skill-dot"></span>Founder Mindset</div>
-        <div class="skill-chip think"><span class="skill-dot"></span>Building in Public</div>
+        <div class="skill-chip think core"><span class="skill-dot"></span><span data-i18n="th1">Systems Thinking</span></div>
+        <div class="skill-chip think core"><span class="skill-dot"></span><span data-i18n="th2">Product Architecture</span></div>
+        <div class="skill-chip think core"><span class="skill-dot"></span><span data-i18n="th3">SaaS Business Models</span></div>
+        <div class="skill-chip think"><span class="skill-dot"></span><span data-i18n="th4">Scalability Planning</span></div>
+        <div class="skill-chip think"><span class="skill-dot"></span><span data-i18n="th5">Technical Scoping</span></div>
+        <div class="skill-chip think"><span class="skill-dot"></span><span data-i18n="th6">Multilingual UX (AR/FR/EN)</span></div>
+        <div class="skill-chip think"><span class="skill-dot"></span><span data-i18n="th7">Founder Mindset</span></div>
+        <div class="skill-chip think"><span class="skill-dot"></span><span data-i18n="th8">Building in Public</span></div>
       </div>
     </div>
 
     <!-- EXPERTISE TABLE -->
-    <div class="fade-up" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 40px;">
-      <div style="padding: 24px 24px 0;">
-        <div class="section-label">// Expertise Depth</div>
+    <div class="fade-up" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:40px;">
+      <div style="padding:24px 24px 0;">
+        <div class="section-label" data-i18n="expertise_label">// Expertise Depth</div>
       </div>
       <table class="expertise-table">
         <thead>
           <tr>
-            <th>Technology</th>
-            <th>Category</th>
-            <th>Level</th>
-            <th>Used In</th>
+            <th data-i18n="th_tech">Technology</th>
+            <th data-i18n="th_cat">Category</th>
+            <th data-i18n="th_level">Level</th>
+            <th data-i18n="th_used">Used In</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Laravel</strong></td>
-            <td style="font-family: var(--font-mono); font-size: 10px; color: var(--accent);">Backend</td>
-            <td>
-              <div class="expertise-level">
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-              </div>
-            </td>
-            <td style="font-size: 12px; color: var(--text-muted);">LMS, E-Commerce, CivicFlow, MindPilot</td>
+            <td style="font-family:var(--font-mono);font-size:10px;color:var(--accent);">Backend</td>
+            <td><div class="expertise-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div></div></td>
+            <td style="font-size:12px;color:var(--text-muted);">LMS, E-Commerce, CivicFlow, MindPilot</td>
           </tr>
           <tr>
             <td><strong>Flutter</strong></td>
-            <td style="font-family: var(--font-mono); font-size: 10px; color: var(--accent);">Mobile</td>
-            <td>
-              <div class="expertise-level">
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot"></div>
-              </div>
-            </td>
-            <td style="font-size: 12px; color: var(--text-muted);">CivicFlow, MindPilot, Graduation Project</td>
+            <td style="font-family:var(--font-mono);font-size:10px;color:var(--accent);">Mobile</td>
+            <td><div class="expertise-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div></div></td>
+            <td style="font-size:12px;color:var(--text-muted);">CivicFlow, MindPilot, Graduation Project</td>
           </tr>
           <tr>
             <td><strong>Clean Architecture</strong></td>
-            <td style="font-family: var(--font-mono); font-size: 10px; color: var(--violet);">Architecture</td>
-            <td>
-              <div class="expertise-level">
-                <div class="level-dot filled" style="background: var(--violet);"></div>
-                <div class="level-dot filled" style="background: var(--violet);"></div>
-                <div class="level-dot filled" style="background: var(--violet);"></div>
-                <div class="level-dot filled" style="background: var(--violet);"></div>
-                <div class="level-dot"></div>
-              </div>
-            </td>
-            <td style="font-size: 12px; color: var(--text-muted);">LMS (18-table, 10 bounded contexts)</td>
+            <td style="font-family:var(--font-mono);font-size:10px;color:var(--violet);">Architecture</td>
+            <td><div class="expertise-level"><div class="level-dot filled" style="background:var(--violet);"></div><div class="level-dot filled" style="background:var(--violet);"></div><div class="level-dot filled" style="background:var(--violet);"></div><div class="level-dot filled" style="background:var(--violet);"></div><div class="level-dot"></div></div></td>
+            <td style="font-size:12px;color:var(--text-muted);" data-i18n="exp_ca_used">LMS (18-table, 10 bounded contexts)</td>
           </tr>
           <tr>
             <td><strong>Filament v3</strong></td>
-            <td style="font-family: var(--font-mono); font-size: 10px; color: var(--accent);">Admin</td>
-            <td>
-              <div class="expertise-level">
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot"></div>
-              </div>
-            </td>
-            <td style="font-size: 12px; color: var(--text-muted);">LMS Admin Panel, MindPilot Dashboard</td>
+            <td style="font-family:var(--font-mono);font-size:10px;color:var(--accent);">Admin</td>
+            <td><div class="expertise-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div></div></td>
+            <td style="font-size:12px;color:var(--text-muted);" data-i18n="exp_fil_used">LMS Admin Panel, MindPilot Dashboard</td>
           </tr>
           <tr>
             <td><strong>Stripe API</strong></td>
-            <td style="font-family: var(--font-mono); font-size: 10px; color: var(--accent);">Payments</td>
-            <td>
-              <div class="expertise-level">
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot filled"></div>
-                <div class="level-dot"></div>
-                <div class="level-dot"></div>
-              </div>
-            </td>
-            <td style="font-size: 12px; color: var(--text-muted);">LMS (revenue split, webhooks, wallet)</td>
+            <td style="font-family:var(--font-mono);font-size:10px;color:var(--accent);">Payments</td>
+            <td><div class="expertise-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div></td>
+            <td style="font-size:12px;color:var(--text-muted);" data-i18n="exp_stripe_used">LMS (revenue split, webhooks, wallet)</td>
           </tr>
           <tr>
             <td><strong>Firebase</strong></td>
-            <td style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan);">Cloud</td>
-            <td>
-              <div class="expertise-level">
-                <div class="level-dot filled" style="background: var(--cyan);"></div>
-                <div class="level-dot filled" style="background: var(--cyan);"></div>
-                <div class="level-dot filled" style="background: var(--cyan);"></div>
-                <div class="level-dot"></div>
-                <div class="level-dot"></div>
-              </div>
-            </td>
-            <td style="font-size: 12px; color: var(--text-muted);">CivicFlow (Auth, Firestore, real-time)</td>
+            <td style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);">Cloud</td>
+            <td><div class="expertise-level"><div class="level-dot filled" style="background:var(--cyan);"></div><div class="level-dot filled" style="background:var(--cyan);"></div><div class="level-dot filled" style="background:var(--cyan);"></div><div class="level-dot"></div><div class="level-dot"></div></div></td>
+            <td style="font-size:12px;color:var(--text-muted);" data-i18n="exp_fb_used">CivicFlow (Auth, Firestore, real-time)</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Currently Learning -->
+    <!-- Currently Exploring -->
     <div class="currently-learning fade-up">
-      <div class="section-label">// Currently Exploring</div>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px;">
-        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid rgba(0,212,255,0.2); border-radius: var(--radius); background: var(--cyan-dim);">
-          <span style="color: var(--cyan);">→</span>
-          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">LLM Integration & AI APIs</span>
+      <div class="section-label" data-i18n="exploring_label">// Currently Exploring</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;">
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(0,212,255,0.2);border-radius:var(--radius);background:var(--cyan-dim);">
+          <span style="color:var(--cyan);">→</span>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);" data-i18n="exp1">LLM Integration & AI APIs</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid rgba(0,212,255,0.2); border-radius: var(--radius); background: var(--cyan-dim);">
-          <span style="color: var(--cyan);">→</span>
-          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">Multi-tenancy Architecture</span>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(0,212,255,0.2);border-radius:var(--radius);background:var(--cyan-dim);">
+          <span style="color:var(--cyan);">→</span>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);" data-i18n="exp2">Multi-tenancy Architecture</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid rgba(0,212,255,0.2); border-radius: var(--radius); background: var(--cyan-dim);">
-          <span style="color: var(--cyan);">→</span>
-          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">Solar Energy IoT Systems</span>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(0,212,255,0.2);border-radius:var(--radius);background:var(--cyan-dim);">
+          <span style="color:var(--cyan);">→</span>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);" data-i18n="exp3">Solar Energy IoT Systems</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid rgba(0,212,255,0.2); border-radius: var(--radius); background: var(--cyan-dim);">
-          <span style="color: var(--cyan);">→</span>
-          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">Machine Learning fundamentals</span>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(0,212,255,0.2);border-radius:var(--radius);background:var(--cyan-dim);">
+          <span style="color:var(--cyan);">→</span>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);" data-i18n="exp4">Machine Learning fundamentals</span>
         </div>
       </div>
     </div>
@@ -1497,302 +1405,111 @@ footer {
   </div>
 </main>
 
-<div style="border-top: 1px solid var(--border);">
+<div style="border-top:1px solid var(--border);">
   <footer>
-    <div class="footer-mono">ABDOU<span>X</span> — System Architect</div>
-    <div class="footer-mono">
-      <a href="#" data-page="contact" style="color: var(--accent); text-decoration: none; letter-spacing: 0.1em;">Work with me →</a>
-    </div>
+    <div class="footer-mono">ABDOU<span>X</span> — <span data-i18n="footer_role">System Architect</span></div>
+    <div class="footer-mono"><a href="#" data-page="contact" style="color:var(--accent);text-decoration:none;letter-spacing:0.1em;" data-i18n="footer_cta">Have a complex problem? Let's talk →</a></div>
   </footer>
 </div>
 <script>
-// =====================
-// PORTFOLIO — MAIN JS
-// AbdouX — System Architect
-// =====================
-
-const Portfolio = {
-
-  // ─── STATE ───────────────────────────────────────
-  state: {
-    theme: 'dark',
-    lang: 'en',
-    menuOpen: false,
-  },
-
-  // ─── TRANSLATIONS ────────────────────────────────
-  i18n: {
-    en: {
-      nav_home: 'Home',
-      nav_projects: 'Projects',
-      nav_about: 'About',
-      nav_skills: 'Skills',
-      nav_insights: 'Thinking',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Product Engineer & Founder — Algeria',
-      hero_h1_1: "I don't build",
-      hero_h1_2: 'apps.',
-      hero_h1_3: 'I architect',
-      hero_h1_4: 'systems.',
-      hero_sub: 'Designing scalable ecosystems for the Arab world\'s most complex infrastructure challenges — from urban logistics to AI-powered productivity.',
-      hero_cta1: 'View Systems',
-      hero_cta2: 'Start a Project',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Ecosystems Built',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Active Products',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Scale Mindset',
-      hero_status: 'Available for strategic projects',
-      theme_day: 'DAY',
-      theme_night: 'NIGHT',
+const Portfolio={
+  state:{theme:'dark',lang:'en',menuOpen:false},
+  i18n:{
+    en:{
+      nav_home:'Home',nav_projects:'Projects',nav_about:'About',nav_skills:'Skills',nav_insights:'Thinking',nav_contact:'Contact',
+      theme_day:'DAY',theme_night:'NIGHT',
+      page_label:'// Technical Arsenal',
+      hero_h1:'What I',hero_h2:'Build With',
+      philosophy:`I don't list skills like a resume. I organize them by <strong>how I think</strong> — what I build, what I architect, and what I think in. Because the difference between a developer and a system architect isn't the tools — it's the mental model.`,
+      z1_verb:'I BUILD',z1_heading:'The hands-on tools',
+      z2_verb:'I ARCHITECT',z2_heading:'The structural thinking',
+      z3_verb:'I THINK IN',z3_heading:'The meta-skills',
+      th1:'Systems Thinking',th2:'Product Architecture',th3:'SaaS Business Models',
+      th4:'Scalability Planning',th5:'Technical Scoping',th6:'Multilingual UX (AR/FR/EN)',
+      th7:'Founder Mindset',th8:'Building in Public',
+      expertise_label:'// Expertise Depth',
+      th_tech:'Technology',th_cat:'Category',th_level:'Level',th_used:'Used In',
+      exp_ca_used:'LMS (18-table, 10 bounded contexts)',
+      exp_fil_used:'LMS Admin Panel, MindPilot Dashboard',
+      exp_stripe_used:'LMS (revenue split, webhooks, wallet)',
+      exp_fb_used:'CivicFlow (Auth, Firestore, real-time)',
+      exploring_label:'// Currently Exploring',
+      exp1:'LLM Integration & AI APIs',exp2:'Multi-tenancy Architecture',
+      exp3:'Solar Energy IoT Systems',exp4:'Machine Learning fundamentals',
+      footer_role:'System Architect',footer_cta:"Have a complex problem? Let's talk →",
     },
-    fr: {
-      nav_home: 'Accueil',
-      nav_projects: 'Projets',
-      nav_about: 'À propos',
-      nav_skills: 'Compétences',
-      nav_insights: 'Réflexions',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Ingénieur Produit & Fondateur — Algérie',
-      hero_h1_1: "Je ne code pas",
-      hero_h1_2: "des apps.",
-      hero_h1_3: "Je conçois des",
-      hero_h1_4: "systèmes.",
-      hero_sub: 'Concevoir des solutions scalables pour les défis infrastructurels complexes du monde arabe — de la logistique urbaine à la productivité IA.',
-      hero_cta1: 'Voir les systèmes',
-      hero_cta2: 'Démarrer un projet',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Écosystèmes construits',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Produits actifs',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Vision scalable',
-      hero_status: 'Disponible pour projets stratégiques',
-      theme_day: 'JOUR',
-      theme_night: 'NUIT',
+    fr:{
+      nav_home:'Accueil',nav_projects:'Projets',nav_about:'À propos',nav_skills:'Compétences',nav_insights:'Réflexions',nav_contact:'Contact',
+      theme_day:'JOUR',theme_night:'NUIT',
+      page_label:'// Arsenal Technique',
+      hero_h1:'Ce avec quoi',hero_h2:'Je construis',
+      philosophy:`Je ne liste pas les compétences comme un CV. Je les organise selon <strong>ma façon de penser</strong> — ce que je construis, ce que j'architecture, et dans quoi je pense. Parce que la différence entre un développeur et un architecte système, ce ne sont pas les outils — c'est le modèle mental.`,
+      z1_verb:'JE CONSTRUIS',z1_heading:'Les outils concrets',
+      z2_verb:"J'ARCHITECTURE",z2_heading:'La pensée structurelle',
+      z3_verb:'JE PENSE EN',z3_heading:'Les méta-compétences',
+      th1:'Pensée Systémique',th2:'Architecture Produit',th3:'Modèles SaaS Business',
+      th4:'Planification Scalabilité',th5:'Cadrage Technique',th6:'UX Multilingue (AR/FR/EN)',
+      th7:'Mindset Fondateur',th8:'Construction en Public',
+      expertise_label:'// Profondeur d\'Expertise',
+      th_tech:'Technologie',th_cat:'Catégorie',th_level:'Niveau',th_used:'Utilisé Dans',
+      exp_ca_used:'LMS (18 tables, 10 contextes délimités)',
+      exp_fil_used:'Panel Admin LMS, Dashboard MindPilot',
+      exp_stripe_used:'LMS (partage revenus, webhooks, portefeuille)',
+      exp_fb_used:'CivicFlow (Auth, Firestore, temps réel)',
+      exploring_label:'// En Cours d\'Exploration',
+      exp1:'Intégration LLM & APIs IA',exp2:'Architecture Multi-tenant',
+      exp3:'Systèmes IoT Énergie Solaire',exp4:'Fondamentaux Machine Learning',
+      footer_role:'Architecte Système',footer_cta:'Un problème complexe ? Parlons-en →',
     },
-    ar: {
-      nav_home: 'الرئيسية',
-      nav_projects: 'المشاريع',
-      nav_about: 'عني',
-      nav_skills: 'المهارات',
-      nav_insights: 'أفكاري',
-      nav_contact: 'تواصل',
-      hero_eyebrow: 'مهندس منتجات ومؤسس — الجزائر',
-      hero_h1_1: 'أنا لا أبني',
-      hero_h1_2: 'تطبيقات.',
-      hero_h1_3: 'أنا أُصمِّم',
-      hero_h1_4: 'أنظمة.',
-      hero_sub: 'أحوّل التحديات المعقدة إلى بنى رقمية قابلة للتوسع — من إدارة المدن إلى الذكاء الاصطناعي.',
-      hero_cta1: 'استعرض الأنظمة',
-      hero_cta2: 'ابدأ مشروعاً',
-      hero_stat1_num: '+4',
-      hero_stat1_label: 'منظومات مبنية',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'منتجات نشطة',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'تفكير قابل للتوسع',
-      hero_status: 'متاح للمشاريع الاستراتيجية',
-      theme_day: 'نهار',
-      theme_night: 'ليل',
+    ar:{
+      nav_home:'الرئيسية',nav_projects:'المشاريع',nav_about:'عني',nav_skills:'المهارات',nav_insights:'أفكاري',nav_contact:'تواصل',
+      theme_day:'نهار',theme_night:'ليل',
+      page_label:'// الترسانة التقنية',
+      hero_h1:'ما أبني',hero_h2:'به',
+      philosophy:`لا أُدرج المهارات كسيرة ذاتية. أنظّمها وفق <strong>طريقة تفكيري</strong> — ما أبنيه، ما أُهندسه بنيوياً، وما أفكر فيه. لأن الفرق بين المطوّر ومهندس الأنظمة ليس في الأدوات — بل في النموذج الذهني.`,
+      z1_verb:'أنا أَبني',z1_heading:'الأدوات العملية',
+      z2_verb:'أنا أُهندس',z2_heading:'التفكير البنيوي',
+      z3_verb:'أنا أُفكّر في',z3_heading:'المهارات العليا',
+      th1:'التفكير المنظومي',th2:'هندسة المنتجات',th3:'نماذج أعمال SaaS',
+      th4:'تخطيط قابلية التوسع',th5:'التحديد التقني',th6:'تجربة مستخدم متعددة اللغات',
+      th7:'عقلية المؤسس',th8:'البناء أمام الجمهور',
+      expertise_label:'// عمق الخبرة',
+      th_tech:'التقنية',th_cat:'الفئة',th_level:'المستوى',th_used:'مُستخدم في',
+      exp_ca_used:'LMS (18 جدول، 10 سياقات محدودة)',
+      exp_fil_used:'لوحة إدارة LMS، لوحة MindPilot',
+      exp_stripe_used:'LMS (تقسيم إيرادات، webhooks، محفظة)',
+      exp_fb_used:'CivicFlow (المصادقة، Firestore، الوقت الفعلي)',
+      exploring_label:'// قيد الاستكشاف حالياً',
+      exp1:'تكامل LLM وواجهات برمجة الذكاء الاصطناعي',exp2:'بنية متعددة المستأجرين',
+      exp3:'أنظمة IoT للطاقة الشمسية',exp4:'أساسيات تعلم الآلة',
+      footer_role:'مهندس أنظمة',footer_cta:'عندك مشكلة معقدة؟ لنتحدث →',
     }
   },
-
-  // ─── INIT ─────────────────────────────────────────
-  init() {
-    this.detectLanguage();
-    this.initCursor();
-    this.initNavbar();
-    this.initTheme();
-    this.initLang();
-    this.initAnimations();
-    this.initMobileMenu();
+  init(){this.detectLanguage();this.initCursor();this.initNavbar();this.initTheme();this.initLang();this.initAnimations();this.initMobileMenu();},
+  detectLanguage(){const s=localStorage.getItem('portfolio_lang'),b=navigator.language||'en';if(s)this.state.lang=s;else if(b.startsWith('ar'))this.state.lang='ar';else if(b.startsWith('fr'))this.state.lang='fr';else this.state.lang='en';},
+  initCursor(){const c=document.createElement('div');c.className='cursor';const r=document.createElement('div');r.className='cursor-ring';document.body.appendChild(c);document.body.appendChild(r);let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});const a=()=>{rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);};a();document.querySelectorAll('a,button,.skill-chip').forEach(el=>{el.addEventListener('mouseenter',()=>{c.style.width='12px';c.style.height='12px';r.style.width='48px';r.style.height='48px';r.style.borderColor='rgba(232,255,71,0.6)';});el.addEventListener('mouseleave',()=>{c.style.width='8px';c.style.height='8px';r.style.width='32px';r.style.height='32px';r.style.borderColor='rgba(232,255,71,0.4)';});});},
+  initNavbar(){const n=document.querySelector('.navbar');if(!n)return;window.addEventListener('scroll',()=>n.classList.toggle('scrolled',window.scrollY>20));},
+  initTheme(){this.setTheme(localStorage.getItem('portfolio_theme')||'dark');},
+  setTheme(t){this.state.theme=t;document.documentElement.setAttribute('data-theme',t);localStorage.setItem('portfolio_theme',t);const b=document.querySelector('.btn-theme');if(b){const tr=this.i18n[this.state.lang];b.textContent=t==='dark'?(tr.theme_day||'DAY'):(tr.theme_night||'NIGHT');}},
+  toggleTheme(){this.setTheme(this.state.theme==='dark'?'light':'dark');},
+  applyLang(lang){
+    this.state.lang=lang;localStorage.setItem('portfolio_lang',lang);
+    const t=this.i18n[lang],isRTL=lang==='ar';
+    document.documentElement.setAttribute('dir',isRTL?'rtl':'ltr');
+    document.body.setAttribute('dir',isRTL?'rtl':'ltr');
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.textContent=t[k];});
+    document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(t[k]!==undefined)el.innerHTML=t[k];});
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-lang')===lang));
+    const tb=document.querySelector('.btn-theme');if(tb)tb.textContent=this.state.theme==='dark'?(t.theme_day||'DAY'):(t.theme_night||'NIGHT');
   },
-
-  // ─── LANGUAGE DETECTION ──────────────────────────
-  detectLanguage() {
-    const browserLang = navigator.language || navigator.userLanguage;
-    const saved = localStorage.getItem('portfolio_lang');
-    if (saved) {
-      this.state.lang = saved;
-    } else if (browserLang.startsWith('ar')) {
-      this.state.lang = 'ar';
-    } else if (browserLang.startsWith('fr')) {
-      this.state.lang = 'fr';
-    } else {
-      this.state.lang = 'en';
-    }
-  },
-
-  // ─── CURSOR ──────────────────────────────────────
-  initCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor';
-    const ring = document.createElement('div');
-    ring.className = 'cursor-ring';
-    document.body.appendChild(cursor);
-    document.body.appendChild(ring);
-
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
-
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animate);
-    };
-    animate();
-
-    document.querySelectorAll('a, button, .bento-card, .project-card, .skill-item, .act, .insight-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '48px';
-        ring.style.height = '48px';
-        ring.style.borderColor = 'rgba(232,255,71,0.6)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '8px';
-        cursor.style.height = '8px';
-        ring.style.width = '32px';
-        ring.style.height = '32px';
-        ring.style.borderColor = 'rgba(232,255,71,0.4)';
-      });
-    });
-  },
-
-  // ─── NAVBAR ──────────────────────────────────────
-  initNavbar() {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Active link
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      const href = a.getAttribute('href');
-      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-        a.classList.add('active');
-      }
-    });
-  },
-
-  // ─── THEME ───────────────────────────────────────
-  initTheme() {
-    const saved = localStorage.getItem('portfolio_theme') || 'dark';
-    this.setTheme(saved);
-  },
-
-  setTheme(theme) {
-    this.state.theme = theme;
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio_theme', theme);
-    const btn = document.querySelector('.btn-theme');
-    if (btn) {
-      const t = this.i18n[this.state.lang];
-      btn.textContent = theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
-  },
-
-  toggleTheme() {
-    this.setTheme(this.state.theme === 'dark' ? 'light' : 'dark');
-  },
-
-  // ─── LANGUAGE ────────────────────────────────────
-  initLang() {
-    this.applyLang(this.state.lang);
-  },
-
-  applyLang(lang) {
-    this.state.lang = lang;
-    localStorage.setItem('portfolio_lang', lang);
-    const t = this.i18n[lang];
-
-    // Direction
-    const isRTL = lang === 'ar';
-    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-
-    // Translate elements
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key]) el.textContent = t[key];
-    });
-
-    // Active lang btn
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
-
-    // Update theme button text
-    const themeBtn = document.querySelector('.btn-theme');
-    if (themeBtn) {
-      themeBtn.textContent = this.state.theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
-  },
-
-  switchLang(lang) {
-    this.applyLang(lang);
-  },
-
-  // ─── ANIMATIONS ──────────────────────────────────
-  initAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  },
-
-  // ─── MOBILE MENU ─────────────────────────────────
-  initMobileMenu() {
-    const hamburger = document.querySelector('.nav-hamburger');
-    const mobileNav = document.querySelector('.nav-mobile');
-    if (!hamburger || !mobileNav) return;
-
-    hamburger.addEventListener('click', () => {
-      this.state.menuOpen = !this.state.menuOpen;
-      mobileNav.classList.toggle('open', this.state.menuOpen);
-    });
-
-    document.querySelectorAll('.nav-mobile a').forEach(a => {
-      a.addEventListener('click', () => {
-        this.state.menuOpen = false;
-        mobileNav.classList.remove('open');
-      });
-    });
-  },
+  initLang(){this.applyLang(this.state.lang);},
+  switchLang(l){this.applyLang(l);},
+  initAnimations(){const o=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});},{threshold:0.1});document.querySelectorAll('.fade-up').forEach(el=>o.observe(el));},
+  initMobileMenu(){const h=document.querySelector('.nav-hamburger'),m=document.querySelector('.nav-mobile');if(!h||!m)return;h.addEventListener('click',()=>{this.state.menuOpen=!this.state.menuOpen;m.classList.toggle('open',this.state.menuOpen);});document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>{this.state.menuOpen=false;m.classList.remove('open');}));},
 };
-
-// ─── GLOBAL HANDLERS ─────────────────────────────
-window.toggleTheme = () => Portfolio.toggleTheme();
-window.switchLang = (l) => Portfolio.switchLang(l);
-
-// ─── START ───────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => Portfolio.init());
-
+window.toggleTheme=()=>Portfolio.toggleTheme();
+window.switchLang=l=>Portfolio.switchLang(l);
+document.addEventListener('DOMContentLoaded',()=>Portfolio.init());
 </script>
 </body>
 </html>

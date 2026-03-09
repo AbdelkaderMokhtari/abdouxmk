@@ -4,6 +4,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thinking — AbdouX</title>
   <style>
 :root {
   --bg-primary: #080808;
@@ -1047,9 +1050,6 @@ footer {
 [dir="rtl"] .zone-header { flex-direction: row-reverse; }
 [dir="rtl"] .act-number { text-align: right; }
   </style>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thinking — AbdouX</title>
 <style>
     .insights-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 100px; }
 
@@ -1223,62 +1223,20 @@ footer {
       .newsletter-block { padding: 28px; gap: 24px; }
     }
   </style>
-
 <script>
-// FILE:// SAFE NAVIGATION
-(function(){
-  var loc = window.location.href;
-  var isPages = loc.indexOf('/pages/') > -1;
-  var base = isPages ? '../' : '';
-  
-  // Map of page keys to filenames
-  var pages = {
-    'home':     base + 'index.html',
-    'projects': base + 'pages/projects.html',
-    'about':    base + 'pages/about.html',
-    'skills':   base + 'pages/skills.html',
-    'insights': base + 'pages/insights.html',
-    'contact':  base + 'pages/contact.html',
-  };
-  
-  window.goTo = function(page) {
-    if(pages[page]) window.location.href = pages[page];
-  };
-  
-  // After DOM ready, fix all nav links
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(pages[p]) {
-        el.href = pages[p];
-      }
-    });
-    
-    // Highlight active
-    var current = window.location.href.split('/').pop().replace('.html','') || 'index';
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(p === current || (current === 'index' && p === 'home')) {
-        el.classList.add('active');
-      }
-    });
-  });
-})();
+(function(){var loc=window.location.href,isP=loc.indexOf('/pages/')>-1,base=isP?'../':'';var pages={home:base+'index.html',projects:base+'pages/projects.html',about:base+'pages/about.html',skills:base+'pages/skills.html',insights:base+'pages/insights.html',contact:base+'pages/contact.html'};window.goTo=function(p){if(pages[p])window.location.href=pages[p];};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(pages[p])el.href=pages[p];});var cur=window.location.href.split('/').pop().replace('.html','')||'index';document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(p===cur||(cur==='index'&&p==='home'))el.classList.add('active');});});})();
 </script>
-
 </head>
 <body>
-
-<!-- NAVBAR -->
 <nav class="navbar">
   <a href="#" data-page="home" class="nav-logo">ABDOU<span>X</span></a>
   <ul class="nav-links">
-    <li><a href="#" data-page="home" data-i18n="nav_home">Home</a></li>
+    <li><a href="#" data-page="home"     data-i18n="nav_home">Home</a></li>
     <li><a href="#" data-page="projects" data-i18n="nav_projects">Projects</a></li>
-    <li><a href="#" data-page="about" data-i18n="nav_about">About</a></li>
-    <li><a href="#" data-page="skills" data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#" data-page="about"    data-i18n="nav_about">About</a></li>
+    <li><a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a></li>
     <li><a href="#" data-page="insights" class="active" data-i18n="nav_insights">Thinking</a></li>
-    <li><a href="#" data-page="contact" data-i18n="nav_contact">Contact</a></li>
+    <li><a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="nav-controls">
     <div class="lang-switcher">
@@ -1291,23 +1249,22 @@ footer {
   <button class="nav-hamburger"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile">
-  <a href="#" data-page="home">Home</a>
-  <a href="#" data-page="projects">Projects</a>
-  <a href="#" data-page="about">About</a>
-  <a href="#" data-page="skills">Skills</a>
-  <a href="#" data-page="insights">Thinking</a>
-  <a href="#" data-page="contact">Contact</a>
+  <a href="#" data-page="home"     data-i18n="nav_home">Home</a>
+  <a href="#" data-page="projects" data-i18n="nav_projects">Projects</a>
+  <a href="#" data-page="about"    data-i18n="nav_about">About</a>
+  <a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a>
+  <a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a>
+  <a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a>
 </div>
 
 <main>
-
-  <div style="max-width: 1200px; margin: 0 auto; padding: 140px 40px 60px;">
-    <div class="section-label">// Ideas, Systems & Observations</div>
+  <div style="max-width:1200px;margin:0 auto;padding:140px 40px 60px;">
+    <div class="section-label" data-i18n="page_label">// Ideas, Systems & Observations</div>
     <h1 class="section-title fade-up">
-      How I<br>
-      <span style="color: var(--accent);">Think</span>
+      <span data-i18n="hero_h1">How I</span><br>
+      <span style="color:var(--accent);" data-i18n="hero_h2">Think</span>
     </h1>
-    <p style="margin-top: 24px; color: var(--text-secondary); font-size: 15px; max-width: 540px; line-height: 1.7;" class="fade-up">
+    <p style="margin-top:24px;color:var(--text-secondary);font-size:15px;max-width:540px;line-height:1.7;" class="fade-up" data-i18n="hero_sub">
       Thoughts on building systems, product architecture, AI, and what it means to build from Algeria for the world.
     </p>
   </div>
@@ -1316,93 +1273,85 @@ footer {
 
     <!-- Featured Post -->
     <div class="featured-post fade-up">
-      <div class="post-featured-tag">Featured Essay</div>
-      <div class="featured-title">
+      <div class="post-featured-tag" data-i18n="featured_tag">Featured Essay</div>
+      <div class="featured-title" data-i18n-html="featured_title">
         Why I stopped calling<br>myself a developer
       </div>
-      <div class="featured-excerpt">
+      <div class="featured-excerpt" data-i18n="featured_excerpt">
         The moment I started thinking in systems instead of features was when everything changed — how I price, how I scope, and how I build. The title "developer" is a description of a tool. "Architect" is a description of a way of thinking.
       </div>
       <div class="post-meta">
-        <span class="post-date">January 2025</span>
-        <span class="post-category-tag">Identity</span>
-        <span class="post-category-tag">Systems</span>
-        <span class="post-read-time">6 min read</span>
-        <a href="#" class="card-link" style="margin-top: 0;">Read Essay →</a>
+        <span class="post-date" data-i18n="p1_date">January 2025</span>
+        <span class="post-category-tag" data-i18n="p1_cat1">Identity</span>
+        <span class="post-category-tag" data-i18n="p1_cat2">Systems</span>
+        <span class="post-read-time" data-i18n="p1_time">6 min read</span>
+        <a href="#" class="card-link" style="margin-top:0;" data-i18n="read_essay">Read Essay →</a>
       </div>
     </div>
 
-    <!-- Secondary Posts Grid -->
+    <!-- Secondary Posts -->
     <div class="posts-secondary">
 
       <div class="post-card fade-up">
         <div class="post-num">02</div>
-        <div class="post-meta" style="margin-bottom: 12px;">
-          <span class="post-category-tag" style="color: var(--violet); border-color: rgba(157,111,255,0.3);">AI</span>
-          <span class="post-date">February 2025</span>
+        <div class="post-meta" style="margin-bottom:12px;">
+          <span class="post-category-tag" style="color:var(--violet);border-color:rgba(157,111,255,0.3);" data-i18n="p2_cat">AI</span>
+          <span class="post-date" data-i18n="p2_date">February 2025</span>
         </div>
-        <div class="post-title">Clean Architecture isn't overkill — it's insurance</div>
-        <div class="post-excerpt">
-          Every senior developer who's worked on a 5-year-old codebase without architecture tells the same horror story. Here's why upfront structure pays exponential dividends.
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span class="post-category-tag">Architecture</span>
-          <span class="post-read-time">4 min read</span>
+        <div class="post-title" data-i18n="p2_title">Clean Architecture isn't overkill — it's insurance</div>
+        <div class="post-excerpt" data-i18n="p2_excerpt">Every senior developer who's worked on a 5-year-old codebase without architecture tells the same horror story. Here's why upfront structure pays exponential dividends.</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="post-category-tag" data-i18n="p2_tag">Architecture</span>
+          <span class="post-read-time" data-i18n="p2_time">4 min read</span>
         </div>
       </div>
 
       <div class="post-card fade-up">
         <div class="post-num">03</div>
-        <div class="post-meta" style="margin-bottom: 12px;">
-          <span class="post-category-tag" style="color: var(--cyan); border-color: rgba(0,212,255,0.3);">Product</span>
-          <span class="post-date">February 2025</span>
+        <div class="post-meta" style="margin-bottom:12px;">
+          <span class="post-category-tag" style="color:var(--cyan);border-color:rgba(0,212,255,0.3);" data-i18n="p3_cat">Product</span>
+          <span class="post-date" data-i18n="p3_date">February 2025</span>
         </div>
-        <div class="post-title">Building in Algeria: constraints as a competitive advantage</div>
-        <div class="post-excerpt">
-          When you can't rely on global payment infrastructure, easy cloud setups, or saturated markets — you learn to build differently. And that's a superpower.
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span class="post-category-tag">Founder</span>
-          <span class="post-read-time">5 min read</span>
+        <div class="post-title" data-i18n="p3_title">Building in Algeria: constraints as a competitive advantage</div>
+        <div class="post-excerpt" data-i18n="p3_excerpt">When you can't rely on global payment infrastructure, easy cloud setups, or saturated markets — you learn to build differently. And that's a superpower.</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="post-category-tag" data-i18n="p3_tag">Founder</span>
+          <span class="post-read-time" data-i18n="p3_time">5 min read</span>
         </div>
       </div>
 
       <div class="post-card fade-up">
         <div class="post-num">04</div>
-        <div class="post-meta" style="margin-bottom: 12px;">
-          <span class="post-category-tag" style="color: var(--accent); border-color: rgba(232,255,71,0.2);">Systems</span>
-          <span class="post-date">March 2025</span>
+        <div class="post-meta" style="margin-bottom:12px;">
+          <span class="post-category-tag" style="color:var(--accent);border-color:rgba(232,255,71,0.2);" data-i18n="p4_cat">Systems</span>
+          <span class="post-date" data-i18n="p4_date">March 2025</span>
         </div>
-        <div class="post-title">The state machine: the most underused tool in app development</div>
-        <div class="post-excerpt">
-          Most data corruption bugs, race conditions, and "impossible states" in production apps share one root cause: no one designed the state transitions explicitly.
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span class="post-category-tag">Backend</span>
-          <span class="post-read-time">7 min read</span>
+        <div class="post-title" data-i18n="p4_title">The state machine: the most underused tool in app development</div>
+        <div class="post-excerpt" data-i18n="p4_excerpt">Most data corruption bugs, race conditions, and "impossible states" in production apps share one root cause: no one designed the state transitions explicitly.</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="post-category-tag" data-i18n="p4_tag">Backend</span>
+          <span class="post-read-time" data-i18n="p4_time">7 min read</span>
         </div>
       </div>
 
       <div class="post-card fade-up">
         <div class="post-num">05</div>
-        <div class="post-meta" style="margin-bottom: 12px;">
-          <span class="post-category-tag" style="color: var(--violet); border-color: rgba(157,111,255,0.3);">AI</span>
-          <span class="post-date">March 2025</span>
+        <div class="post-meta" style="margin-bottom:12px;">
+          <span class="post-category-tag" style="color:var(--violet);border-color:rgba(157,111,255,0.3);" data-i18n="p5_cat">AI</span>
+          <span class="post-date" data-i18n="p5_date">March 2025</span>
         </div>
-        <div class="post-title">MindPilot: what I've learned building an AI product in public</div>
-        <div class="post-excerpt">
-          Six months of building in public. Here's what shipping in the open taught me about product design, user feedback, and the gap between "AI feature" and "AI product."
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span class="post-category-tag">Building in Public</span>
-          <span class="post-read-time">8 min read</span>
+        <div class="post-title" data-i18n="p5_title">MindPilot: what I've learned building an AI product in public</div>
+        <div class="post-excerpt" data-i18n="p5_excerpt">Six months of building in public. Here's what shipping in the open taught me about product design, user feedback, and the gap between "AI feature" and "AI product."</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="post-category-tag" data-i18n="p5_tag">Building in Public</span>
+          <span class="post-read-time" data-i18n="p5_time">8 min read</span>
         </div>
       </div>
 
-      <div class="post-card fade-up" style="border: 1px dashed var(--border); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 200px;">
-        <div style="font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); letter-spacing: 0.2em; margin-bottom: 12px;">NEXT ESSAY</div>
-        <div style="font-size: 16px; font-weight: 600; color: var(--text-muted);">Coming soon...</div>
-        <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 8px;">Solar energy & digital infrastructure</div>
+      <div class="post-card fade-up" style="border:1px dashed var(--border);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;">
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--text-muted);letter-spacing:0.2em;margin-bottom:12px;" data-i18n="next_label">NEXT ESSAY</div>
+        <div style="font-size:16px;font-weight:600;color:var(--text-muted);" data-i18n="coming_soon">Coming soon...</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-top:8px;" data-i18n="coming_topic">Solar energy & digital infrastructure</div>
       </div>
 
     </div>
@@ -1410,314 +1359,109 @@ footer {
     <!-- Newsletter -->
     <div class="newsletter-block fade-up">
       <div class="newsletter-text">
-        <h3>Get the thinking first</h3>
-        <p>Essays on systems, product architecture, and building from Algeria — delivered before they're public.</p>
+        <h3 data-i18n="newsletter_title">Get the thinking first</h3>
+        <p data-i18n="newsletter_sub">Essays on systems, product architecture, and building from Algeria — delivered before they're public.</p>
       </div>
       <div class="newsletter-form">
-        <input class="newsletter-input" type="email" placeholder="your@email.com"/>
-        <button class="btn-primary" style="white-space: nowrap;">Subscribe</button>
+        <input class="newsletter-input" type="email" data-i18n-placeholder="newsletter_placeholder" placeholder="your@email.com"/>
+        <button class="btn-primary" data-i18n="newsletter_btn">Subscribe</button>
       </div>
     </div>
 
   </div>
 </main>
 
-<div style="border-top: 1px solid var(--border);">
+<div style="border-top:1px solid var(--border);">
   <footer>
-    <div class="footer-mono">ABDOU<span>X</span> — Thinking in Systems</div>
-    <div class="footer-mono">
-      <a href="#" data-page="contact" style="color: var(--accent); text-decoration: none; letter-spacing: 0.1em;">Have a conversation →</a>
-    </div>
+    <div class="footer-mono">ABDOU<span>X</span> — <span data-i18n="footer_role">System Architect</span></div>
+    <div class="footer-mono"><a href="#" data-page="contact" style="color:var(--accent);text-decoration:none;letter-spacing:0.1em;" data-i18n="footer_cta">Have a complex problem? Let's talk →</a></div>
   </footer>
 </div>
 <script>
-// =====================
-// PORTFOLIO — MAIN JS
-// AbdouX — System Architect
-// =====================
-
-const Portfolio = {
-
-  // ─── STATE ───────────────────────────────────────
-  state: {
-    theme: 'dark',
-    lang: 'en',
-    menuOpen: false,
-  },
-
-  // ─── TRANSLATIONS ────────────────────────────────
-  i18n: {
-    en: {
-      nav_home: 'Home',
-      nav_projects: 'Projects',
-      nav_about: 'About',
-      nav_skills: 'Skills',
-      nav_insights: 'Thinking',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Product Engineer & Founder — Algeria',
-      hero_h1_1: "I don't build",
-      hero_h1_2: 'apps.',
-      hero_h1_3: 'I architect',
-      hero_h1_4: 'systems.',
-      hero_sub: 'Designing scalable ecosystems for the Arab world\'s most complex infrastructure challenges — from urban logistics to AI-powered productivity.',
-      hero_cta1: 'View Systems',
-      hero_cta2: 'Start a Project',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Ecosystems Built',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Active Products',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Scale Mindset',
-      hero_status: 'Available for strategic projects',
-      theme_day: 'DAY',
-      theme_night: 'NIGHT',
+const Portfolio={
+  state:{theme:'dark',lang:'en',menuOpen:false},
+  i18n:{
+    en:{
+      nav_home:'Home',nav_projects:'Projects',nav_about:'About',nav_skills:'Skills',nav_insights:'Thinking',nav_contact:'Contact',
+      theme_day:'DAY',theme_night:'NIGHT',
+      page_label:'// Ideas, Systems & Observations',
+      hero_h1:'How I',hero_h2:'Think',
+      hero_sub:'Thoughts on building systems, product architecture, AI, and what it means to build from Algeria for the world.',
+      featured_tag:'Featured Essay',
+      featured_title:'Why I stopped calling<br>myself a developer',
+      featured_excerpt:'The moment I started thinking in systems instead of features was when everything changed — how I price, how I scope, and how I build. The title "developer" is a description of a tool. "Architect" is a description of a way of thinking.',
+      p1_date:'January 2025',p1_cat1:'Identity',p1_cat2:'Systems',p1_time:'6 min read',read_essay:'Read Essay →',
+      p2_cat:'AI',p2_date:'February 2025',p2_title:"Clean Architecture isn't overkill — it's insurance",p2_excerpt:"Every senior developer who's worked on a 5-year-old codebase without architecture tells the same horror story. Here's why upfront structure pays exponential dividends.",p2_tag:'Architecture',p2_time:'4 min read',
+      p3_cat:'Product',p3_date:'February 2025',p3_title:'Building in Algeria: constraints as a competitive advantage',p3_excerpt:"When you can't rely on global payment infrastructure, easy cloud setups, or saturated markets — you learn to build differently. And that's a superpower.",p3_tag:'Founder',p3_time:'5 min read',
+      p4_cat:'Systems',p4_date:'March 2025',p4_title:'The state machine: the most underused tool in app development',p4_excerpt:'Most data corruption bugs, race conditions, and "impossible states" in production apps share one root cause: no one designed the state transitions explicitly.',p4_tag:'Backend',p4_time:'7 min read',
+      p5_cat:'AI',p5_date:'March 2025',p5_title:"MindPilot: what I've learned building an AI product in public",p5_excerpt:'Six months of building in public. Here\'s what shipping in the open taught me about product design, user feedback, and the gap between "AI feature" and "AI product."',p5_tag:'Building in Public',p5_time:'8 min read',
+      next_label:'NEXT ESSAY',coming_soon:'Coming soon...',coming_topic:'Solar energy & digital infrastructure',
+      newsletter_title:'Get the thinking first',newsletter_sub:"Essays on systems, product architecture, and building from Algeria — delivered before they're public.",newsletter_placeholder:'your@email.com',newsletter_btn:'Subscribe',
+      footer_role:'System Architect',footer_cta:"Have a complex problem? Let's talk →",
     },
-    fr: {
-      nav_home: 'Accueil',
-      nav_projects: 'Projets',
-      nav_about: 'À propos',
-      nav_skills: 'Compétences',
-      nav_insights: 'Réflexions',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Ingénieur Produit & Fondateur — Algérie',
-      hero_h1_1: "Je ne code pas",
-      hero_h1_2: "des apps.",
-      hero_h1_3: "Je conçois des",
-      hero_h1_4: "systèmes.",
-      hero_sub: 'Concevoir des solutions scalables pour les défis infrastructurels complexes du monde arabe — de la logistique urbaine à la productivité IA.',
-      hero_cta1: 'Voir les systèmes',
-      hero_cta2: 'Démarrer un projet',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Écosystèmes construits',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Produits actifs',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Vision scalable',
-      hero_status: 'Disponible pour projets stratégiques',
-      theme_day: 'JOUR',
-      theme_night: 'NUIT',
+    fr:{
+      nav_home:'Accueil',nav_projects:'Projets',nav_about:'À propos',nav_skills:'Compétences',nav_insights:'Réflexions',nav_contact:'Contact',
+      theme_day:'JOUR',theme_night:'NUIT',
+      page_label:'// Idées, Systèmes & Observations',
+      hero_h1:'Comment je',hero_h2:'Pense',
+      hero_sub:"Réflexions sur la construction de systèmes, l'architecture produit, l'IA, et ce que signifie construire depuis l'Algérie pour le monde.",
+      featured_tag:'Essai Vedette',
+      featured_title:"Pourquoi j'ai arrêté de m'appeler<br>développeur",
+      featured_excerpt:"Le moment où j'ai commencé à penser en systèmes plutôt qu'en fonctionnalités — tout a changé : comment je facture, comment je cadre, comment je construis. Le titre \"développeur\" décrit un outil. \"Architecte\" décrit une façon de penser.",
+      p1_date:'Janvier 2025',p1_cat1:'Identité',p1_cat2:'Systèmes',p1_time:'6 min de lecture',read_essay:"Lire l'essai →",
+      p2_cat:'IA',p2_date:'Février 2025',p2_title:"La Clean Architecture n'est pas exagérée — c'est une assurance",p2_excerpt:"Chaque développeur senior qui a travaillé sur un codebase de 5 ans sans architecture raconte la même histoire d'horreur. Voici pourquoi la structure initiale rapporte des dividendes exponentiels.",p2_tag:'Architecture',p2_time:'4 min de lecture',
+      p3_cat:'Produit',p3_date:'Février 2025',p3_title:'Construire en Algérie : les contraintes comme avantage concurrentiel',p3_excerpt:"Quand on ne peut pas s'appuyer sur une infrastructure de paiement mondiale, des configurations cloud faciles, ou des marchés saturés — on apprend à construire différemment. Et c'est un superpouvoir.",p3_tag:'Fondateur',p3_time:'5 min de lecture',
+      p4_cat:'Systèmes',p4_date:'Mars 2025',p4_title:"La machine à états : l'outil le plus sous-utilisé en développement",p4_excerpt:'La plupart des bugs de corruption de données, des conditions de course et des "états impossibles" en production partagent une cause racine : personne n\'a conçu explicitement les transitions d\'état.',p4_tag:'Backend',p4_time:'7 min de lecture',
+      p5_cat:'IA',p5_date:'Mars 2025',p5_title:'MindPilot : ce que j\'ai appris en construisant un produit IA en public',p5_excerpt:'Six mois de construction en public. Voici ce que livrer ouvertement m\'a appris sur le design produit, les retours utilisateurs, et l\'écart entre "fonctionnalité IA" et "produit IA".',p5_tag:'Construction en Public',p5_time:'8 min de lecture',
+      next_label:'PROCHAIN ESSAI',coming_soon:'Bientôt...',coming_topic:'Énergie solaire & infrastructure numérique',
+      newsletter_title:'Recevez les réflexions en avant-première',newsletter_sub:"Essais sur les systèmes, l'architecture produit et construire depuis l'Algérie — livrés avant leur publication.",newsletter_placeholder:'votre@email.com',newsletter_btn:"S'abonner",
+      footer_role:'Architecte Système',footer_cta:'Un problème complexe ? Parlons-en →',
     },
-    ar: {
-      nav_home: 'الرئيسية',
-      nav_projects: 'المشاريع',
-      nav_about: 'عني',
-      nav_skills: 'المهارات',
-      nav_insights: 'أفكاري',
-      nav_contact: 'تواصل',
-      hero_eyebrow: 'مهندس منتجات ومؤسس — الجزائر',
-      hero_h1_1: 'أنا لا أبني',
-      hero_h1_2: 'تطبيقات.',
-      hero_h1_3: 'أنا أُصمِّم',
-      hero_h1_4: 'أنظمة.',
-      hero_sub: 'أحوّل التحديات المعقدة إلى بنى رقمية قابلة للتوسع — من إدارة المدن إلى الذكاء الاصطناعي.',
-      hero_cta1: 'استعرض الأنظمة',
-      hero_cta2: 'ابدأ مشروعاً',
-      hero_stat1_num: '+4',
-      hero_stat1_label: 'منظومات مبنية',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'منتجات نشطة',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'تفكير قابل للتوسع',
-      hero_status: 'متاح للمشاريع الاستراتيجية',
-      theme_day: 'نهار',
-      theme_night: 'ليل',
+    ar:{
+      nav_home:'الرئيسية',nav_projects:'المشاريع',nav_about:'عني',nav_skills:'المهارات',nav_insights:'أفكاري',nav_contact:'تواصل',
+      theme_day:'نهار',theme_night:'ليل',
+      page_label:'// أفكار، أنظمة وملاحظات',
+      hero_h1:'كيف',hero_h2:'أُفكّر',
+      hero_sub:'أفكار حول بناء الأنظمة، هندسة المنتجات، الذكاء الاصطناعي، وما يعنيه البناء من الجزائر للعالم.',
+      featured_tag:'مقال مميز',
+      featured_title:'لماذا توقفتُ عن<br>تسمية نفسي مطوراً',
+      featured_excerpt:'اللحظة التي بدأت فيها التفكير في الأنظمة بدلاً من الميزات — تغيّر كل شيء: كيف أُسعّر، كيف أُحدّد النطاق، وكيف أبني. لقب "مطور" يصف أداة. "مهندس أنظمة" يصف طريقة تفكير.',
+      p1_date:'يناير 2025',p1_cat1:'الهوية',p1_cat2:'الأنظمة',p1_time:'6 دقائق قراءة',read_essay:'اقرأ المقال →',
+      p2_cat:'ذكاء اصطناعي',p2_date:'فبراير 2025',p2_title:'Clean Architecture ليست مبالغة — إنها تأمين',p2_excerpt:'كل مطور أقدم عمل على codebase عمره 5 سنوات بدون بنية معمارية يحكي نفس قصة الرعب. إليك لماذا الهيكل المبكر يدفع أرباحاً أُسية.',p2_tag:'البنية المعمارية',p2_time:'4 دقائق قراءة',
+      p3_cat:'منتج',p3_date:'فبراير 2025',p3_title:'البناء في الجزائر: القيود كميزة تنافسية',p3_excerpt:'عندما لا يمكنك الاعتماد على البنية التحتية للمدفوعات العالمية أو إعدادات السحابة السهلة أو الأسواق المشبعة — تتعلم البناء بشكل مختلف. وهذه قوة خارقة.',p3_tag:'مؤسس',p3_time:'5 دقائق قراءة',
+      p4_cat:'أنظمة',p4_date:'مارس 2025',p4_title:'آلة الحالة: الأداة الأكثر إهمالاً في تطوير التطبيقات',p4_excerpt:'معظم أخطاء تلف البيانات وحالات السباق و"الحالات المستحيلة" في تطبيقات الإنتاج تشترك في سبب جذري واحد: لم يصمم أحد انتقالات الحالة صراحةً.',p4_tag:'الواجهة الخلفية',p4_time:'7 دقائق قراءة',
+      p5_cat:'ذكاء اصطناعي',p5_date:'مارس 2025',p5_title:'MindPilot: ما تعلمته من بناء منتج ذكاء اصطناعي أمام الجمهور',p5_excerpt:'ستة أشهر من البناء العلني. إليك ما علّمني الشحن في الخارج عن تصميم المنتج وملاحظات المستخدم والفجوة بين "ميزة الذكاء الاصطناعي" و"منتج الذكاء الاصطناعي".',p5_tag:'البناء أمام الجمهور',p5_time:'8 دقائق قراءة',
+      next_label:'المقال القادم',coming_soon:'قريباً...',coming_topic:'الطاقة الشمسية والبنية التحتية الرقمية',
+      newsletter_title:'احصل على الأفكار أولاً',newsletter_sub:'مقالات عن الأنظمة وهندسة المنتجات والبناء من الجزائر — تُسلَّم قبل نشرها للعموم.',newsletter_placeholder:'بريدك@الإلكتروني.com',newsletter_btn:'اشترك',
+      footer_role:'مهندس أنظمة',footer_cta:'عندك مشكلة معقدة؟ لنتحدث →',
     }
   },
-
-  // ─── INIT ─────────────────────────────────────────
-  init() {
-    this.detectLanguage();
-    this.initCursor();
-    this.initNavbar();
-    this.initTheme();
-    this.initLang();
-    this.initAnimations();
-    this.initMobileMenu();
+  init(){this.detectLanguage();this.initCursor();this.initNavbar();this.initTheme();this.initLang();this.initAnimations();this.initMobileMenu();},
+  detectLanguage(){const s=localStorage.getItem('portfolio_lang'),b=navigator.language||'en';if(s)this.state.lang=s;else if(b.startsWith('ar'))this.state.lang='ar';else if(b.startsWith('fr'))this.state.lang='fr';else this.state.lang='en';},
+  initCursor(){const c=document.createElement('div');c.className='cursor';const r=document.createElement('div');r.className='cursor-ring';document.body.appendChild(c);document.body.appendChild(r);let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});const a=()=>{rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);};a();document.querySelectorAll('a,button,.post-card').forEach(el=>{el.addEventListener('mouseenter',()=>{c.style.width='12px';c.style.height='12px';r.style.width='48px';r.style.height='48px';r.style.borderColor='rgba(232,255,71,0.6)';});el.addEventListener('mouseleave',()=>{c.style.width='8px';c.style.height='8px';r.style.width='32px';r.style.height='32px';r.style.borderColor='rgba(232,255,71,0.4)';});});},
+  initNavbar(){const n=document.querySelector('.navbar');if(!n)return;window.addEventListener('scroll',()=>n.classList.toggle('scrolled',window.scrollY>20));},
+  initTheme(){this.setTheme(localStorage.getItem('portfolio_theme')||'dark');},
+  setTheme(t){this.state.theme=t;document.documentElement.setAttribute('data-theme',t);localStorage.setItem('portfolio_theme',t);const b=document.querySelector('.btn-theme');if(b){const tr=this.i18n[this.state.lang];b.textContent=t==='dark'?(tr.theme_day||'DAY'):(tr.theme_night||'NIGHT');}},
+  toggleTheme(){this.setTheme(this.state.theme==='dark'?'light':'dark');},
+  applyLang(lang){
+    this.state.lang=lang;localStorage.setItem('portfolio_lang',lang);
+    const t=this.i18n[lang],isRTL=lang==='ar';
+    document.documentElement.setAttribute('dir',isRTL?'rtl':'ltr');
+    document.body.setAttribute('dir',isRTL?'rtl':'ltr');
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.textContent=t[k];});
+    document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(t[k]!==undefined)el.innerHTML=t[k];});
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.getAttribute('data-i18n-placeholder');if(t[k]!==undefined)el.placeholder=t[k];});
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-lang')===lang));
+    const tb=document.querySelector('.btn-theme');if(tb)tb.textContent=this.state.theme==='dark'?(t.theme_day||'DAY'):(t.theme_night||'NIGHT');
   },
-
-  // ─── LANGUAGE DETECTION ──────────────────────────
-  detectLanguage() {
-    const browserLang = navigator.language || navigator.userLanguage;
-    const saved = localStorage.getItem('portfolio_lang');
-    if (saved) {
-      this.state.lang = saved;
-    } else if (browserLang.startsWith('ar')) {
-      this.state.lang = 'ar';
-    } else if (browserLang.startsWith('fr')) {
-      this.state.lang = 'fr';
-    } else {
-      this.state.lang = 'en';
-    }
-  },
-
-  // ─── CURSOR ──────────────────────────────────────
-  initCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor';
-    const ring = document.createElement('div');
-    ring.className = 'cursor-ring';
-    document.body.appendChild(cursor);
-    document.body.appendChild(ring);
-
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
-
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animate);
-    };
-    animate();
-
-    document.querySelectorAll('a, button, .bento-card, .project-card, .skill-item, .act, .insight-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '48px';
-        ring.style.height = '48px';
-        ring.style.borderColor = 'rgba(232,255,71,0.6)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '8px';
-        cursor.style.height = '8px';
-        ring.style.width = '32px';
-        ring.style.height = '32px';
-        ring.style.borderColor = 'rgba(232,255,71,0.4)';
-      });
-    });
-  },
-
-  // ─── NAVBAR ──────────────────────────────────────
-  initNavbar() {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Active link
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      const href = a.getAttribute('href');
-      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-        a.classList.add('active');
-      }
-    });
-  },
-
-  // ─── THEME ───────────────────────────────────────
-  initTheme() {
-    const saved = localStorage.getItem('portfolio_theme') || 'dark';
-    this.setTheme(saved);
-  },
-
-  setTheme(theme) {
-    this.state.theme = theme;
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio_theme', theme);
-    const btn = document.querySelector('.btn-theme');
-    if (btn) {
-      const t = this.i18n[this.state.lang];
-      btn.textContent = theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
-  },
-
-  toggleTheme() {
-    this.setTheme(this.state.theme === 'dark' ? 'light' : 'dark');
-  },
-
-  // ─── LANGUAGE ────────────────────────────────────
-  initLang() {
-    this.applyLang(this.state.lang);
-  },
-
-  applyLang(lang) {
-    this.state.lang = lang;
-    localStorage.setItem('portfolio_lang', lang);
-    const t = this.i18n[lang];
-
-    // Direction
-    const isRTL = lang === 'ar';
-    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-
-    // Translate elements
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key]) el.textContent = t[key];
-    });
-
-    // Active lang btn
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
-
-    // Update theme button text
-    const themeBtn = document.querySelector('.btn-theme');
-    if (themeBtn) {
-      themeBtn.textContent = this.state.theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
-  },
-
-  switchLang(lang) {
-    this.applyLang(lang);
-  },
-
-  // ─── ANIMATIONS ──────────────────────────────────
-  initAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  },
-
-  // ─── MOBILE MENU ─────────────────────────────────
-  initMobileMenu() {
-    const hamburger = document.querySelector('.nav-hamburger');
-    const mobileNav = document.querySelector('.nav-mobile');
-    if (!hamburger || !mobileNav) return;
-
-    hamburger.addEventListener('click', () => {
-      this.state.menuOpen = !this.state.menuOpen;
-      mobileNav.classList.toggle('open', this.state.menuOpen);
-    });
-
-    document.querySelectorAll('.nav-mobile a').forEach(a => {
-      a.addEventListener('click', () => {
-        this.state.menuOpen = false;
-        mobileNav.classList.remove('open');
-      });
-    });
-  },
+  initLang(){this.applyLang(this.state.lang);},
+  switchLang(l){this.applyLang(l);},
+  initAnimations(){const o=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});},{threshold:0.1});document.querySelectorAll('.fade-up').forEach(el=>o.observe(el));},
+  initMobileMenu(){const h=document.querySelector('.nav-hamburger'),m=document.querySelector('.nav-mobile');if(!h||!m)return;h.addEventListener('click',()=>{this.state.menuOpen=!this.state.menuOpen;m.classList.toggle('open',this.state.menuOpen);});document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>{this.state.menuOpen=false;m.classList.remove('open');}));},
 };
-
-// ─── GLOBAL HANDLERS ─────────────────────────────
-window.toggleTheme = () => Portfolio.toggleTheme();
-window.switchLang = (l) => Portfolio.switchLang(l);
-
-// ─── START ───────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => Portfolio.init());
-
+window.toggleTheme=()=>Portfolio.toggleTheme();
+window.switchLang=l=>Portfolio.switchLang(l);
+document.addEventListener('DOMContentLoaded',()=>Portfolio.init());
 </script>
 </body>
 </html>

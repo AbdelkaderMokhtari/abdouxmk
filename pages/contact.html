@@ -4,6 +4,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — AbdouX</title>
   <style>
 :root {
   --bg-primary: #080808;
@@ -1047,9 +1050,6 @@ footer {
 [dir="rtl"] .zone-header { flex-direction: row-reverse; }
 [dir="rtl"] .act-number { text-align: right; }
   </style>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact — AbdouX</title>
 <style>
     .contact-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px 100px; }
 
@@ -1245,62 +1245,20 @@ footer {
       .contact-big-question { font-size: 36px; }
     }
   </style>
-
 <script>
-// FILE:// SAFE NAVIGATION
-(function(){
-  var loc = window.location.href;
-  var isPages = loc.indexOf('/pages/') > -1;
-  var base = isPages ? '../' : '';
-  
-  // Map of page keys to filenames
-  var pages = {
-    'home':     base + 'index.html',
-    'projects': base + 'pages/projects.html',
-    'about':    base + 'pages/about.html',
-    'skills':   base + 'pages/skills.html',
-    'insights': base + 'pages/insights.html',
-    'contact':  base + 'pages/contact.html',
-  };
-  
-  window.goTo = function(page) {
-    if(pages[page]) window.location.href = pages[page];
-  };
-  
-  // After DOM ready, fix all nav links
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(pages[p]) {
-        el.href = pages[p];
-      }
-    });
-    
-    // Highlight active
-    var current = window.location.href.split('/').pop().replace('.html','') || 'index';
-    document.querySelectorAll('[data-page]').forEach(function(el){
-      var p = el.getAttribute('data-page');
-      if(p === current || (current === 'index' && p === 'home')) {
-        el.classList.add('active');
-      }
-    });
-  });
-})();
+(function(){var loc=window.location.href,isP=loc.indexOf('/pages/')>-1,base=isP?'../':'';var pages={home:base+'index.html',projects:base+'pages/projects.html',about:base+'pages/about.html',skills:base+'pages/skills.html',insights:base+'pages/insights.html',contact:base+'pages/contact.html'};window.goTo=function(p){if(pages[p])window.location.href=pages[p];};document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(pages[p])el.href=pages[p];});var cur=window.location.href.split('/').pop().replace('.html','')||'index';document.querySelectorAll('[data-page]').forEach(function(el){var p=el.getAttribute('data-page');if(p===cur||(cur==='index'&&p==='home'))el.classList.add('active');});});})();
 </script>
-
 </head>
 <body>
-
-<!-- NAVBAR -->
 <nav class="navbar">
   <a href="#" data-page="home" class="nav-logo">ABDOU<span>X</span></a>
   <ul class="nav-links">
-    <li><a href="#" data-page="home" data-i18n="nav_home">Home</a></li>
+    <li><a href="#" data-page="home"     data-i18n="nav_home">Home</a></li>
     <li><a href="#" data-page="projects" data-i18n="nav_projects">Projects</a></li>
-    <li><a href="#" data-page="about" data-i18n="nav_about">About</a></li>
-    <li><a href="#" data-page="skills" data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#" data-page="about"    data-i18n="nav_about">About</a></li>
+    <li><a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a></li>
     <li><a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a></li>
-    <li><a href="#" data-page="contact" class="active" data-i18n="nav_contact">Contact</a></li>
+    <li><a href="#" data-page="contact"  class="active" data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="nav-controls">
     <div class="lang-switcher">
@@ -1313,18 +1271,17 @@ footer {
   <button class="nav-hamburger"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile">
-  <a href="#" data-page="home">Home</a>
-  <a href="#" data-page="projects">Projects</a>
-  <a href="#" data-page="about">About</a>
-  <a href="#" data-page="skills">Skills</a>
-  <a href="#" data-page="insights">Thinking</a>
-  <a href="#" data-page="contact">Contact</a>
+  <a href="#" data-page="home"     data-i18n="nav_home">Home</a>
+  <a href="#" data-page="projects" data-i18n="nav_projects">Projects</a>
+  <a href="#" data-page="about"    data-i18n="nav_about">About</a>
+  <a href="#" data-page="skills"   data-i18n="nav_skills">Skills</a>
+  <a href="#" data-page="insights" data-i18n="nav_insights">Thinking</a>
+  <a href="#" data-page="contact"  data-i18n="nav_contact">Contact</a>
 </div>
 
 <main>
-
-  <div style="max-width: 1200px; margin: 0 auto; padding: 140px 40px 60px;">
-    <div class="section-label">// Let's Build Something</div>
+  <div style="max-width:1200px;margin:0 auto;padding:140px 40px 60px;">
+    <div class="section-label" data-i18n="page_label">// Let's Build Something</div>
   </div>
 
   <div class="contact-wrap">
@@ -1332,27 +1289,23 @@ footer {
 
       <!-- LEFT -->
       <div class="contact-left fade-up">
-
-        <div class="contact-big-question">
+        <div class="contact-big-question" data-i18n-html="big_question">
           What are you<br>trying to <span>build?</span>
         </div>
-
-        <div class="contact-subtitle">
+        <div class="contact-subtitle" data-i18n="subtitle">
           I work with clients who have complex problems that need real architecture — not just code. Tell me about the system you want to build, and I'll tell you if I'm the right person for it.
         </div>
-
         <div class="contact-status">
           <div class="status-dot"></div>
-          <div class="contact-status-text">
+          <div class="contact-status-text" data-i18n-html="status_text">
             <strong>Available</strong> for strategic projects — responding within 24h
           </div>
         </div>
-
         <div class="channels">
           <a class="channel" href="mailto:contact@abdoux.dev">
             <div class="channel-icon-wrap">✉️</div>
             <div class="channel-info">
-              <div class="channel-label">Email</div>
+              <div class="channel-label" data-i18n="ch_email">Email</div>
               <div class="channel-value">contact@abdoux.dev</div>
             </div>
             <div class="channel-arrow">→</div>
@@ -1374,397 +1327,176 @@ footer {
             <div class="channel-arrow">→</div>
           </a>
         </div>
-
       </div>
 
-      <!-- RIGHT — FORM -->
+      <!-- RIGHT - FORM -->
       <div class="contact-form-wrap fade-up">
-
-        <div class="form-title">
+        <div class="form-title" data-i18n-html="form_title">
           Start the <span>conversation</span>
         </div>
 
         <form id="contact-form" onsubmit="handleSubmit(event)" novalidate>
-
           <div class="form-group">
-            <label class="form-label">Your name</label>
-            <input class="form-input" type="text" placeholder="Ahmed Benali" required/>
+            <label class="form-label" data-i18n="label_name">Your name</label>
+            <input class="form-input" type="text" data-i18n-placeholder="placeholder_name" placeholder="Ahmed Benali" required/>
           </div>
-
           <div class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-input" type="email" placeholder="ahmed@company.dz" required/>
+            <label class="form-label" data-i18n="label_email">Email</label>
+            <input class="form-input" type="email" data-i18n-placeholder="placeholder_email" placeholder="ahmed@company.dz" required/>
           </div>
-
           <div class="form-group">
-            <label class="form-label">What type of project?</label>
-            <select class="form-select">
-              <option value="">Select a category...</option>
-              <option>SaaS / Web Platform</option>
-              <option>Mobile Application</option>
-              <option>Complex System Architecture</option>
-              <option>Full-Stack Product</option>
-              <option>Consulting / Technical Audit</option>
-              <option>Other</option>
+            <label class="form-label" data-i18n="label_type">What type of project?</label>
+            <select class="form-select" id="project-type-select">
+              <option value="" data-i18n="opt_select">Select a category...</option>
+              <option data-i18n="opt_saas">SaaS / Web Platform</option>
+              <option data-i18n="opt_mobile">Mobile Application</option>
+              <option data-i18n="opt_arch">Complex System Architecture</option>
+              <option data-i18n="opt_fullstack">Full-Stack Product</option>
+              <option data-i18n="opt_consulting">Consulting / Technical Audit</option>
+              <option data-i18n="opt_other">Other</option>
             </select>
           </div>
-
           <div class="form-group">
-            <label class="form-label">What are you trying to build? *</label>
-            <textarea class="form-textarea" placeholder="Describe the problem you need to solve. The more detail you give, the better I can assess if I'm the right person for it..." required></textarea>
+            <label class="form-label" data-i18n="label_desc">What are you trying to build? *</label>
+            <textarea class="form-textarea" data-i18n-placeholder="placeholder_desc" placeholder="Describe the problem you need to solve..." required></textarea>
           </div>
-
           <div class="form-group">
-            <label class="form-label">Timeline</label>
-            <select class="form-select">
-              <option value="">Select...</option>
-              <option>ASAP — under 1 month</option>
-              <option>1–3 months</option>
-              <option>3–6 months</option>
-              <option>6+ months / Ongoing</option>
-              <option>Just exploring</option>
+            <label class="form-label" data-i18n="label_timeline">Timeline</label>
+            <select class="form-select" id="timeline-select">
+              <option value="" data-i18n="tl_select">Select...</option>
+              <option data-i18n="tl_1">ASAP — under 1 month</option>
+              <option data-i18n="tl_2">1–3 months</option>
+              <option data-i18n="tl_3">3–6 months</option>
+              <option data-i18n="tl_4">6+ months / Ongoing</option>
+              <option data-i18n="tl_5">Just exploring</option>
             </select>
           </div>
-
           <div class="form-submit-row">
-            <button type="submit" class="btn-primary">
-              Send Message →
-            </button>
-            <div class="form-note">
-              I personally review<br>every message.
-            </div>
+            <button type="submit" class="btn-primary" data-i18n="btn_send">Send Message →</button>
+            <div class="form-note" data-i18n="form_note">I personally review<br>every message.</div>
           </div>
-
         </form>
 
-        <div class="success-msg" id="success-msg">
+        <div class="success-msg" id="success-msg" data-i18n="success_msg">
           ✓ Message sent. I'll get back to you within 24 hours.
         </div>
-
       </div>
 
     </div>
 
     <!-- Bottom note -->
-    <div style="margin-top: 80px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 20px;" class="fade-up">
+    <div style="margin-top:80px;padding:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;" class="fade-up">
       <div>
-        <div style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Not ready to start yet?</div>
-        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">Read my thinking on systems and architecture first — it'll help you understand how I approach problems.</div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:4px;" data-i18n="not_ready_title">Not ready to start yet?</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;" data-i18n="not_ready_sub">Read my thinking on systems and architecture first — it'll help you understand how I approach problems.</div>
       </div>
-      <a href="#" data-page="insights" class="btn-secondary">Read My Essays →</a>
+      <a href="#" data-page="insights" class="btn-secondary" data-i18n="not_ready_btn">Read My Essays →</a>
     </div>
 
   </div>
 </main>
 
-<div style="border-top: 1px solid var(--border);">
+<div style="border-top:1px solid var(--border);">
   <footer>
-    <div class="footer-mono">ABDOU<span>X</span> — Tlemcen, Algeria</div>
-    <div class="footer-mono">Building systems that scale. &nbsp;·&nbsp; <span>Available now</span></div>
+    <div class="footer-mono">ABDOU<span>X</span> — <span data-i18n="footer_role">System Architect</span></div>
+    <div class="footer-mono"><a href="#" data-page="contact" style="color:var(--accent);text-decoration:none;letter-spacing:0.1em;" data-i18n="footer_cta">Have a complex problem? Let's talk →</a></div>
   </footer>
 </div>
 <script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    const form = document.getElementById('contact-form');
-    const msg = document.getElementById('success-msg');
-    form.style.opacity = '0.4';
-    form.style.pointerEvents = 'none';
-    setTimeout(() => {
-      form.style.display = 'none';
-      msg.style.display = 'block';
-    }, 600);
-  }
-</script>
+function handleSubmit(e){e.preventDefault();document.getElementById('success-msg').style.display='block';e.target.reset();}
 
-<script>
-// =====================
-// PORTFOLIO — MAIN JS
-// AbdouX — System Architect
-// =====================
-
-const Portfolio = {
-
-  // ─── STATE ───────────────────────────────────────
-  state: {
-    theme: 'dark',
-    lang: 'en',
-    menuOpen: false,
-  },
-
-  // ─── TRANSLATIONS ────────────────────────────────
-  i18n: {
-    en: {
-      nav_home: 'Home',
-      nav_projects: 'Projects',
-      nav_about: 'About',
-      nav_skills: 'Skills',
-      nav_insights: 'Thinking',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Product Engineer & Founder — Algeria',
-      hero_h1_1: "I don't build",
-      hero_h1_2: 'apps.',
-      hero_h1_3: 'I architect',
-      hero_h1_4: 'systems.',
-      hero_sub: 'Designing scalable ecosystems for the Arab world\'s most complex infrastructure challenges — from urban logistics to AI-powered productivity.',
-      hero_cta1: 'View Systems',
-      hero_cta2: 'Start a Project',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Ecosystems Built',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Active Products',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Scale Mindset',
-      hero_status: 'Available for strategic projects',
-      theme_day: 'DAY',
-      theme_night: 'NIGHT',
+const Portfolio={
+  state:{theme:'dark',lang:'en',menuOpen:false},
+  i18n:{
+    en:{
+      nav_home:'Home',nav_projects:'Projects',nav_about:'About',nav_skills:'Skills',nav_insights:'Thinking',nav_contact:'Contact',
+      theme_day:'DAY',theme_night:'NIGHT',
+      page_label:"// Let's Build Something",
+      big_question:"What are you<br>trying to <span>build?</span>",
+      subtitle:"I work with clients who have complex problems that need real architecture — not just code. Tell me about the system you want to build, and I'll tell you if I'm the right person for it.",
+      status_text:'<strong>Available</strong> for strategic projects — responding within 24h',
+      ch_email:'Email',
+      form_title:'Start the <span>conversation</span>',
+      label_name:'Your name',placeholder_name:'Ahmed Benali',
+      label_email:'Email',placeholder_email:'ahmed@company.dz',
+      label_type:'What type of project?',
+      opt_select:'Select a category...',opt_saas:'SaaS / Web Platform',opt_mobile:'Mobile Application',opt_arch:'Complex System Architecture',opt_fullstack:'Full-Stack Product',opt_consulting:'Consulting / Technical Audit',opt_other:'Other',
+      label_desc:'What are you trying to build? *',placeholder_desc:'Describe the problem you need to solve. The more detail you give, the better I can assess if I\'m the right person for it...',
+      label_timeline:'Timeline',tl_select:'Select...',tl_1:'ASAP — under 1 month',tl_2:'1–3 months',tl_3:'3–6 months',tl_4:'6+ months / Ongoing',tl_5:'Just exploring',
+      btn_send:'Send Message →',form_note:'I personally review<br>every message.',
+      success_msg:"✓ Message sent. I'll get back to you within 24 hours.",
+      not_ready_title:'Not ready to start yet?',not_ready_sub:"Read my thinking on systems and architecture first — it'll help you understand how I approach problems.",not_ready_btn:'Read My Essays →',
+      footer_role:'System Architect',footer_cta:"Have a complex problem? Let's talk →",
     },
-    fr: {
-      nav_home: 'Accueil',
-      nav_projects: 'Projets',
-      nav_about: 'À propos',
-      nav_skills: 'Compétences',
-      nav_insights: 'Réflexions',
-      nav_contact: 'Contact',
-      hero_eyebrow: 'Ingénieur Produit & Fondateur — Algérie',
-      hero_h1_1: "Je ne code pas",
-      hero_h1_2: "des apps.",
-      hero_h1_3: "Je conçois des",
-      hero_h1_4: "systèmes.",
-      hero_sub: 'Concevoir des solutions scalables pour les défis infrastructurels complexes du monde arabe — de la logistique urbaine à la productivité IA.',
-      hero_cta1: 'Voir les systèmes',
-      hero_cta2: 'Démarrer un projet',
-      hero_stat1_num: '4+',
-      hero_stat1_label: 'Écosystèmes construits',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'Produits actifs',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'Vision scalable',
-      hero_status: 'Disponible pour projets stratégiques',
-      theme_day: 'JOUR',
-      theme_night: 'NUIT',
+    fr:{
+      nav_home:'Accueil',nav_projects:'Projets',nav_about:'À propos',nav_skills:'Compétences',nav_insights:'Réflexions',nav_contact:'Contact',
+      theme_day:'JOUR',theme_night:'NUIT',
+      page_label:'// Construisons Quelque Chose',
+      big_question:'Qu\'est-ce que vous<br>essayez de <span>construire ?</span>',
+      subtitle:"Je travaille avec des clients qui ont des problèmes complexes nécessitant une vraie architecture — pas seulement du code. Parlez-moi du système que vous voulez construire, et je vous dirai si je suis la bonne personne.",
+      status_text:'<strong>Disponible</strong> pour des projets stratégiques — réponse sous 24h',
+      ch_email:'E-mail',
+      form_title:'Démarrer la <span>conversation</span>',
+      label_name:'Votre nom',placeholder_name:'Ahmed Benali',
+      label_email:'E-mail',placeholder_email:'ahmed@entreprise.dz',
+      label_type:'Quel type de projet ?',
+      opt_select:'Sélectionner une catégorie...',opt_saas:'SaaS / Plateforme Web',opt_mobile:'Application Mobile',opt_arch:'Architecture Système Complexe',opt_fullstack:'Produit Full-Stack',opt_consulting:'Conseil / Audit Technique',opt_other:'Autre',
+      label_desc:'Qu\'essayez-vous de construire ? *',placeholder_desc:'Décrivez le problème que vous devez résoudre. Plus vous donnez de détails, mieux je peux évaluer si je suis la bonne personne...',
+      label_timeline:'Calendrier',tl_select:'Sélectionner...',tl_1:'ASAP — moins d\'1 mois',tl_2:'1–3 mois',tl_3:'3–6 mois',tl_4:'6+ mois / En cours',tl_5:'Juste en exploration',
+      btn_send:'Envoyer le message →',form_note:'Je lis personnellement<br>chaque message.',
+      success_msg:'✓ Message envoyé. Je vous répondrai sous 24 heures.',
+      not_ready_title:'Pas encore prêt à démarrer ?',not_ready_sub:"Lisez d'abord mes réflexions sur les systèmes et l'architecture — cela vous aidera à comprendre comment j'approche les problèmes.",not_ready_btn:'Lire mes essais →',
+      footer_role:'Architecte Système',footer_cta:'Un problème complexe ? Parlons-en →',
     },
-    ar: {
-      nav_home: 'الرئيسية',
-      nav_projects: 'المشاريع',
-      nav_about: 'عني',
-      nav_skills: 'المهارات',
-      nav_insights: 'أفكاري',
-      nav_contact: 'تواصل',
-      hero_eyebrow: 'مهندس منتجات ومؤسس — الجزائر',
-      hero_h1_1: 'أنا لا أبني',
-      hero_h1_2: 'تطبيقات.',
-      hero_h1_3: 'أنا أُصمِّم',
-      hero_h1_4: 'أنظمة.',
-      hero_sub: 'أحوّل التحديات المعقدة إلى بنى رقمية قابلة للتوسع — من إدارة المدن إلى الذكاء الاصطناعي.',
-      hero_cta1: 'استعرض الأنظمة',
-      hero_cta2: 'ابدأ مشروعاً',
-      hero_stat1_num: '+4',
-      hero_stat1_label: 'منظومات مبنية',
-      hero_stat2_num: '3',
-      hero_stat2_label: 'منتجات نشطة',
-      hero_stat3_num: '∞',
-      hero_stat3_label: 'تفكير قابل للتوسع',
-      hero_status: 'متاح للمشاريع الاستراتيجية',
-      theme_day: 'نهار',
-      theme_night: 'ليل',
+    ar:{
+      nav_home:'الرئيسية',nav_projects:'المشاريع',nav_about:'عني',nav_skills:'المهارات',nav_insights:'أفكاري',nav_contact:'تواصل',
+      theme_day:'نهار',theme_night:'ليل',
+      page_label:'// لنبني شيئاً معاً',
+      big_question:'ماذا تحاول<br><span>أن تبني؟</span>',
+      subtitle:'أعمل مع عملاء لديهم مشاكل معقدة تحتاج بنية معمارية حقيقية — ليس مجرد كود. أخبرني عن النظام الذي تريد بناءه، وسأخبرك إذا كنت الشخص المناسب له.',
+      status_text:'<strong>متاح</strong> للمشاريع الاستراتيجية — الرد خلال 24 ساعة',
+      ch_email:'البريد الإلكتروني',
+      form_title:'ابدأ <span>المحادثة</span>',
+      label_name:'اسمك',placeholder_name:'أحمد بن علي',
+      label_email:'البريد الإلكتروني',placeholder_email:'ahmed@company.dz',
+      label_type:'ما نوع المشروع؟',
+      opt_select:'اختر فئة...',opt_saas:'SaaS / منصة ويب',opt_mobile:'تطبيق موبايل',opt_arch:'بنية نظام معقد',opt_fullstack:'منتج Full-Stack',opt_consulting:'استشارة / تدقيق تقني',opt_other:'أخرى',
+      label_desc:'ماذا تحاول أن تبني؟ *',placeholder_desc:'صف المشكلة التي تحتاج لحلها. كلما أعطيت تفاصيل أكثر، كلما أمكنني تقييم ما إذا كنت الشخص المناسب لها...',
+      label_timeline:'الإطار الزمني',tl_select:'اختر...',tl_1:'في أقرب وقت — أقل من شهر',tl_2:'1–3 أشهر',tl_3:'3–6 أشهر',tl_4:'+6 أشهر / مستمر',tl_5:'مجرد استكشاف',
+      btn_send:'إرسال الرسالة →',form_note:'أراجع شخصياً<br>كل رسالة.',
+      success_msg:'✓ تم إرسال الرسالة. سأرد عليك خلال 24 ساعة.',
+      not_ready_title:'لست مستعداً للبدء بعد؟',not_ready_sub:'اقرأ أفكاري عن الأنظمة والبنية المعمارية أولاً — سيساعدك على فهم كيف أتعامل مع المشاكل.',not_ready_btn:'اقرأ مقالاتي →',
+      footer_role:'مهندس أنظمة',footer_cta:'عندك مشكلة معقدة؟ لنتحدث →',
     }
   },
-
-  // ─── INIT ─────────────────────────────────────────
-  init() {
-    this.detectLanguage();
-    this.initCursor();
-    this.initNavbar();
-    this.initTheme();
-    this.initLang();
-    this.initAnimations();
-    this.initMobileMenu();
+  init(){this.detectLanguage();this.initCursor();this.initNavbar();this.initTheme();this.initLang();this.initAnimations();this.initMobileMenu();},
+  detectLanguage(){const s=localStorage.getItem('portfolio_lang'),b=navigator.language||'en';if(s)this.state.lang=s;else if(b.startsWith('ar'))this.state.lang='ar';else if(b.startsWith('fr'))this.state.lang='fr';else this.state.lang='en';},
+  initCursor(){const c=document.createElement('div');c.className='cursor';const r=document.createElement('div');r.className='cursor-ring';document.body.appendChild(c);document.body.appendChild(r);let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});const a=()=>{rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);};a();document.querySelectorAll('a,button,.channel').forEach(el=>{el.addEventListener('mouseenter',()=>{c.style.width='12px';c.style.height='12px';r.style.width='48px';r.style.height='48px';r.style.borderColor='rgba(232,255,71,0.6)';});el.addEventListener('mouseleave',()=>{c.style.width='8px';c.style.height='8px';r.style.width='32px';r.style.height='32px';r.style.borderColor='rgba(232,255,71,0.4)';});});},
+  initNavbar(){const n=document.querySelector('.navbar');if(!n)return;window.addEventListener('scroll',()=>n.classList.toggle('scrolled',window.scrollY>20));},
+  initTheme(){this.setTheme(localStorage.getItem('portfolio_theme')||'dark');},
+  setTheme(t){this.state.theme=t;document.documentElement.setAttribute('data-theme',t);localStorage.setItem('portfolio_theme',t);const b=document.querySelector('.btn-theme');if(b){const tr=this.i18n[this.state.lang];b.textContent=t==='dark'?(tr.theme_day||'DAY'):(tr.theme_night||'NIGHT');}},
+  toggleTheme(){this.setTheme(this.state.theme==='dark'?'light':'dark');},
+  applyLang(lang){
+    this.state.lang=lang;localStorage.setItem('portfolio_lang',lang);
+    const t=this.i18n[lang],isRTL=lang==='ar';
+    document.documentElement.setAttribute('dir',isRTL?'rtl':'ltr');
+    document.body.setAttribute('dir',isRTL?'rtl':'ltr');
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.textContent=t[k];});
+    document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(t[k]!==undefined)el.innerHTML=t[k];});
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.getAttribute('data-i18n-placeholder');if(t[k]!==undefined)el.placeholder=t[k];});
+    // Translate select options
+    document.querySelectorAll('option[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.textContent=t[k];});
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-lang')===lang));
+    const tb=document.querySelector('.btn-theme');if(tb)tb.textContent=this.state.theme==='dark'?(t.theme_day||'DAY'):(t.theme_night||'NIGHT');
   },
-
-  // ─── LANGUAGE DETECTION ──────────────────────────
-  detectLanguage() {
-    const browserLang = navigator.language || navigator.userLanguage;
-    const saved = localStorage.getItem('portfolio_lang');
-    if (saved) {
-      this.state.lang = saved;
-    } else if (browserLang.startsWith('ar')) {
-      this.state.lang = 'ar';
-    } else if (browserLang.startsWith('fr')) {
-      this.state.lang = 'fr';
-    } else {
-      this.state.lang = 'en';
-    }
-  },
-
-  // ─── CURSOR ──────────────────────────────────────
-  initCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor';
-    const ring = document.createElement('div');
-    ring.className = 'cursor-ring';
-    document.body.appendChild(cursor);
-    document.body.appendChild(ring);
-
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
-    });
-
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animate);
-    };
-    animate();
-
-    document.querySelectorAll('a, button, .bento-card, .project-card, .skill-item, .act, .insight-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '48px';
-        ring.style.height = '48px';
-        ring.style.borderColor = 'rgba(232,255,71,0.6)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '8px';
-        cursor.style.height = '8px';
-        ring.style.width = '32px';
-        ring.style.height = '32px';
-        ring.style.borderColor = 'rgba(232,255,71,0.4)';
-      });
-    });
-  },
-
-  // ─── NAVBAR ──────────────────────────────────────
-  initNavbar() {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Active link
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      const href = a.getAttribute('href');
-      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-        a.classList.add('active');
-      }
-    });
-  },
-
-  // ─── THEME ───────────────────────────────────────
-  initTheme() {
-    const saved = localStorage.getItem('portfolio_theme') || 'dark';
-    this.setTheme(saved);
-  },
-
-  setTheme(theme) {
-    this.state.theme = theme;
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio_theme', theme);
-    const btn = document.querySelector('.btn-theme');
-    if (btn) {
-      const t = this.i18n[this.state.lang];
-      btn.textContent = theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
-  },
-
-  toggleTheme() {
-    this.setTheme(this.state.theme === 'dark' ? 'light' : 'dark');
-  },
-
-  // ─── LANGUAGE ────────────────────────────────────
-  initLang() {
-    this.applyLang(this.state.lang);
-  },
-
-  applyLang(lang) {
-    this.state.lang = lang;
-    localStorage.setItem('portfolio_lang', lang);
-    const t = this.i18n[lang];
-
-    // Direction
-    const isRTL = lang === 'ar';
-    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-
-    // Translate elements
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key]) el.textContent = t[key];
-    });
-
-    // Active lang btn
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
-
-    // Update theme button text
-    const themeBtn = document.querySelector('.btn-theme');
-    if (themeBtn) {
-      themeBtn.textContent = this.state.theme === 'dark' ? (t.theme_day || 'DAY') : (t.theme_night || 'NIGHT');
-    }
-  },
-
-  switchLang(lang) {
-    this.applyLang(lang);
-  },
-
-  // ─── ANIMATIONS ──────────────────────────────────
-  initAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  },
-
-  // ─── MOBILE MENU ─────────────────────────────────
-  initMobileMenu() {
-    const hamburger = document.querySelector('.nav-hamburger');
-    const mobileNav = document.querySelector('.nav-mobile');
-    if (!hamburger || !mobileNav) return;
-
-    hamburger.addEventListener('click', () => {
-      this.state.menuOpen = !this.state.menuOpen;
-      mobileNav.classList.toggle('open', this.state.menuOpen);
-    });
-
-    document.querySelectorAll('.nav-mobile a').forEach(a => {
-      a.addEventListener('click', () => {
-        this.state.menuOpen = false;
-        mobileNav.classList.remove('open');
-      });
-    });
-  },
+  initLang(){this.applyLang(this.state.lang);},
+  switchLang(l){this.applyLang(l);},
+  initAnimations(){const o=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});},{threshold:0.1});document.querySelectorAll('.fade-up').forEach(el=>o.observe(el));},
+  initMobileMenu(){const h=document.querySelector('.nav-hamburger'),m=document.querySelector('.nav-mobile');if(!h||!m)return;h.addEventListener('click',()=>{this.state.menuOpen=!this.state.menuOpen;m.classList.toggle('open',this.state.menuOpen);});document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>{this.state.menuOpen=false;m.classList.remove('open');}));},
 };
-
-// ─── GLOBAL HANDLERS ─────────────────────────────
-window.toggleTheme = () => Portfolio.toggleTheme();
-window.switchLang = (l) => Portfolio.switchLang(l);
-
-// ─── START ───────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => Portfolio.init());
-
+window.toggleTheme=()=>Portfolio.toggleTheme();
+window.switchLang=l=>Portfolio.switchLang(l);
+document.addEventListener('DOMContentLoaded',()=>Portfolio.init());
 </script>
 </body>
 </html>
