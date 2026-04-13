@@ -86,30 +86,81 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
 .ecommerce-card::before{background:linear-gradient(90deg,var(--cyan),transparent)!important;}
 .anchor-target{padding-top:80px;margin-top:-80px;}
 
-/* MOCKUP FRAMES */
+/* ═══ MOCKUP FRAMES — FIXED ═══ */
 .mockup-section{grid-column:span 2;padding:0;background:transparent;border:none;}
-.mockup-wrap{display:flex;align-items:flex-end;justify-content:center;gap:24px;padding:40px 20px 0;position:relative;}
+.mockup-wrap{display:flex;align-items:flex-end;justify-content:center;gap:24px;padding:40px 20px 0;}
+
+/* LAPTOP */
 .laptop-frame{position:relative;width:520px;flex-shrink:0;}
-.laptop-screen{background:#0a0a0a;border-radius:10px 10px 0 0;border:2px solid #2a2a2a;border-bottom:none;overflow:hidden;position:relative;padding-top:56.25%;}
-.laptop-screen::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#2a2a2a;z-index:2;}
-.laptop-screen img,.laptop-screen .screen-placeholder{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.laptop-screen{
+  background:#0a0a0a;
+  border-radius:10px 10px 0 0;
+  border:2px solid #2a2a2a;
+  border-bottom:none;
+  overflow:hidden;
+  position:relative;
+  padding-top:56.25%; /* 16:9 */
+}
+/* webcam dot */
+.laptop-screen::before{
+  content:'';position:absolute;top:8px;left:50%;
+  transform:translateX(-50%);width:6px;height:6px;
+  border-radius:50%;background:#2a2a2a;z-index:3;
+}
+/* the actual screenshot */
+.laptop-screen .screen-img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  display:block;z-index:1;
+}
+/* fallback placeholder — shown only when img fails */
+.laptop-screen .screen-fallback{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;background:#0d0d0d;z-index:0;
+}
 .laptop-base{height:16px;background:linear-gradient(180deg,#1e1e1e,#141414);border-radius:0 0 4px 4px;border:2px solid #2a2a2a;border-top:none;}
 .laptop-stand{width:80px;height:8px;background:#141414;border:1px solid #2a2a2a;border-top:none;border-radius:0 0 4px 4px;margin:0 auto;}
+
+/* PHONE */
 .phone-frame{width:130px;flex-shrink:0;margin-bottom:24px;}
-.phone-body{background:#0a0a0a;border:2px solid #2a2a2a;border-radius:22px;overflow:hidden;position:relative;padding-top:185%;}
-.phone-body::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:36px;height:5px;border-radius:3px;background:#1e1e1e;z-index:2;}
-.phone-body img,.phone-body .screen-placeholder{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.screen-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#0d0d0d;}
-.screen-placeholder-icon{font-size:28px;opacity:0.4;}
-.screen-placeholder-label{font-family:'Space Mono',monospace;font-size:9px;color:#444;letter-spacing:0.15em;text-transform:uppercase;text-align:center;padding:0 12px;line-height:1.6;}
-.screen-placeholder-hint{font-family:'Space Mono',monospace;font-size:8px;color:#2a2a2a;letter-spacing:0.1em;text-align:center;padding:0 12px;}
-.mockup-wrap:hover .laptop-screen{border-color:rgba(232,255,71,0.2);box-shadow:0 0 40px rgba(232,255,71,0.04);transition:all 0.3s ease;}
-.mockup-wrap:hover .phone-body{border-color:rgba(232,255,71,0.2);box-shadow:0 0 20px rgba(232,255,71,0.04);transition:all 0.3s ease;}
-.mockup-violet .mockup-wrap:hover .laptop-screen{border-color:rgba(157,111,255,0.25);box-shadow:0 0 40px rgba(157,111,255,0.06);}
-.mockup-violet .mockup-wrap:hover .phone-body{border-color:rgba(157,111,255,0.25);box-shadow:0 0 20px rgba(157,111,255,0.06);}
-.mockup-cyan .mockup-wrap:hover .laptop-screen{border-color:rgba(0,212,255,0.2);box-shadow:0 0 40px rgba(0,212,255,0.05);}
-.mockup-cyan .mockup-wrap:hover .phone-body{border-color:rgba(0,212,255,0.2);box-shadow:0 0 20px rgba(0,212,255,0.05);}
-.mockup-howto{text-align:center;padding:16px 0 32px;font-family:'Space Mono',monospace;font-size:9px;color:#2a2a2a;letter-spacing:0.12em;}
+.phone-body{
+  background:#0a0a0a;border:2px solid #2a2a2a;
+  border-radius:22px;overflow:hidden;
+  position:relative;padding-top:185%;
+}
+/* notch */
+.phone-body::before{
+  content:'';position:absolute;top:10px;left:50%;
+  transform:translateX(-50%);width:36px;height:5px;
+  border-radius:3px;background:#1e1e1e;z-index:3;
+}
+.phone-body .screen-img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  display:block;z-index:1;
+}
+.phone-body .screen-fallback{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;background:#0d0d0d;z-index:0;
+}
+
+/* shared fallback text styles */
+.fallback-icon{font-size:26px;opacity:0.35;}
+.fallback-label{font-family:'Space Mono',monospace;font-size:9px;color:#3a3a3a;letter-spacing:0.14em;text-transform:uppercase;text-align:center;padding:0 12px;line-height:1.6;}
+
+/* hover glow per theme */
+.mockup-wrap:hover .laptop-screen{border-color:rgba(232,255,71,0.25);box-shadow:0 0 40px rgba(232,255,71,0.05);transition:all 0.3s ease;}
+.mockup-wrap:hover .phone-body{border-color:rgba(232,255,71,0.25);box-shadow:0 0 20px rgba(232,255,71,0.05);transition:all 0.3s ease;}
+.mockup-violet .mockup-wrap:hover .laptop-screen{border-color:rgba(157,111,255,0.3);box-shadow:0 0 40px rgba(157,111,255,0.07);}
+.mockup-violet .mockup-wrap:hover .phone-body{border-color:rgba(157,111,255,0.3);box-shadow:0 0 20px rgba(157,111,255,0.07);}
+.mockup-cyan .mockup-wrap:hover .laptop-screen{border-color:rgba(0,212,255,0.25);box-shadow:0 0 40px rgba(0,212,255,0.06);}
+.mockup-cyan .mockup-wrap:hover .phone-body{border-color:rgba(0,212,255,0.25);box-shadow:0 0 20px rgba(0,212,255,0.06);}
+
+.mockup-note{text-align:center;padding:14px 0 28px;font-family:'Space Mono',monospace;font-size:9px;color:#252525;letter-spacing:0.1em;}
 
 @media(max-width:768px){
   .navbar{padding:0 20px;}.nav-links{display:none;}.nav-hamburger{display:flex;}
@@ -170,7 +221,6 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
 </div>
 
 <main>
-  <!-- PAGE HERO -->
   <div style="max-width:1200px;margin:0 auto;padding:140px 40px 60px;">
     <div class="section-label" data-i18n="page_label">// Case Studies</div>
     <h1 class="section-title fade-up">
@@ -195,7 +245,7 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
       <div class="cs-body">
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_problem">The Problem</div>
-          <div class="cs-section-text" data-i18n-html="p1_problem">Algerian municipalities manage waste operations through <strong>fragmented channels</strong> — phone calls, paper reports, manual coordination. There's no closed-loop accountability between citizens reporting issues, managers dispatching workers, and workers proving completion. Reports disappear. Problems persist. No audit trail exists.</div>
+          <div class="cs-section-text" data-i18n-html="p1_problem">Algerian municipalities manage waste operations through <strong>fragmented channels</strong> — phone calls, paper reports, manual coordination. There's no closed-loop accountability between citizens reporting issues, managers dispatching workers, and workers proving completion.</div>
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_arch">The Architecture Decision</div>
@@ -204,44 +254,49 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
         <div class="cs-section cs-full-width">
           <div class="cs-section-label" data-i18n="p1_layers_label">The 3-Layer System</div>
           <div class="cs-layers">
-            <div class="cs-layer">
-              <div class="cs-layer-icon">👥</div>
-              <div>
-                <div class="cs-layer-title" data-i18n="p1_l1_title">CITIZEN LAYER — Report Interface</div>
-                <div class="cs-layer-desc" data-i18n="p1_l1_desc">Geo-tagged incident reporting with photo evidence. Transforms unstructured civic complaints into structured logistics tickets with location, timestamp, and severity classification.</div>
-              </div>
-            </div>
-            <div class="cs-layer">
-              <div class="cs-layer-icon">🏛️</div>
-              <div>
-                <div class="cs-layer-title" data-i18n="p1_l2_title">OPERATIONS LAYER — Municipality Dashboard</div>
-                <div class="cs-layer-desc" data-i18n="p1_l2_desc">Real-time task management for municipality managers — ticket queuing by zone, worker assignment, priority escalation, and live status tracking across the city grid.</div>
-              </div>
-            </div>
-            <div class="cs-layer">
-              <div class="cs-layer-icon">⚙️</div>
-              <div>
-                <div class="cs-layer-title" data-i18n="p1_l3_title">FIELD LAYER — Worker Mobile Interface</div>
-                <div class="cs-layer-desc" data-i18n="p1_l3_desc">GPS check-in, photo proof-of-completion, and task status updates. Creates an auditable chain of accountability — every action is timestamped and immutable.</div>
-              </div>
-            </div>
+            <div class="cs-layer"><div class="cs-layer-icon">👥</div><div><div class="cs-layer-title" data-i18n="p1_l1_title">CITIZEN LAYER — Report Interface</div><div class="cs-layer-desc" data-i18n="p1_l1_desc">Geo-tagged incident reporting with photo evidence. Transforms unstructured civic complaints into structured logistics tickets.</div></div></div>
+            <div class="cs-layer"><div class="cs-layer-icon">🏛️</div><div><div class="cs-layer-title" data-i18n="p1_l2_title">OPERATIONS LAYER — Municipality Dashboard</div><div class="cs-layer-desc" data-i18n="p1_l2_desc">Real-time task management — ticket queuing by zone, worker assignment, priority escalation, and live status tracking.</div></div></div>
+            <div class="cs-layer"><div class="cs-layer-icon">⚙️</div><div><div class="cs-layer-title" data-i18n="p1_l3_title">FIELD LAYER — Worker Mobile Interface</div><div class="cs-layer-desc" data-i18n="p1_l3_desc">GPS check-in, photo proof-of-completion, and task status updates. Creates an auditable chain of accountability.</div></div></div>
           </div>
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_challenge">The Engineering Challenge</div>
-          <div class="cs-section-text" data-i18n-html="p1_challenge">The hardest part wasn't the code. It was designing a <strong>state machine</strong> where a single report travels through 5 statuses across 3 independent actors — Submitted → Assigned → In Progress → Completed → Verified — with no state ever being lost, duplicated, or bypassed, even in offline-first mobile scenarios.</div>
+          <div class="cs-section-text" data-i18n-html="p1_challenge">Designing a <strong>state machine</strong> where a single report travels through 5 statuses across 3 independent actors — Submitted → Assigned → In Progress → Completed → Verified — with no state ever lost, even in offline-first mobile scenarios.</div>
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_outcome">The Outcome</div>
-          <div class="cs-section-text" data-i18n-html="p1_outcome">A closed-loop logistics system that transforms unstructured citizen complaints into <strong>verified, completed field operations</strong> with a full audit trail. Every problem has an owner, every action has a timestamp, every resolution has proof.</div>
+          <div class="cs-section-text" data-i18n-html="p1_outcome">A closed-loop logistics system that transforms unstructured citizen complaints into <strong>verified, completed field operations</strong> with a full audit trail.</div>
         </div>
+
+        <!-- CIVICFLOW MOCKUP -->
         <div class="cs-section mockup-section">
           <div class="mockup-wrap">
-            <div class="laptop-frame"><div class="laptop-screen"><div class="screen-placeholder"><div class="screen-placeholder-icon">🗺️</div><div class="screen-placeholder-label">Municipality Dashboard<br>Map View + Reports</div><div class="screen-placeholder-hint"><img src="../images/civicflow-dashboard.png" alt=""></div></div></div><div class="laptop-base"></div><div class="laptop-stand"></div></div>
-            <div class="phone-frame"><div class="phone-body"><div class="screen-placeholder"><div class="screen-placeholder-icon">📍</div><div class="screen-placeholder-label">Citizen<br>Report</div><div class="screen-placeholder-hint"><img src="../images/civicflow-report1.png" alt=""></div></div></div></div>
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <img class="screen-img" src="../images/civicflow-dashboard.png" alt="CivicFlow Dashboard"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback">
+                  <div class="fallback-icon">🗺️</div>
+                  <div class="fallback-label">Municipality Dashboard<br>Add civicflow-dashboard.png</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <img class="screen-img" src="../images/civicflow-report1.png" alt="CivicFlow Report"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback">
+                  <div class="fallback-icon">📍</div>
+                  <div class="fallback-label">Citizen<br>Report</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mockup-howto">// Replace placeholders with your actual screenshots</div>
+          <div class="mockup-note">// civicflow-dashboard.png + civicflow-report1.png → /images/</div>
         </div>
+
         <div class="cs-section cs-full-width">
           <div class="cs-section-label" data-i18n="label_stack">Tech Stack</div>
           <div class="cs-stack"><span class="cs-stack-item">Flutter</span><span class="cs-stack-item">Laravel</span><span class="cs-stack-item">Firebase Auth</span><span class="cs-stack-item">Firestore</span><span class="cs-stack-item">OpenStreetMap</span><span class="cs-stack-item">REST API</span><span class="cs-stack-item">State Machine</span><span class="cs-stack-item">Offline-First</span></div>
@@ -255,16 +310,16 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
         <div class="cs-number" style="color:rgba(157,111,255,0.15);">02</div>
         <div class="cs-system-tag" style="color:var(--violet);" data-i18n="p2_tag">// EdTech Infrastructure</div>
         <div class="cs-title" data-i18n="p2_title">SaaS Learning Platform</div>
-        <div class="cs-subtitle" data-i18n="p2_subtitle">Multi-Role Learning Management System with Revenue Architecture</div>
+        <div class="cs-subtitle" data-i18n="p2_subtitle">Multi-Role LMS with Revenue Architecture</div>
       </div>
       <div class="cs-body">
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_problem">The Problem</div>
-          <div class="cs-section-text" data-i18n-html="p2_problem">Existing LMS solutions in the Arab market either lack Arabic support, are prohibitively expensive for educators, or can't scale beyond a single institution. Educators needed a platform they could <strong>own and monetize</strong> — with real SaaS architecture under the hood.</div>
+          <div class="cs-section-text" data-i18n-html="p2_problem">Existing LMS solutions in the Arab market either lack Arabic support or can't scale beyond a single institution. Educators needed a platform they could <strong>own and monetize</strong> — with real SaaS architecture under the hood.</div>
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_arch">The Architecture Decision</div>
-          <div class="cs-section-text" data-i18n-html="p2_arch">Built on <strong>Clean Architecture with DDD patterns</strong> — 18-table schema, 10 bounded contexts, 3 roles (Admin, Instructor, Student). Not an app with roles — an architecture with clear domain boundaries that can scale horizontally into multi-tenancy.</div>
+          <div class="cs-section-text" data-i18n-html="p2_arch">Built on <strong>Clean Architecture with DDD patterns</strong> — 18-table schema, 10 bounded contexts, 3 roles (Admin, Instructor, Student). An architecture with clear domain boundaries that scales horizontally into multi-tenancy.</div>
         </div>
         <div class="cs-section cs-full-width">
           <div class="cs-section-label" data-i18n="p2_systems_label">Core Systems Built</div>
@@ -277,15 +332,38 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_challenge">The Engineering Challenge</div>
-          <div class="cs-section-text" data-i18n-html="p2_challenge">Designing a <strong>revenue-split system</strong> that correctly calculates instructor share vs. platform commission, handles Stripe webhook idempotency, and processes refund reversals — without ever creating a financial inconsistency in the wallet ledger.</div>
+          <div class="cs-section-text" data-i18n-html="p2_challenge">Designing a <strong>revenue-split system</strong> that correctly calculates instructor share vs. platform commission, handles Stripe webhook idempotency, and processes refund reversals — without creating a financial inconsistency in the wallet ledger.</div>
         </div>
+
+        <!-- LMS MOCKUP -->
         <div class="cs-section mockup-section mockup-violet">
           <div class="mockup-wrap">
-            <div class="laptop-frame"><div class="laptop-screen"><div class="screen-placeholder"><div class="screen-placeholder-icon">🎓</div><div class="screen-placeholder-label">Filament Admin Panel<br>Course Management</div><div class="screen-placeholder-hint"><img src="../images/lms-admin.png" alt=""></div></div></div><div class="laptop-base"></div><div class="laptop-stand"></div></div>
-            <div class="phone-frame"><div class="phone-body"><div class="screen-placeholder" style="background:rgba(157,111,255,0.04);"><div class="screen-placeholder-icon">📱</div><div class="screen-placeholder-label">Flutter<br>Student</div><div class="screen-placeholder-hint"><img src="../images/lms-admin1.png" alt=""></div></div></div></div>
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <img class="screen-img" src="../images/lms-admin.png" alt="LMS Admin Panel"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback" style="background:rgba(157,111,255,0.04);">
+                  <div class="fallback-icon">🎓</div>
+                  <div class="fallback-label">Filament Admin Panel<br>Add lms-admin.png</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <img class="screen-img" src="../images/lms-admin1.png" alt="LMS Student App"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback" style="background:rgba(157,111,255,0.04);">
+                  <div class="fallback-icon">📱</div>
+                  <div class="fallback-label">Flutter<br>Student</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mockup-howto">// Replace placeholders with your actual screenshots</div>
+          <div class="mockup-note">// lms-admin.png + lms-admin1.png → /images/</div>
         </div>
+
         <div class="cs-section cs-full-width">
           <div class="cs-section-label" data-i18n="label_stack">Tech Stack</div>
           <div class="cs-stack"><span class="cs-stack-item">Laravel 11</span><span class="cs-stack-item">Clean Architecture</span><span class="cs-stack-item">Filament v3</span><span class="cs-stack-item">Flutter</span><span class="cs-stack-item">Stripe</span><span class="cs-stack-item">Redis</span><span class="cs-stack-item">MySQL</span><span class="cs-stack-item">Laravel Sanctum</span><span class="cs-stack-item">DomPDF</span></div>
@@ -308,7 +386,7 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_arch">The Architecture Decision</div>
-          <div class="cs-section-text" data-i18n-html="p3_arch">Built from scratch on Laravel to own every layer — <strong>custom admin dashboard</strong>, inventory management, order lifecycle, and analytics. Not a WooCommerce fork — a domain-specific commerce engine built for the Algerian market.</div>
+          <div class="cs-section-text" data-i18n-html="p3_arch">Built from scratch on Laravel to own every layer — <strong>custom admin dashboard</strong>, inventory management, order lifecycle, and analytics. A domain-specific commerce engine built for the Algerian market.</div>
         </div>
         <div class="cs-section cs-full-width">
           <div class="cs-section-label" data-i18n="p3_systems_label">Key Systems</div>
@@ -320,15 +398,38 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_outcome">The Outcome</div>
-          <div class="cs-section-text" data-i18n-html="p3_outcome">A production-ready commerce platform with <strong>full Arabic support, RTL layouts</strong>, and an admin dashboard that gives business owners real visibility into their operations — not just a list of orders.</div>
+          <div class="cs-section-text" data-i18n-html="p3_outcome">A production-ready commerce platform with <strong>full Arabic support, RTL layouts</strong>, and an admin dashboard that gives business owners real visibility into their operations.</div>
         </div>
+
+        <!-- E-COMMERCE MOCKUP -->
         <div class="cs-section mockup-section mockup-cyan">
           <div class="mockup-wrap">
-            <div class="laptop-frame"><div class="laptop-screen"><div class="screen-placeholder"><div class="screen-placeholder-icon">🛍️</div><div class="screen-placeholder-label">Admin Dashboard<br>Sales Analytics</div><div class="screen-placeholder-hint">→ img src="ecommerce-admin.png"</div></div></div><div class="laptop-base"></div><div class="laptop-stand"></div></div>
-            <div class="phone-frame"><div class="phone-body"><div class="screen-placeholder" style="background:rgba(0,212,255,0.03);"><div class="screen-placeholder-icon">📦</div><div class="screen-placeholder-label">Product<br>Catalog</div><div class="screen-placeholder-hint">Add screenshot</div></div></div></div>
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <img class="screen-img" src="../images/ecommerce-admin.png" alt="E-Commerce Admin"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback">
+                  <div class="fallback-icon">🛍️</div>
+                  <div class="fallback-label">Admin Dashboard<br>Add ecommerce-admin.png</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <img class="screen-img" src="../images/ecommerce-mobile.png" alt="E-Commerce Mobile"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback" style="background:rgba(0,212,255,0.03);">
+                  <div class="fallback-icon">📦</div>
+                  <div class="fallback-label">Product<br>Catalog</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mockup-howto">// Replace placeholders with your actual screenshots</div>
+          <div class="mockup-note">// ecommerce-admin.png + ecommerce-mobile.png → /images/</div>
         </div>
+
         <div class="cs-section cs-full-width">
           <div class="cs-section-label" data-i18n="label_stack">Tech Stack</div>
           <div class="cs-stack"><span class="cs-stack-item">Laravel</span><span class="cs-stack-item">Tailwind CSS</span><span class="cs-stack-item">MySQL</span><span class="cs-stack-item">Alpine.js</span><span class="cs-stack-item">Laravel Livewire</span><span class="cs-stack-item">RTL Support</span><span class="cs-stack-item">i18n</span></div>
@@ -351,7 +452,7 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
       <div class="cs-body">
         <div class="cs-section cs-full-width">
           <div class="cs-section-label" data-i18n="p4_vision_label">The Vision</div>
-          <div class="cs-section-text" data-i18n-html="p4_vision">MindPilot is not a to-do list. It's a <strong>cognitive productivity system</strong> that uses AI to help knowledge workers — particularly in the Arab world — think clearer, prioritize better, and build with more intention. Building it in public because the journey is as valuable as the product.</div>
+          <div class="cs-section-text" data-i18n-html="p4_vision">MindPilot is not a to-do list. It's a <strong>cognitive productivity system</strong> that uses AI to help knowledge workers — particularly in the Arab world — think clearer, prioritize better, and build with more intention.</div>
         </div>
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="p4_progress_label">Current Progress</div>
@@ -364,23 +465,133 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1200px;margin:0
             <div style="display:flex;align-items:center;gap:10px;"><span style="color:var(--text-muted);font-size:12px;">○</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);" data-i18n="p4_ph6">Phase 6 — SaaS &amp; Scaling Layer</span></div>
           </div>
           <div class="progress-bar-wrap" style="margin-top:20px;">
-            <div class="progress-label">
-              <span data-i18n="p4_progress_overall">Overall Progress</span>
-              <span>80%</span>
-            </div>
+            <div class="progress-label"><span data-i18n="p4_progress_overall">Overall Progress</span><span>80%</span></div>
             <div class="progress-bar"><div class="progress-fill" style="width:80%;background:var(--violet);box-shadow:0 0 8px var(--violet);"></div></div>
           </div>
         </div>
+
+        <!-- MINDPILOT MOCKUP -->
         <div class="cs-section mockup-section mockup-violet">
           <div class="mockup-wrap">
-            <div class="laptop-frame"><div class="laptop-screen"><div class="screen-placeholder" style="background:rgba(157,111,255,0.04);"><div class="screen-placeholder-icon">🤖</div><div class="screen-placeholder-label">MindPilot<br>AI Dashboard</div><div class="screen-placeholder-hint">→ img src="mindpilot-dashboard.png"</div></div></div><div class="laptop-base"></div><div class="laptop-stand"></div></div>
-            <div class="phone-frame"><div class="phone-body"><div class="screen-placeholder" style="background:rgba(157,111,255,0.04);"><div class="screen-placeholder-icon">⚡</div><div class="screen-placeholder-label">Flutter<br>Mobile</div><div class="screen-placeholder-hint">Add screenshot</div></div></div></div>
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <img class="screen-img" src="../images/mindpilot-dashboard.png" alt="MindPilot Dashboard"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback" style="background:rgba(157,111,255,0.04);">
+                  <div class="fallback-icon">🤖</div>
+                  <div class="fallback-label">MindPilot AI Dashboard<br>Add mindpilot-dashboard.png</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <img class="screen-img" src="../images/mindpilot-mobile.png" alt="MindPilot Mobile"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback" style="background:rgba(157,111,255,0.04);">
+                  <div class="fallback-icon">⚡</div>
+                  <div class="fallback-label">Flutter<br>Mobile</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mockup-howto">// Building in Public — screenshots update as phases complete</div>
+          <div class="mockup-note">// mindpilot-dashboard.png + mindpilot-mobile.png → /images/</div>
         </div>
+
         <div class="cs-section">
           <div class="cs-section-label" data-i18n="label_stack">Tech Stack</div>
-          <div class="cs-stack"><span class="cs-stack-item" style="color:var(--violet);">Laravel 11</span><span class="cs-stack-item" style="color:var(--violet);">Flutter</span><span class="cs-stack-item" style="color:var(--violet);">Filament v3</span><span class="cs-stack-item" style="color:var(--violet);">AI/LLM</span><span class="cs-stack-item" style="color:var(--violet);">Sanctum</span><span class="cs-stack-item" style="color:var(--violet);">Redis</span><span class="cs-stack-item" style="color:var(--violet);">Clean Architecture</span></div>
+          <div class="cs-stack">
+            <span class="cs-stack-item" style="color:var(--violet);">Laravel 11</span>
+            <span class="cs-stack-item" style="color:var(--violet);">Flutter</span>
+            <span class="cs-stack-item" style="color:var(--violet);">Filament v3</span>
+            <span class="cs-stack-item" style="color:var(--violet);">AI/LLM</span>
+            <span class="cs-stack-item" style="color:var(--violet);">Sanctum</span>
+            <span class="cs-stack-item" style="color:var(--violet);">Redis</span>
+            <span class="cs-stack-item" style="color:var(--violet);">Clean Architecture</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 05 MENU-TO-ORDER ═══ -->
+    <div class="cs-block fade-up anchor-target" id="menu-to-order" style="border-color:rgba(0,212,255,0.25);background:linear-gradient(135deg,var(--bg-card),rgba(0,212,255,0.03));">
+      <div class="cs-header" style="border-top-color:var(--cyan);">
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-family:var(--font-mono);font-size:9px;padding:4px 10px;border-radius:20px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;">
+          <span style="width:5px;height:5px;border-radius:50%;background:var(--cyan);display:inline-block;animation:status-pulse 1.5s ease-in-out infinite;box-shadow:0 0 6px var(--cyan);"></span>
+          <span data-i18n="p5_live_badge">In Development</span>
+        </div>
+        <div class="cs-number" style="color:rgba(0,212,255,0.1);">05</div>
+        <div class="cs-system-tag" style="color:var(--cyan);" data-i18n="p5_tag">// Restaurant Tech · Micro-SaaS</div>
+        <div class="cs-title">Menu-to-Order</div>
+        <div class="cs-subtitle" data-i18n="p5_subtitle">QR-Based Ordering System for Restaurants — Zero Friction, Real-Time Operations</div>
+      </div>
+      <div class="cs-body">
+        <div class="cs-section">
+          <div class="cs-section-label" data-i18n="label_problem">The Problem</div>
+          <div class="cs-section-text" data-i18n-html="p5_problem">Algerian restaurants still take orders via pen and paper or shouted across the room. Waiters get overwhelmed, orders get wrong, and there's no data on what sells. <strong>No digital bridge</strong> exists between the customer's table and the kitchen.</div>
+        </div>
+        <div class="cs-section">
+          <div class="cs-section-label" data-i18n="label_arch">The Architecture Decision</div>
+          <div class="cs-section-text" data-i18n-html="p5_arch">A <strong>3-actor micro-SaaS</strong> — customer scans QR at the table, browses the digital menu, and places order directly. The restaurant dashboard receives it in real-time. The kitchen gets a live ticket. No app install required for customers.</div>
+        </div>
+        <div class="cs-section cs-full-width">
+          <div class="cs-section-label" data-i18n="p5_systems_label">The 3-Actor System</div>
+          <div class="cs-layers" style="gap:8px;">
+            <div class="cs-layer"><div class="cs-layer-icon">📱</div><div><div class="cs-layer-title" data-i18n="p5_l1_title">CUSTOMER — QR Scan & Order</div><div class="cs-layer-desc" data-i18n="p5_l1_desc">Scan QR code at the table → browse full digital menu → place order directly from phone. No app install, no login required.</div></div></div>
+            <div class="cs-layer"><div class="cs-layer-icon">🍽️</div><div><div class="cs-layer-title" data-i18n="p5_l2_title">RESTAURANT — Live Dashboard</div><div class="cs-layer-desc" data-i18n="p5_l2_desc">Real-time order management, table overview, menu editor, and daily sales analytics — all in one dashboard.</div></div></div>
+            <div class="cs-layer"><div class="cs-layer-icon">👨‍🍳</div><div><div class="cs-layer-title" data-i18n="p5_l3_title">KITCHEN — Order Ticket System</div><div class="cs-layer-desc" data-i18n="p5_l3_desc">Live order queue for kitchen staff — new orders appear instantly, items can be marked ready, reducing miscommunication to zero.</div></div></div>
+          </div>
+        </div>
+        <div class="cs-section">
+          <div class="cs-section-label" data-i18n="label_challenge">The Engineering Challenge</div>
+          <div class="cs-section-text" data-i18n-html="p5_challenge">Building a <strong>real-time order pipeline</strong> that works reliably in restaurants with poor WiFi — using optimistic UI updates, background sync, and a conflict-resolution layer when multiple customers order simultaneously from the same table.</div>
+        </div>
+        <div class="cs-section">
+          <div class="cs-section-label" data-i18n="p5_model_label">The Business Model</div>
+          <div class="cs-section-text" data-i18n-html="p5_model">Micro-SaaS subscription per restaurant — <strong>flat monthly fee</strong>, no per-order commission. Simple enough to sell, valuable enough to keep. Target: restaurants, cafés, and food courts across Algeria.</div>
+        </div>
+
+        <!-- MENU-TO-ORDER MOCKUP -->
+        <div class="cs-section mockup-section mockup-cyan">
+          <div class="mockup-wrap">
+            <div class="laptop-frame">
+              <div class="laptop-screen">
+                <img class="screen-img" src="../images/menu-to-order-dashboard.png" alt="Menu-to-Order Dashboard"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback" style="background:rgba(0,212,255,0.03);">
+                  <div class="fallback-icon">🍽️</div>
+                  <div class="fallback-label">Restaurant Dashboard<br>Building in Progress…</div>
+                </div>
+              </div>
+              <div class="laptop-base"></div>
+              <div class="laptop-stand"></div>
+            </div>
+            <div class="phone-frame">
+              <div class="phone-body">
+                <img class="screen-img" src="../images/menu-to-order-menu.png" alt="Menu-to-Order Customer Menu"
+                     onerror="this.style.display='none'">
+                <div class="screen-fallback" style="background:rgba(0,212,255,0.03);">
+                  <div class="fallback-icon">🔲</div>
+                  <div class="fallback-label">QR Menu<br>Customer View</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-note">// Screenshots will appear as development progresses</div>
+        </div>
+
+        <div class="cs-section cs-full-width">
+          <div class="cs-section-label" data-i18n="label_stack">Tech Stack</div>
+          <div class="cs-stack">
+            <span class="cs-stack-item" style="color:var(--cyan);">Laravel</span>
+            <span class="cs-stack-item" style="color:var(--cyan);">Flutter</span>
+            <span class="cs-stack-item" style="color:var(--cyan);">QR Code</span>
+            <span class="cs-stack-item" style="color:var(--cyan);">WebSockets</span>
+            <span class="cs-stack-item" style="color:var(--cyan);">Filament v3</span>
+            <span class="cs-stack-item" style="color:var(--cyan);">MySQL</span>
+            <span class="cs-stack-item" style="color:var(--cyan);">Real-time</span>
+          </div>
         </div>
       </div>
     </div>
@@ -405,47 +616,54 @@ const Portfolio = {
       page_label:'// Case Studies',
       hero_h1_1:"Systems I've", hero_h1_2:'Architected',
       hero_sub:"Each project below is documented as a full case study — from the problem that required a system, to the architecture decisions that shaped the solution.",
-      // shared labels
       label_problem:'The Problem', label_arch:'The Architecture Decision', label_challenge:'The Engineering Challenge', label_outcome:'The Outcome', label_stack:'Tech Stack',
-      // CivicFlow
       p1_tag:'// Urban Logistics Ecosystem', p1_subtitle:'Smart Waste Management & Municipal Operations Platform',
-      p1_problem:`Algerian municipalities manage waste operations through <strong>fragmented channels</strong> — phone calls, paper reports, manual coordination. There's no closed-loop accountability between citizens reporting issues, managers dispatching workers, and workers proving completion. Reports disappear. Problems persist. No audit trail exists.`,
+      p1_problem:`Algerian municipalities manage waste operations through <strong>fragmented channels</strong> — phone calls, paper reports, manual coordination. There's no closed-loop accountability between citizens reporting issues, managers dispatching workers, and workers proving completion.`,
       p1_arch:`Instead of a single app, I designed a <strong>3-tier operational ecosystem</strong> with separate interfaces for each stakeholder, unified by a shared real-time data layer and a state machine tracking every report through 5 distinct statuses — with zero data loss, even offline.`,
       p1_layers_label:'The 3-Layer System',
-      p1_l1_title:'CITIZEN LAYER — Report Interface', p1_l1_desc:'Geo-tagged incident reporting with photo evidence. Transforms unstructured civic complaints into structured logistics tickets with location, timestamp, and severity classification.',
-      p1_l2_title:'OPERATIONS LAYER — Municipality Dashboard', p1_l2_desc:'Real-time task management for municipality managers — ticket queuing by zone, worker assignment, priority escalation, and live status tracking across the city grid.',
-      p1_l3_title:'FIELD LAYER — Worker Mobile Interface', p1_l3_desc:'GPS check-in, photo proof-of-completion, and task status updates. Creates an auditable chain of accountability — every action is timestamped and immutable.',
-      p1_challenge:`The hardest part wasn't the code. It was designing a <strong>state machine</strong> where a single report travels through 5 statuses across 3 independent actors — Submitted → Assigned → In Progress → Completed → Verified — with no state ever being lost, duplicated, or bypassed, even in offline-first mobile scenarios.`,
-      p1_outcome:`A closed-loop logistics system that transforms unstructured citizen complaints into <strong>verified, completed field operations</strong> with a full audit trail. Every problem has an owner, every action has a timestamp, every resolution has proof.`,
-      // LMS
-      p2_tag:'// EdTech Infrastructure', p2_title:'SaaS Learning Platform', p2_subtitle:'Multi-Role Learning Management System with Revenue Architecture',
-      p2_problem:`Existing LMS solutions in the Arab market either lack Arabic support, are prohibitively expensive for educators, or can't scale beyond a single institution. Educators needed a platform they could <strong>own and monetize</strong> — with real SaaS architecture under the hood.`,
-      p2_arch:`Built on <strong>Clean Architecture with DDD patterns</strong> — 18-table schema, 10 bounded contexts, 3 roles (Admin, Instructor, Student). Not an app with roles — an architecture with clear domain boundaries that can scale horizontally into multi-tenancy.`,
+      p1_l1_title:'CITIZEN LAYER — Report Interface', p1_l1_desc:'Geo-tagged incident reporting with photo evidence. Transforms unstructured civic complaints into structured logistics tickets.',
+      p1_l2_title:'OPERATIONS LAYER — Municipality Dashboard', p1_l2_desc:'Real-time task management — ticket queuing by zone, worker assignment, priority escalation, and live status tracking.',
+      p1_l3_title:'FIELD LAYER — Worker Mobile Interface', p1_l3_desc:'GPS check-in, photo proof-of-completion, and task status updates. Creates an auditable chain of accountability.',
+      p1_challenge:`Designing a <strong>state machine</strong> where a single report travels through 5 statuses across 3 independent actors — Submitted → Assigned → In Progress → Completed → Verified — with no state ever lost, even offline.`,
+      p1_outcome:`A closed-loop logistics system that transforms unstructured citizen complaints into <strong>verified, completed field operations</strong> with a full audit trail.`,
+      p2_tag:'// EdTech Infrastructure', p2_title:'SaaS Learning Platform', p2_subtitle:'Multi-Role LMS with Revenue Architecture',
+      p2_problem:`Existing LMS solutions in the Arab market lack Arabic support or can't scale beyond a single institution. Educators needed a platform they could <strong>own and monetize</strong> — with real SaaS architecture.`,
+      p2_arch:`Built on <strong>Clean Architecture with DDD patterns</strong> — 18-table schema, 10 bounded contexts, 3 roles (Admin, Instructor, Student). An architecture with clear domain boundaries that scales horizontally.`,
       p2_systems_label:'Core Systems Built',
       p2_l1_title:'COURSE ENGINE', p2_l1_desc:'Structured content delivery with section/lesson hierarchy, progress tracking, and completion certificates via DomPDF.',
       p2_l2_title:'QUIZ ENGINE', p2_l2_desc:'Auto-graded assessments with configurable scoring, time limits, and attempt tracking.',
       p2_l3_title:'REVENUE ARCHITECTURE', p2_l3_desc:'Stripe payments with instructor revenue split, webhook handling, wallet system, and withdrawal requests.',
       p2_l4_title:'ANALYTICS LAYER', p2_l4_desc:'Redis-cached dashboards with enrollment metrics, revenue analytics, and engagement tracking per instructor.',
-      p2_challenge:`Designing a <strong>revenue-split system</strong> that correctly calculates instructor share vs. platform commission, handles Stripe webhook idempotency, and processes refund reversals — without ever creating a financial inconsistency in the wallet ledger.`,
-      // E-Commerce
+      p2_challenge:`Designing a <strong>revenue-split system</strong> that correctly calculates instructor share vs. platform commission, handles Stripe webhook idempotency, and processes refund reversals — without financial inconsistency.`,
       p3_tag:'// Commerce Infrastructure', p3_title:'E-Commerce Suite', p3_subtitle:'Full-Scale Laravel Platform with Comprehensive Admin Intelligence',
-      p3_problem:"Most e-commerce solutions for Algerian businesses are either cheap templates with no extensibility, or expensive foreign platforms that don't understand local payment methods, currency, or Arabic product catalogs.",
-      p3_arch:`Built from scratch on Laravel to own every layer — <strong>custom admin dashboard</strong>, inventory management, order lifecycle, and analytics. Not a WooCommerce fork — a domain-specific commerce engine built for the Algerian market.`,
+      p3_problem:"Most e-commerce solutions for Algerian businesses are either cheap templates with no extensibility, or expensive foreign platforms that don't understand local payment methods or Arabic product catalogs.",
+      p3_arch:`Built from scratch on Laravel to own every layer — <strong>custom admin dashboard</strong>, inventory management, order lifecycle, and analytics. A domain-specific commerce engine for the Algerian market.`,
       p3_systems_label:'Key Systems',
       p3_l1_title:'PRODUCT CATALOG ENGINE', p3_l1_desc:'Multi-variant products, category tree, inventory tracking with low-stock alerts.',
       p3_l2_title:'ORDER LIFECYCLE', p3_l2_desc:'Full order state management from cart to delivery, with admin override capabilities.',
       p3_l3_title:'ADMIN INTELLIGENCE LAYER', p3_l3_desc:'Comprehensive dashboard with sales analytics, customer behavior, top products, and revenue trends.',
-      p3_outcome:`A production-ready commerce platform with <strong>full Arabic support, RTL layouts</strong>, and an admin dashboard that gives business owners real visibility into their operations — not just a list of orders.`,
-      // MindPilot
+      p3_outcome:`A production-ready commerce platform with <strong>full Arabic support, RTL layouts</strong>, and an admin dashboard that gives business owners real visibility into their operations.`,
       p4_tag:'// AI Productivity System', p4_subtitle:'An AI-powered productivity ecosystem — built, shipped, and documented in public',
       p4_live_badge:'Building in Public — Phase 5 of 6',
       p4_vision_label:'The Vision',
-      p4_vision:`MindPilot is not a to-do list. It's a <strong>cognitive productivity system</strong> that uses AI to help knowledge workers — particularly in the Arab world — think clearer, prioritize better, and build with more intention. Building it in public because the journey is as valuable as the product.`,
+      p4_vision:`MindPilot is not a to-do list. It's a <strong>cognitive productivity system</strong> that uses AI to help knowledge workers — particularly in the Arab world — think clearer and build with more intention.`,
       p4_progress_label:'Current Progress',
       p4_ph1:'Phase 1 — Architecture & Core API', p4_ph2:'Phase 2 — Auth & User System',
       p4_ph3:'Phase 3 — Core Features & LLM Integration', p4_ph4:'Phase 4 — Admin Panel & Analytics',
       p4_ph5:'Phase 5 — Flutter Mobile App (Active)', p4_ph6:'Phase 6 — SaaS & Scaling Layer',
       p4_progress_overall:'Overall Progress',
+      // Menu-to-Order
+      p5_tag:'// Restaurant Tech · Micro-SaaS', p5_subtitle:'QR-Based Ordering System for Restaurants — Zero Friction, Real-Time Operations',
+      p5_live_badge:'In Development',
+      p5_problem:`Algerian restaurants still take orders via pen and paper. Waiters get overwhelmed, orders go wrong, and there's no data on what sells. <strong>No digital bridge</strong> exists between the customer's table and the kitchen.`,
+      p5_arch:`A <strong>3-actor micro-SaaS</strong> — customer scans QR at the table, browses the digital menu, and places order directly. The restaurant dashboard receives it in real-time. No app install required for customers.`,
+      p5_systems_label:'The 3-Actor System',
+      p5_l1_title:'CUSTOMER — QR Scan & Order', p5_l1_desc:'Scan QR code at the table → browse full digital menu → place order directly from phone. No app install, no login required.',
+      p5_l2_title:'RESTAURANT — Live Dashboard', p5_l2_desc:'Real-time order management, table overview, menu editor, and daily sales analytics — all in one dashboard.',
+      p5_l3_title:'KITCHEN — Order Ticket System', p5_l3_desc:'Live order queue for kitchen staff — new orders appear instantly, items can be marked ready.',
+      p5_challenge:`Building a <strong>real-time order pipeline</strong> that works reliably in restaurants with poor WiFi — using optimistic UI updates and a conflict-resolution layer when multiple customers order simultaneously.`,
+      p5_model_label:'The Business Model',
+      p5_model:`Micro-SaaS subscription per restaurant — <strong>flat monthly fee</strong>, no per-order commission. Target: restaurants, cafés, and food courts across Algeria.`,
       footer_role:'System Architect', footer_cta:"Have a complex problem? Let's talk →",
     },
     fr: {
@@ -453,47 +671,54 @@ const Portfolio = {
       theme_day:'JOUR', theme_night:'NUIT',
       page_label:'// Études de cas',
       hero_h1_1:"Systèmes que j'ai", hero_h1_2:'Architecturés',
-      hero_sub:"Chaque projet ci-dessous est documenté comme une étude de cas complète — du problème qui nécessitait un système, aux décisions d'architecture qui ont façonné la solution.",
+      hero_sub:"Chaque projet ci-dessous est documenté comme une étude de cas complète.",
       label_problem:'Le Problème', label_arch:"La Décision d'Architecture", label_challenge:"Le Défi d'Ingénierie", label_outcome:'Le Résultat', label_stack:'Stack Technique',
-      // CivicFlow
-      p1_tag:'// Écosystème Logistique Urbaine', p1_subtitle:'Plateforme Intelligente de Gestion des Déchets et Opérations Municipales',
-      p1_problem:`Les municipalités algériennes gèrent les opérations de déchets via des <strong>canaux fragmentés</strong> — appels téléphoniques, rapports papier, coordination manuelle. Il n'y a aucune responsabilité en boucle fermée entre les citoyens signalant des problèmes, les managers envoyant des travailleurs, et les travailleurs prouvant l'achèvement.`,
-      p1_arch:`Au lieu d'une seule application, j'ai conçu un <strong>écosystème opérationnel à 3 niveaux</strong> avec des interfaces séparées pour chaque partie prenante, unifiées par une couche de données en temps réel et une machine à états suivant chaque rapport à travers 5 statuts distincts — sans perte de données, même hors ligne.`,
+      p1_tag:'// Écosystème Logistique Urbaine', p1_subtitle:'Plateforme de Gestion des Déchets et Opérations Municipales',
+      p1_problem:`Les municipalités algériennes gèrent les déchets via des <strong>canaux fragmentés</strong> — appels, rapports papier, coordination manuelle. Aucune responsabilité en boucle fermée n'existe.`,
+      p1_arch:`Un <strong>écosystème opérationnel à 3 niveaux</strong> avec interfaces séparées, unified par une couche temps réel et une machine à états — sans perte de données, même hors ligne.`,
       p1_layers_label:'Le Système à 3 Couches',
-      p1_l1_title:'COUCHE CITOYENNE — Interface de Signalement', p1_l1_desc:"Signalement d'incidents géolocalisés avec preuves photos. Transforme les plaintes civiques non structurées en tickets logistiques structurés.",
-      p1_l2_title:'COUCHE OPÉRATIONS — Tableau de Bord Municipal', p1_l2_desc:"Gestion des tâches en temps réel — file d'attente par zone, affectation des agents, escalade de priorité et suivi live.",
-      p1_l3_title:'COUCHE TERRAIN — Interface Mobile Agent', p1_l3_desc:"Check-in GPS, preuve photo d'achèvement, et mises à jour de statut. Crée une chaîne de responsabilité auditée — chaque action est horodatée.",
-      p1_challenge:`La partie la plus difficile n'était pas le code. C'était concevoir une <strong>machine à états</strong> où un rapport traverse 5 statuts à travers 3 acteurs indépendants — Soumis → Assigné → En cours → Terminé → Vérifié — sans qu'aucun état ne soit jamais perdu.`,
-      p1_outcome:`Un système logistique en boucle fermée qui transforme les plaintes citoyennes en <strong>opérations terrain vérifiées et complètes</strong> avec une piste d'audit complète.`,
-      // LMS
-      p2_tag:'// Infrastructure EdTech', p2_title:'Plateforme LMS SaaS', p2_subtitle:'Système de Gestion de l\'Apprentissage Multi-Rôles avec Architecture de Revenus',
-      p2_problem:`Les solutions LMS existantes sur le marché arabe manquent soit de support arabe, sont trop chères pour les formateurs, ou ne peuvent pas dépasser une seule institution. Les formateurs avaient besoin d'une plateforme qu'ils pouvaient <strong>posséder et monétiser</strong>.`,
-      p2_arch:`Construit sur <strong>Clean Architecture avec les patterns DDD</strong> — schéma 18 tables, 10 contextes délimités, 3 rôles (Admin, Formateur, Étudiant). Pas une application avec des rôles — une architecture avec des frontières de domaine claires.`,
-      p2_systems_label:'Systèmes Principaux Construits',
-      p2_l1_title:'MOTEUR DE COURS', p2_l1_desc:'Livraison de contenu structuré avec hiérarchie sections/leçons, suivi de progression et certificats via DomPDF.',
-      p2_l2_title:'MOTEUR DE QUIZ', p2_l2_desc:'Évaluations auto-notées avec scoring configurable, limites de temps et suivi des tentatives.',
-      p2_l3_title:'ARCHITECTURE DE REVENUS', p2_l3_desc:'Paiements Stripe avec partage des revenus formateur, gestion des webhooks, système de portefeuille et demandes de retrait.',
-      p2_l4_title:'COUCHE ANALYTIQUE', p2_l4_desc:'Tableaux de bord Redis avec métriques d\'inscription, analyses de revenus et suivi d\'engagement par formateur.',
-      p2_challenge:`Concevoir un <strong>système de partage des revenus</strong> qui calcule correctement la part du formateur vs la commission de la plateforme, gère l'idempotence des webhooks Stripe et traite les remboursements — sans jamais créer d'incohérence dans le grand livre.`,
-      // E-Commerce
-      p3_tag:'// Infrastructure Commerce', p3_title:'Suite E-Commerce', p3_subtitle:'Plateforme Laravel Complète avec Intelligence Admin Complète',
-      p3_problem:"La plupart des solutions e-commerce pour les entreprises algériennes sont soit des templates bon marché sans extensibilité, soit des plateformes étrangères coûteuses qui ne comprennent pas les méthodes de paiement locales.",
-      p3_arch:`Construit de zéro sur Laravel pour contrôler chaque couche — <strong>tableau de bord admin personnalisé</strong>, gestion des stocks, cycle de vie des commandes et analytique. Pas un fork WooCommerce — un moteur commerce spécifique au marché algérien.`,
+      p1_l1_title:'COUCHE CITOYENNE', p1_l1_desc:"Signalement géolocalisé avec photos. Transforme les plaintes en tickets logistiques structurés.",
+      p1_l2_title:'COUCHE OPÉRATIONS', p1_l2_desc:"Gestion temps réel — file d'attente par zone, affectation agents, escalade priorité.",
+      p1_l3_title:'COUCHE TERRAIN', p1_l3_desc:"Check-in GPS, preuve photo, mises à jour statut. Chaîne de responsabilité auditée.",
+      p1_challenge:`Une <strong>machine à états</strong> — Soumis → Assigné → En cours → Terminé → Vérifié — sans perte d'état, même offline.`,
+      p1_outcome:`Système en boucle fermée transformant les plaintes en <strong>opérations terrain vérifiées</strong> avec piste d'audit complète.`,
+      p2_tag:'// Infrastructure EdTech', p2_title:'Plateforme LMS SaaS', p2_subtitle:'LMS Multi-Rôles avec Architecture de Revenus',
+      p2_problem:`Les LMS existants manquent de support arabe ou ne scalent pas. Les formateurs ont besoin d'une plateforme à <strong>posséder et monétiser</strong>.`,
+      p2_arch:`<strong>Clean Architecture + DDD</strong> — 18 tables, 10 contextes délimités, 3 rôles. Architecture scalable horizontalement vers le multi-tenancy.`,
+      p2_systems_label:'Systèmes Principaux',
+      p2_l1_title:'MOTEUR DE COURS', p2_l1_desc:'Livraison structurée, progression, certificats DomPDF.',
+      p2_l2_title:'MOTEUR DE QUIZ', p2_l2_desc:'Auto-notation, scoring configurable, limites temps.',
+      p2_l3_title:'ARCHITECTURE REVENUS', p2_l3_desc:'Stripe, partage revenus, webhooks, portefeuille, retraits.',
+      p2_l4_title:'ANALYTIQUE', p2_l4_desc:'Dashboards Redis, métriques inscription, revenus par formateur.',
+      p2_challenge:`<strong>Système partage revenus</strong> — calcul correct instructeur vs commission, idempotence Stripe, remboursements sans incohérence.`,
+      p3_tag:'// Infrastructure Commerce', p3_title:'Suite E-Commerce', p3_subtitle:'Plateforme Laravel Complète avec Intelligence Admin',
+      p3_problem:"Templates bon marché ou plateformes étrangères coûteuses — aucune ne comprend le marché algérien.",
+      p3_arch:`Construit de zéro — <strong>dashboard admin custom</strong>, stocks, commandes, analytics. Moteur commerce pour le marché algérien.`,
       p3_systems_label:'Systèmes Clés',
-      p3_l1_title:'MOTEUR DE CATALOGUE PRODUITS', p3_l1_desc:'Produits multi-variantes, arborescence de catégories, suivi des stocks avec alertes de rupture.',
-      p3_l2_title:'CYCLE DE VIE DES COMMANDES', p3_l2_desc:'Gestion complète des états de commande du panier à la livraison, avec capacités de remplacement admin.',
-      p3_l3_title:'COUCHE INTELLIGENCE ADMIN', p3_l3_desc:'Tableau de bord avec analytics de ventes, comportement clients, meilleurs produits et tendances de revenus.',
-      p3_outcome:`Une plateforme commerce prête pour la production avec <strong>support arabe complet, layouts RTL</strong>, et un tableau de bord qui donne aux propriétaires une vraie visibilité sur leurs opérations.`,
-      // MindPilot
-      p4_tag:'// Système IA Productivité', p4_subtitle:'Un écosystème de productivité IA — construit, livré et documenté en public',
-      p4_live_badge:'Construction en public — Phase 5 sur 6',
+      p3_l1_title:'CATALOGUE PRODUITS', p3_l1_desc:'Multi-variantes, arborescence, alertes rupture stock.',
+      p3_l2_title:'CYCLE COMMANDES', p3_l2_desc:'Gestion états panier → livraison, override admin.',
+      p3_l3_title:'INTELLIGENCE ADMIN', p3_l3_desc:'Analytics ventes, comportement clients, tendances revenus.',
+      p3_outcome:`Plateforme prête production avec <strong>support arabe, RTL</strong> et dashboard donnant visibilité réelle.`,
+      p4_tag:'// Système IA Productivité', p4_subtitle:'Écosystème productivité IA — construit et documenté en public',
+      p4_live_badge:'Construction en public — Phase 5/6',
       p4_vision_label:'La Vision',
-      p4_vision:`MindPilot n'est pas une liste de tâches. C'est un <strong>système de productivité cognitive</strong> qui utilise l'IA pour aider les travailleurs du savoir — particulièrement dans le monde arabe — à penser plus clairement et construire avec plus d'intention.`,
+      p4_vision:`MindPilot n'est pas une liste de tâches. C'est un <strong>système de productivité cognitive</strong> pour les travailleurs du savoir du monde arabe.`,
       p4_progress_label:'Progression Actuelle',
-      p4_ph1:'Phase 1 — Architecture & API Core', p4_ph2:'Phase 2 — Auth & Système Utilisateur',
-      p4_ph3:'Phase 3 — Features Core & Intégration LLM', p4_ph4:"Phase 4 — Panel Admin & Analytics",
-      p4_ph5:'Phase 5 — Application Mobile Flutter (Active)', p4_ph6:'Phase 6 — SaaS & Scaling',
+      p4_ph1:'Phase 1 — Architecture & API Core', p4_ph2:'Phase 2 — Auth & Utilisateurs',
+      p4_ph3:'Phase 3 — Features & LLM', p4_ph4:'Phase 4 — Admin & Analytics',
+      p4_ph5:'Phase 5 — Flutter Mobile (Actif)', p4_ph6:'Phase 6 — SaaS & Scaling',
       p4_progress_overall:'Progression Globale',
+      p5_tag:'// Tech Restauration · Micro-SaaS', p5_subtitle:'Système de Commande QR pour Restaurants — Zéro Friction, Temps Réel',
+      p5_live_badge:'En Développement',
+      p5_problem:`Les restaurants algériens prennent encore les commandes à la main. <strong>Aucun pont numérique</strong> entre la table et la cuisine.`,
+      p5_arch:`Un <strong>micro-SaaS à 3 acteurs</strong> — le client scanne le QR, commande depuis son téléphone. Le dashboard reçoit en temps réel. Aucune app à installer.`,
+      p5_systems_label:'Le Système à 3 Acteurs',
+      p5_l1_title:'CLIENT — Scan QR & Commande', p5_l1_desc:'Scanne → menu digital → commande depuis le téléphone. Sans app, sans login.',
+      p5_l2_title:'RESTAURANT — Dashboard Live', p5_l2_desc:'Gestion commandes temps réel, aperçu tables, éditeur menu, analytics.',
+      p5_l3_title:'CUISINE — File de Tickets', p5_l3_desc:'Queue live — nouvelles commandes instantanées, articles marquables comme prêts.',
+      p5_challenge:`<strong>Pipeline temps réel</strong> fiable avec mauvais WiFi — updates optimistes et résolution conflits commandes simultanées.`,
+      p5_model_label:'Le Modèle Business',
+      p5_model:`Abonnement mensuel fixe par restaurant — <strong>pas de commission</strong> par commande. Cible : restaurants, cafés, food courts en Algérie.`,
       footer_role:'Architecte Système', footer_cta:'Un problème complexe ? Parlons-en →',
     },
     ar: {
@@ -501,57 +726,79 @@ const Portfolio = {
       theme_day:'نهار', theme_night:'ليل',
       page_label:'// دراسات الحالة',
       hero_h1_1:'أنظمة قمتُ', hero_h1_2:'بهندستها',
-      hero_sub:'كل مشروع أدناه موثق كدراسة حالة كاملة — من المشكلة التي تطلبت نظاماً، إلى قرارات البنية المعمارية التي شكّلت الحل.',
+      hero_sub:'كل مشروع موثق كدراسة حالة كاملة — من المشكلة إلى قرارات البنية المعمارية.',
       label_problem:'المشكلة', label_arch:'قرار البنية المعمارية', label_challenge:'التحدي الهندسي', label_outcome:'النتيجة', label_stack:'المجموعة التقنية',
-      // CivicFlow
       p1_tag:'// منظومة اللوجستيك الحضري', p1_subtitle:'منصة ذكية لإدارة النفايات والعمليات البلدية',
-      p1_problem:`تدير البلديات الجزائرية عمليات النفايات عبر <strong>قنوات متفرقة</strong> — مكالمات هاتفية، تقارير ورقية، تنسيق يدوي. لا توجد مساءلة في حلقة مغلقة بين المواطنين الذين يُبلّغون عن المشاكل والمدراء والعمال الميدانيين. التقارير تختفي والمشاكل تستمر.`,
-      p1_arch:`بدلاً من تطبيق واحد، صممت <strong>منظومة تشغيلية من 3 طبقات</strong> مع واجهات منفصلة لكل مشارك، موحدة بطبقة بيانات مشتركة في الوقت الفعلي وآلة حالة تتتبع كل تقرير عبر 5 حالات مميزة — بدون فقدان بيانات حتى أوفلاين.`,
+      p1_problem:`البلديات الجزائرية تدير النفايات عبر <strong>قنوات متفرقة</strong> — مكالمات، تقارير ورقية. لا مساءلة في حلقة مغلقة.`,
+      p1_arch:`<strong>منظومة تشغيلية من 3 طبقات</strong> مع واجهات منفصلة، موحدة بطبقة بيانات وآلة حالة — بدون فقدان بيانات حتى أوفلاين.`,
       p1_layers_label:'النظام ذو 3 طبقات',
-      p1_l1_title:'طبقة المواطن — واجهة البلاغات', p1_l1_desc:'تبليغ عن الحوادث بعلامة جغرافية مع صور إثبات. تحوّل الشكاوى المدنية غير المنظمة إلى تذاكر لوجستية منظمة.',
-      p1_l2_title:'طبقة العمليات — لوحة تحكم البلدية', p1_l2_desc:'إدارة مهام في الوقت الفعلي — قائمة انتظار حسب المنطقة، تعيين العمال، تصعيد الأولوية وتتبع الحالة المباشر.',
-      p1_l3_title:'طبقة الميدان — واجهة موبايل العامل', p1_l3_desc:'تسجيل دخول GPS، صورة إثبات الإنجاز، وتحديثات حالة المهام. تخلق سلسلة مساءلة قابلة للتدقيق — كل إجراء موثق.',
-      p1_challenge:`الجزء الأصعب لم يكن الكود. بل كان تصميم <strong>آلة الحالة</strong> حيث تقرير واحد يمر عبر 5 حالات بين 3 جهات مستقلة — مُقدَّم → مُعيَّن → قيد التنفيذ → مكتمل → مُتحقَّق منه — دون فقدان أي حالة حتى في وضع أوفلاين.`,
-      p1_outcome:`منظومة لوجستية في حلقة مغلقة تحوّل شكاوى المواطنين إلى <strong>عمليات ميدانية مكتملة ومُتحقَّق منها</strong> مع سجل تدقيق كامل.`,
-      // LMS
-      p2_tag:'// بنية تحتية للتعليم الرقمي', p2_title:'منصة التعلم SaaS', p2_subtitle:'نظام إدارة تعلّم متعدد الأدوار مع بنية إيرادات',
-      p2_problem:`حلول LMS الموجودة في السوق العربية إما تفتقر لدعم اللغة العربية، أو باهظة التكلفة للمدربين، أو لا تتوسع خارج مؤسسة واحدة. احتاج المدربون لمنصة يمكنهم <strong>امتلاكها وتحقيق الدخل منها</strong>.`,
-      p2_arch:`مبني على <strong>Clean Architecture مع أنماط DDD</strong> — مخطط 18 جدولاً، 10 سياقات محدودة، 3 أدوار (مسؤول، مدرب، طالب). ليست تطبيقاً بأدوار — بل بنية معمارية بحدود نطاق واضحة قابلة للتوسع أفقياً.`,
-      p2_systems_label:'الأنظمة الأساسية المبنية',
-      p2_l1_title:'محرك الدورات', p2_l1_desc:'تسليم محتوى منظم بهيكل أقسام/دروس، تتبع تقدم، وشهادات إتمام عبر DomPDF.',
-      p2_l2_title:'محرك الاختبارات', p2_l2_desc:'تقييمات بتصحيح تلقائي مع تسجيل قابل للتهيئة وحدود زمنية وتتبع المحاولات.',
-      p2_l3_title:'بنية الإيرادات', p2_l3_desc:'مدفوعات Stripe مع تقسيم إيرادات المدرب، معالجة الـ webhooks، نظام محفظة وطلبات السحب.',
-      p2_l4_title:'طبقة التحليلات', p2_l4_desc:'لوحات تحكم مخزنة بـ Redis مع مقاييس التسجيل وتحليلات الإيرادات وتتبع التفاعل لكل مدرب.',
-      p2_challenge:`تصميم <strong>نظام تقسيم الإيرادات</strong> الذي يحسب بشكل صحيح حصة المدرب مقابل عمولة المنصة، ويتعامل مع idempotency الـ webhooks ويعالج استرداد المبالغ — دون إنشاء أي تناقض مالي في سجل المحفظة.`,
-      // E-Commerce
-      p3_tag:'// بنية تحتية للتجارة', p3_title:'منظومة التجارة الإلكترونية', p3_subtitle:'منصة Laravel متكاملة مع ذكاء لوحة تحكم شامل',
-      p3_problem:'معظم حلول التجارة الإلكترونية للشركات الجزائرية إما قوالب رخيصة بلا قابلية للتوسع، أو منصات أجنبية باهظة لا تفهم طرق الدفع المحلية أو الكتالوجات العربية.',
-      p3_arch:`مبني من الصفر على Laravel للتحكم في كل طبقة — <strong>لوحة تحكم مخصصة</strong>، إدارة مخزون، دورة حياة الطلبات والتحليلات. ليس fork لـ WooCommerce — بل محرك تجارة متخصص للسوق الجزائري.`,
+      p1_l1_title:'طبقة المواطن', p1_l1_desc:'تبليغ جغرافي مع صور. يحوّل الشكاوى إلى تذاكر لوجستية منظمة.',
+      p1_l2_title:'طبقة العمليات', p1_l2_desc:'إدارة مهام فوري — قائمة انتظار، تعيين عمال، تصعيد أولوية.',
+      p1_l3_title:'طبقة الميدان', p1_l3_desc:'GPS، صورة إثبات، تحديثات حالة. سلسلة مساءلة موثقة.',
+      p1_challenge:`<strong>آلة حالة</strong> — مُقدَّم → مُعيَّن → قيد التنفيذ → مكتمل → مُتحقَّق — دون فقدان حالة حتى أوفلاين.`,
+      p1_outcome:`منظومة حلقة مغلقة تحوّل الشكاوى إلى <strong>عمليات ميدانية مكتملة ومُتحقَّق منها</strong>.`,
+      p2_tag:'// بنية تحتية للتعليم', p2_title:'منصة التعلم SaaS', p2_subtitle:'نظام إدارة تعلّم متعدد الأدوار مع بنية إيرادات',
+      p2_problem:`حلول LMS العربية تفتقر للدعم أو تكلف كثيراً. المدربون يحتاجون منصة <strong>يمتلكونها ويحققون منها دخلاً</strong>.`,
+      p2_arch:`<strong>Clean Architecture + DDD</strong> — 18 جدولاً، 10 سياقات، 3 أدوار. بنية قابلة للتوسع أفقياً.`,
+      p2_systems_label:'الأنظمة الأساسية',
+      p2_l1_title:'محرك الدورات', p2_l1_desc:'تسليم منظم، تتبع تقدم، شهادات DomPDF.',
+      p2_l2_title:'محرك الاختبارات', p2_l2_desc:'تصحيح تلقائي، تسجيل قابل للتهيئة، حدود زمنية.',
+      p2_l3_title:'بنية الإيرادات', p2_l3_desc:'Stripe، تقسيم إيرادات، محفظة، طلبات سحب.',
+      p2_l4_title:'طبقة التحليلات', p2_l4_desc:'لوحات تحكم Redis، مقاييس تسجيل، تحليلات لكل مدرب.',
+      p2_challenge:`<strong>نظام تقسيم الإيرادات</strong> — حساب صحيح، idempotency، استردادات بدون تناقض مالي.`,
+      p3_tag:'// بنية تحتية للتجارة', p3_title:'منظومة التجارة الإلكترونية', p3_subtitle:'منصة Laravel متكاملة مع ذكاء إداري شامل',
+      p3_problem:'قوالب رخيصة أو منصات أجنبية باهظة لا تفهم السوق الجزائري.',
+      p3_arch:`مبني من الصفر — <strong>لوحة تحكم مخصصة</strong>، مخزون، طلبات، تحليلات. محرك تجارة للسوق الجزائري.`,
       p3_systems_label:'الأنظمة الرئيسية',
-      p3_l1_title:'محرك كتالوج المنتجات', p3_l1_desc:'منتجات متعددة المتغيرات، شجرة الفئات، تتبع المخزون مع تنبيهات النفاد.',
-      p3_l2_title:'دورة حياة الطلبات', p3_l2_desc:'إدارة كاملة لحالات الطلب من السلة إلى التسليم، مع إمكانيات تجاوز المسؤول.',
-      p3_l3_title:'طبقة الذكاء الإداري', p3_l3_desc:'لوحة تحكم شاملة بتحليلات المبيعات وسلوك العملاء والمنتجات الأعلى مبيعاً واتجاهات الإيرادات.',
-      p3_outcome:`منصة تجارة جاهزة للإنتاج مع <strong>دعم عربي كامل وتخطيطات RTL</strong>، ولوحة تحكم تمنح أصحاب الأعمال رؤية حقيقية على عملياتهم.`,
-      // MindPilot
-      p4_tag:'// نظام الإنتاجية بالذكاء الاصطناعي', p4_subtitle:'منظومة إنتاجية مدعومة بالذكاء الاصطناعي — مبنية ومشحونة وموثقة أمام الجمهور',
+      p3_l1_title:'محرك الكتالوج', p3_l1_desc:'متعدد المتغيرات، شجرة الفئات، تنبيهات النفاد.',
+      p3_l2_title:'دورة حياة الطلبات', p3_l2_desc:'إدارة كاملة من السلة للتسليم.',
+      p3_l3_title:'طبقة الذكاء الإداري', p3_l3_desc:'تحليلات مبيعات، سلوك عملاء، اتجاهات إيرادات.',
+      p3_outcome:`منصة جاهزة للإنتاج مع <strong>دعم عربي كامل وRTL</strong> ولوحة تحكم تمنح رؤية حقيقية.`,
+      p4_tag:'// نظام الإنتاجية بالذكاء الاصطناعي', p4_subtitle:'منظومة إنتاجية مدعومة بالذكاء الاصطناعي — مبنية وموثقة أمام الجمهور',
       p4_live_badge:'بناء أمام الجمهور — المرحلة 5 من 6',
       p4_vision_label:'الرؤية',
-      p4_vision:`MindPilot ليس قائمة مهام. إنه <strong>نظام إنتاجية معرفي</strong> يستخدم الذكاء الاصطناعي لمساعدة موظفي المعرفة — لا سيما في العالم العربي — على التفكير بوضوح أكبر والبناء بنية أعمق. نبنيه أمام الجمهور لأن الرحلة بقيمة المنتج.`,
+      p4_vision:`MindPilot ليس قائمة مهام. إنه <strong>نظام إنتاجية معرفي</strong> يساعد موظفي المعرفة العرب على التفكير بوضوح أكبر.`,
       p4_progress_label:'التقدم الحالي',
-      p4_ph1:'المرحلة 1 — البنية المعمارية وـ API الأساسي', p4_ph2:'المرحلة 2 — المصادقة ونظام المستخدمين',
-      p4_ph3:'المرحلة 3 — الميزات الأساسية وتكامل LLM', p4_ph4:'المرحلة 4 — لوحة الإدارة والتحليلات',
-      p4_ph5:'المرحلة 5 — تطبيق Flutter الموبايل (نشط)', p4_ph6:'المرحلة 6 — طبقة SaaS والتوسع',
+      p4_ph1:'المرحلة 1 — البنية وـAPI الأساسي', p4_ph2:'المرحلة 2 — المصادقة والمستخدمين',
+      p4_ph3:'المرحلة 3 — الميزات وتكامل LLM', p4_ph4:'المرحلة 4 — لوحة الإدارة والتحليلات',
+      p4_ph5:'المرحلة 5 — Flutter الموبايل (نشط)', p4_ph6:'المرحلة 6 — SaaS والتوسع',
       p4_progress_overall:'التقدم الإجمالي',
+      p5_tag:'// تقنية المطاعم · Micro-SaaS', p5_subtitle:'نظام طلب QR للمطاعم — بدون احتكاك، في الوقت الفعلي',
+      p5_live_badge:'قيد البناء',
+      p5_problem:`المطاعم الجزائرية لا تزال تأخذ الطلبات بالقلم. <strong>لا جسر رقمي</strong> بين طاولة العميل والمطبخ.`,
+      p5_arch:`<strong>micro-SaaS بـ 3 أطراف</strong> — العميل يسكان QR، يتصفح المنيو، يطلب مباشرة من هاتفه. اللوحة تستقبل الطلب فوراً. بدون تثبيت تطبيق.`,
+      p5_systems_label:'النظام ذو 3 أطراف',
+      p5_l1_title:'العميل — سكان QR والطلب', p5_l1_desc:'سكان → منيو رقمي → طلب مباشر من الهاتف. بدون تطبيق، بدون تسجيل دخول.',
+      p5_l2_title:'المطعم — لوحة تحكم مباشرة', p5_l2_desc:'إدارة طلبات فورية، نظرة عامة على الطاولات، محرر منيو، تحليلات يومية.',
+      p5_l3_title:'المطبخ — نظام تذاكر الطلبات', p5_l3_desc:'قائمة انتظار حية — طلبات جديدة تظهر فوراً، عناصر تُحدَّد كجاهزة.',
+      p5_challenge:`<strong>خط أنابيب فوري</strong> يعمل بشبكة WiFi ضعيفة — تحديثات متفائلة وحل تعارضات الطلبات المتزامنة.`,
+      p5_model_label:'نموذج العمل',
+      p5_model:`اشتراك شهري ثابت لكل مطعم — <strong>بدون عمولة</strong> لكل طلب. الهدف: مطاعم وكافيهات وفود كورت في الجزائر.`,
       footer_role:'مهندس أنظمة', footer_cta:'عندك مشكلة معقدة؟ لنتحدث →',
     }
   },
 
   init(){this.detectLanguage();this.initCursor();this.initNavbar();this.initTheme();this.initLang();this.initAnimations();this.initMobileMenu();},
   detectLanguage(){const s=localStorage.getItem('portfolio_lang'),b=navigator.language||'en';if(s)this.state.lang=s;else if(b.startsWith('ar'))this.state.lang='ar';else if(b.startsWith('fr'))this.state.lang='fr';else this.state.lang='en';},
-  initCursor(){const c=document.createElement('div');c.className='cursor';const r=document.createElement('div');r.className='cursor-ring';document.body.appendChild(c);document.body.appendChild(r);let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});const a=()=>{rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);};a();document.querySelectorAll('a,button,.cs-layer').forEach(el=>{el.addEventListener('mouseenter',()=>{c.style.width='12px';c.style.height='12px';r.style.width='48px';r.style.height='48px';r.style.borderColor='rgba(232,255,71,0.6)';});el.addEventListener('mouseleave',()=>{c.style.width='8px';c.style.height='8px';r.style.width='32px';r.style.height='32px';r.style.borderColor='rgba(232,255,71,0.4)';});});},
+  initCursor(){
+    const c=document.createElement('div');c.className='cursor';
+    const r=document.createElement('div');r.className='cursor-ring';
+    document.body.appendChild(c);document.body.appendChild(r);
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});
+    const a=()=>{rx+=(mx-rx)*.12;ry+=(my-ry)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);};a();
+    document.querySelectorAll('a,button,.cs-layer').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{c.style.width='12px';c.style.height='12px';r.style.width='48px';r.style.height='48px';r.style.borderColor='rgba(232,255,71,0.6)';});
+      el.addEventListener('mouseleave',()=>{c.style.width='8px';c.style.height='8px';r.style.width='32px';r.style.height='32px';r.style.borderColor='rgba(232,255,71,0.4)';});
+    });
+  },
   initNavbar(){const n=document.querySelector('.navbar');if(!n)return;window.addEventListener('scroll',()=>n.classList.toggle('scrolled',window.scrollY>20));},
   initTheme(){this.setTheme(localStorage.getItem('portfolio_theme')||'dark');},
-  setTheme(t){this.state.theme=t;document.documentElement.setAttribute('data-theme',t);localStorage.setItem('portfolio_theme',t);const b=document.querySelector('.btn-theme');if(b){const tr=this.i18n[this.state.lang];b.textContent=t==='dark'?(tr.theme_day||'DAY'):(tr.theme_night||'NIGHT');}},
+  setTheme(t){
+    this.state.theme=t;document.documentElement.setAttribute('data-theme',t);localStorage.setItem('portfolio_theme',t);
+    const b=document.querySelector('.btn-theme');
+    if(b){const tr=this.i18n[this.state.lang];b.textContent=t==='dark'?(tr.theme_day||'DAY'):(tr.theme_night||'NIGHT');}
+  },
   toggleTheme(){this.setTheme(this.state.theme==='dark'?'light':'dark');},
   applyLang(lang){
     this.state.lang=lang;localStorage.setItem('portfolio_lang',lang);
@@ -565,8 +812,16 @@ const Portfolio = {
   },
   initLang(){this.applyLang(this.state.lang);},
   switchLang(l){this.applyLang(l);},
-  initAnimations(){const o=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});},{threshold:0.1});document.querySelectorAll('.fade-up').forEach(el=>o.observe(el));},
-  initMobileMenu(){const h=document.querySelector('.nav-hamburger'),m=document.querySelector('.nav-mobile');if(!h||!m)return;h.addEventListener('click',()=>{this.state.menuOpen=!this.state.menuOpen;m.classList.toggle('open',this.state.menuOpen);});document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>{this.state.menuOpen=false;m.classList.remove('open');}));},
+  initAnimations(){
+    const o=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});},{threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el=>o.observe(el));
+  },
+  initMobileMenu(){
+    const h=document.querySelector('.nav-hamburger'),m=document.querySelector('.nav-mobile');
+    if(!h||!m)return;
+    h.addEventListener('click',()=>{this.state.menuOpen=!this.state.menuOpen;m.classList.toggle('open',this.state.menuOpen);});
+    document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>{this.state.menuOpen=false;m.classList.remove('open');}));
+  },
 };
 window.toggleTheme=()=>Portfolio.toggleTheme();
 window.switchLang=l=>Portfolio.switchLang(l);
